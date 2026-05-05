@@ -13,7 +13,7 @@
 :root{
   --ocean:#051c2e;--mid:#0d4a72;--bright:#0ea5c9;--white:#fff;--paper:#f6f3ee;
   --cream:#faf8f5;--ink:#111c24;--muted:#5e7282;--rule:rgba(5,28,46,.1);
-  --wave:#c0392b;--current:#146248;--meteo:#0d4a72;--multi:#7a4ec9;
+  --wave:#c0392b;--current:#146248;--meteo:#0d4a72;--multi:#7a4ec9;--mooring:#e67e22;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -143,7 +143,7 @@ h1.app-h1 em{font-style:italic;color:var(--mid)}
     <div class="side-pad">
       <p class="eyebrow">Reti oceanografiche</p>
       <h1 class="app-h1">Tutte le boe<br>del <em>Mediterraneo.</em></h1>
-      <p class="lead">Un atlante interattivo dei principali campi di boe ondametriche, meteo-marine e multiparametriche distribuiti nel Mediterraneo, raccolti dalle reti pubbliche di Italia, Spagna, Francia, Grecia, Cipro e Israele.</p>
+      <p class="lead">Un atlante interattivo dei campi boe del Mediterraneo: reti ondametriche e multiparametriche pubbliche (Italia, Spagna, Francia, Grecia, Cipro, Israele) e ZMEL francesi di mouillage ecologico (PACA, Occitania, Corsica).</p>
     </div>
 
     <div class="stats">
@@ -173,6 +173,7 @@ h1.app-h1 em{font-style:italic;color:var(--mid)}
       <div class="row"><span class="sw" style="background:var(--meteo)"></span> Meteo-marina</div>
       <div class="row"><span class="sw" style="background:var(--current)"></span> Corrente / ADCP</div>
       <div class="row"><span class="sw" style="background:var(--multi)"></span> Multiparametrica</div>
+      <div class="row"><span class="sw" style="background:var(--mooring)"></span> ZMEL / Mouillage</div>
     </div>
 
     <aside class="detail" id="detail" aria-hidden="true">
@@ -186,12 +187,12 @@ h1.app-h1 em{font-style:italic;color:var(--mid)}
         <div class="kv">
           <div><div class="k">Paese</div><div class="v" id="d-country">&mdash;</div></div>
           <div><div class="k">Tipo</div><div class="v" id="d-type">&mdash;</div></div>
-          <div><div class="k">Profondit&agrave;</div><div class="v" id="d-depth">&mdash;</div></div>
+          <div><div class="k" id="d-metric-k">Profondit&agrave;</div><div class="v" id="d-metric-v">&mdash;</div></div>
           <div><div class="k">Operatore</div><div class="v" id="d-operator">&mdash;</div></div>
         </div>
         <p id="d-desc" style="font-size:.85rem;line-height:1.6;color:var(--muted)"></p>
         <div class="params">
-          <h4>Parametri misurati</h4>
+          <h4 id="d-params-h">Parametri misurati</h4>
           <ul id="d-params"></ul>
         </div>
         <a href="#" class="d-link" id="d-source" target="_blank" rel="noopener">Fonte dati &rarr;</a>
@@ -283,6 +284,57 @@ const BUOYS = [
   // ─── TURCHIA ───
   {id:"tr-erdemli",name:"Erdemli",country:"Turchia",flag:"TR",network:"METU-IMS",operator:"METU Institute of Marine Sciences",type:"multi",lat:36.5667,lon:34.2833,depth:200,params:["SST","SSS","Met","Currents"],desc:"Mediterraneo orientale, costa turca meridionale.",source:"https://ims.metu.edu.tr/"},
 
+  // ─── FRANCIA — ZMEL (Zones de Mouillage et d'Équipement Léger) ───
+  // Campi boe di mouillage ecologico autorizzati con arrêté préfectoral.
+  // Capacità approssimative; per dettagli consultare commune/gestore.
+  // ── PACA — Alpes-Maritimes ──
+  {id:"zmel-agay",name:"Agay",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de Saint-Rapha&euml;l",type:"mooring",lat:43.4283,lon:6.8567,capacity:150,maxLength:24,season:"apr-ott",desc:"Vasto campo boe nella rada di Agay, mouillage ecologico a protezione della Posidonia.",source:"https://www.ville-saintraphael.fr/"},
+  {id:"zmel-theoule",name:"Th&eacute;oule-sur-Mer",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de Th&eacute;oule",type:"mooring",lat:43.5083,lon:6.9417,capacity:50,maxLength:15,season:"giu-set",desc:"Campo boe nella baia della Figueirette, Esterel.",source:"https://www.theoule-sur-mer.org/"},
+  {id:"zmel-mandelieu",name:"La Napoule (Mandelieu)",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de Mandelieu",type:"mooring",lat:43.5417,lon:6.9333,capacity:40,maxLength:18,season:"apr-ott",desc:"Mouillage organizzato nella baia di La Napoule.",source:"https://www.mandelieu.fr/"},
+  {id:"zmel-antibes",name:"Anse de la Salis (Antibes)",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune d'Antibes",type:"mooring",lat:43.5667,lon:7.1300,capacity:35,maxLength:20,season:"mag-ott",desc:"Campo boe ecologiche al Cap d'Antibes.",source:"https://www.antibes-juanlespins.com/"},
+  {id:"zmel-villefranche",name:"Villefranche-sur-Mer",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de Villefranche",type:"mooring",lat:43.7000,lon:7.3083,capacity:80,maxLength:30,season:"tutto l'anno",desc:"Grande rada storica con boe organizzate.",source:"https://www.villefranche-sur-mer.fr/"},
+  {id:"zmel-beaulieu",name:"Beaulieu-sur-Mer",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de Beaulieu",type:"mooring",lat:43.7050,lon:7.3300,capacity:30,maxLength:18,season:"apr-ott",desc:"Mouillage ecologico costa azzurra orientale.",source:"https://www.beaulieusurmer.fr/"},
+  {id:"zmel-capdail",name:"Cap d'Ail",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de Cap-d'Ail",type:"mooring",lat:43.7233,lon:7.4083,capacity:30,maxLength:20,season:"apr-ott",desc:"Mouillage adiacente Monaco.",source:"https://www.cap-dail.fr/"},
+  {id:"zmel-roquebrune",name:"Roquebrune-Cap-Martin",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de Roquebrune",type:"mooring",lat:43.7517,lon:7.4833,capacity:30,maxLength:20,season:"apr-ott",desc:"Boe ecologiche presso il Cap Martin.",source:"https://www.roquebrune-cap-martin.com/"},
+
+  // ── PACA — Var ──
+  {id:"zmel-pampelonne",name:"Anse de Pampelonne",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de Ramatuelle",type:"mooring",lat:43.2167,lon:6.6500,capacity:250,maxLength:30,season:"giu-set",desc:"Il pi&ugrave; grande campo boe del Var, baia di Pampelonne.",source:"https://www.ramatuelle.fr/"},
+  {id:"zmel-saint-tropez",name:"Baie de Saint-Tropez",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de Saint-Tropez",type:"mooring",lat:43.2700,lon:6.6400,capacity:80,maxLength:25,season:"apr-ott",desc:"Mouillage organizzato nella baia di Saint-Tropez.",source:"https://www.sainttropeztourisme.com/"},
+  {id:"zmel-captaillat",name:"Cap Taillat",country:"Francia",flag:"FR",network:"ZMEL",operator:"Conservatoire du Littoral",type:"mooring",lat:43.1850,lon:6.6500,capacity:35,maxLength:15,season:"giu-set",desc:"Sito Natura 2000, mouillage limitato a tutela della Posidonia.",source:"https://www.conservatoire-du-littoral.fr/"},
+  {id:"zmel-lavandou",name:"Cap N&egrave;gre (Le Lavandou)",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune du Lavandou",type:"mooring",lat:43.1300,lon:6.3700,capacity:40,maxLength:18,season:"giu-set",desc:"Mouillage ecologico costa varoise.",source:"https://www.le-lavandou.fr/"},
+  {id:"zmel-porquerolles",name:"Porquerolles",country:"Francia",flag:"FR",network:"ZMEL",operator:"Parc national de Port-Cros",type:"mooring",lat:43.0050,lon:6.2167,capacity:120,maxLength:30,season:"tutto l'anno",desc:"Mouillage organizzato nelle baie di Porquerolles, gestito dal Parco Nazionale.",source:"https://www.portcros-parcnational.fr/"},
+  {id:"zmel-portcros",name:"Port-Cros",country:"Francia",flag:"FR",network:"ZMEL",operator:"Parc national de Port-Cros",type:"mooring",lat:43.0167,lon:6.4000,capacity:50,maxLength:20,season:"tutto l'anno",desc:"Boe in zona riserva integrale, prenotazione obbligatoria.",source:"https://www.portcros-parcnational.fr/"},
+  {id:"zmel-levant",name:"&Icirc;le du Levant",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune d'Hy&egrave;res",type:"mooring",lat:43.0200,lon:6.4667,capacity:30,maxLength:18,season:"giu-set",desc:"Mouillage ecologico isole d'Hy&egrave;res.",source:"https://www.hyeres.fr/"},
+  {id:"zmel-embiez",name:"&Icirc;les des Embiez",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de Six-Fours-les-Plages",type:"mooring",lat:43.0833,lon:5.7833,capacity:40,maxLength:20,season:"apr-ott",desc:"Arcipelago degli Embiez, mouillage ecologico.",source:"https://www.ville-six-fours.fr/"},
+  {id:"zmel-bendor",name:"&Icirc;le de Bendor",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de Bandol",type:"mooring",lat:43.1333,lon:5.7500,capacity:25,maxLength:15,season:"apr-ott",desc:"Piccolo campo boe presso Bandol.",source:"https://www.bandoltourisme.fr/"},
+
+  // ── PACA — Bouches-du-Rh&ocirc;ne ──
+  {id:"zmel-ileverte",name:"&Icirc;le Verte (La Ciotat)",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de La Ciotat",type:"mooring",lat:43.1700,lon:5.6167,capacity:30,maxLength:18,season:"giu-set",desc:"Mouillage ecologico al largo de La Ciotat.",source:"https://www.laciotat.com/"},
+  {id:"zmel-portmiou",name:"Calanque de Port-Miou",country:"Francia",flag:"FR",network:"ZMEL",operator:"Parc national des Calanques",type:"mooring",lat:43.2117,lon:5.5333,capacity:150,maxLength:18,season:"tutto l'anno",desc:"Pi&ugrave; grande campo boe del Parco delle Calanques, Cassis.",source:"https://www.calanques-parcnational.fr/"},
+  {id:"zmel-calanques",name:"Calanques (Marseille)",country:"Francia",flag:"FR",network:"ZMEL",operator:"Parc national des Calanques",type:"mooring",lat:43.2150,lon:5.4400,capacity:80,maxLength:15,season:"tutto l'anno",desc:"Rete di campi boe nelle Calanques marsigliesi (Sormiou, Morgiou, En-Vau).",source:"https://www.calanques-parcnational.fr/"},
+  {id:"zmel-frioul",name:"Archipel du Frioul",country:"Francia",flag:"FR",network:"ZMEL",operator:"Ville de Marseille",type:"mooring",lat:43.2700,lon:5.3000,capacity:50,maxLength:20,season:"apr-ott",desc:"Mouillage organizzato isole del Frioul.",source:"https://www.marseille.fr/"},
+
+  // ── Occitanie — Pyr&eacute;n&eacute;es-Orientales / Aude ──
+  {id:"zmel-banyuls",name:"Banyuls-sur-Mer",country:"Francia",flag:"FR",network:"ZMEL",operator:"R&eacute;serve marine de C&eacute;rb&egrave;re-Banyuls",type:"mooring",lat:42.4833,lon:3.1283,capacity:40,maxLength:15,season:"apr-ott",desc:"Mouillage ecologico in riserva marina, costa rocciosa catalana.",source:"https://reserves-naturelles.org/"},
+  {id:"zmel-paulilles",name:"Paulilles (Port-Vendres)",country:"Francia",flag:"FR",network:"ZMEL",operator:"Conservatoire du Littoral",type:"mooring",lat:42.5167,lon:3.1167,capacity:30,maxLength:12,season:"giu-set",desc:"Sito storico di Paulilles, mouillage limitato.",source:"https://www.conservatoire-du-littoral.fr/"},
+  {id:"zmel-cerbere",name:"Cerb&egrave;re",country:"Francia",flag:"FR",network:"ZMEL",operator:"R&eacute;serve marine de C&eacute;rb&egrave;re-Banyuls",type:"mooring",lat:42.4500,lon:3.1700,capacity:25,maxLength:12,season:"apr-ott",desc:"Frontiera con la Spagna, riserva marina.",source:"https://reserves-naturelles.org/"},
+  {id:"zmel-collioure",name:"Collioure",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de Collioure",type:"mooring",lat:42.5283,lon:3.0833,capacity:30,maxLength:15,season:"apr-ott",desc:"Mouillage organizzato nella baia di Collioure.",source:"https://www.collioure.com/"},
+  {id:"zmel-argeles",name:"Argel&egrave;s-sur-Mer",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune d'Argel&egrave;s",type:"mooring",lat:42.5500,lon:3.0500,capacity:40,maxLength:15,season:"giu-set",desc:"Boe ecologiche costa Vermeille.",source:"https://www.argeles-sur-mer.com/"},
+  {id:"zmel-leucate",name:"Leucate",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de Leucate",type:"mooring",lat:42.9117,lon:3.0750,capacity:30,maxLength:15,season:"giu-set",desc:"Mouillage ecologico al Cap Leucate.",source:"https://www.leucate.fr/"},
+
+  // ── Corse ──
+  {id:"zmel-calvi",name:"Baie de Calvi",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de Calvi",type:"mooring",lat:42.5700,lon:8.7567,capacity:80,maxLength:25,season:"apr-ott",desc:"Mouillage organizzato nella grande baia di Calvi.",source:"https://www.balagne-corsica.com/"},
+  {id:"zmel-saint-florent",name:"Saint-Florent",country:"Francia",flag:"FR",network:"ZMEL",operator:"Parc naturel marin du Cap Corse",type:"mooring",lat:42.6833,lon:9.3000,capacity:50,maxLength:20,season:"apr-ott",desc:"Golfo di Saint-Florent, parco marino del Cap Corse.",source:"https://www.parc-marin-cap-corse-agriate.fr/"},
+  {id:"zmel-girolata",name:"Girolata",country:"Francia",flag:"FR",network:"ZMEL",operator:"Parc naturel r&eacute;gional de Corse",type:"mooring",lat:42.3500,lon:8.6167,capacity:30,maxLength:15,season:"apr-ott",desc:"Sito UNESCO, riserva di Scandola; prenotazione obbligatoria.",source:"https://www.parc-corse.org/"},
+  {id:"zmel-scandola",name:"R&eacute;serve de Scandola",country:"Francia",flag:"FR",network:"ZMEL",operator:"Parc naturel r&eacute;gional de Corse",type:"mooring",lat:42.3667,lon:8.5667,capacity:10,maxLength:12,season:"limitato",desc:"Riserva integrale UNESCO, mouillage estremamente limitato.",source:"https://www.parc-corse.org/"},
+  {id:"zmel-porto",name:"Golfe de Porto",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune d'Ota",type:"mooring",lat:42.2667,lon:8.7000,capacity:40,maxLength:18,season:"apr-ott",desc:"Patrimonio UNESCO, mouillage ecologico nelle calanche di Piana.",source:"https://www.parc-corse.org/"},
+  {id:"zmel-ajaccio",name:"&Icirc;les Sanguinaires (Ajaccio)",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune d'Ajaccio",type:"mooring",lat:41.8833,lon:8.6000,capacity:50,maxLength:20,season:"apr-ott",desc:"Mouillage ecologico al largo delle Sanguinaires.",source:"https://www.ajaccio.fr/"},
+  {id:"zmel-roccapina",name:"Roccapina",country:"Francia",flag:"FR",network:"ZMEL",operator:"Conservatoire du Littoral",type:"mooring",lat:41.5000,lon:8.9333,capacity:25,maxLength:15,season:"giu-set",desc:"Sito naturale del leone di Roccapina, Corsica meridionale.",source:"https://www.conservatoire-du-littoral.fr/"},
+  {id:"zmel-pianottoli",name:"Pianottoli-Caldarello",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de Pianottoli",type:"mooring",lat:41.4667,lon:9.0833,capacity:25,maxLength:15,season:"giu-set",desc:"Costa sud-occidentale della Corsica.",source:"https://www.pianottoli-caldarello.com/"},
+  {id:"zmel-lavezzi",name:"&Icirc;les Lavezzi (Bonifacio)",country:"Francia",flag:"FR",network:"ZMEL",operator:"R&eacute;serve naturelle des Bouches de Bonifacio",type:"mooring",lat:41.3500,lon:9.2500,capacity:30,maxLength:18,season:"apr-ott",desc:"Riserva naturale delle Bouches de Bonifacio, mouillage regolamentato.",source:"https://www.parc-corse.org/"},
+  {id:"zmel-portovecchio",name:"Porto-Vecchio",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de Porto-Vecchio",type:"mooring",lat:41.5833,lon:9.3000,capacity:50,maxLength:20,season:"apr-ott",desc:"Mouillage organizzato nelle baie a sud di Porto-Vecchio.",source:"https://www.porto-vecchio.fr/"},
+  {id:"zmel-solenzara",name:"Solenzara",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de Sari-Solenzara",type:"mooring",lat:41.8500,lon:9.4000,capacity:25,maxLength:15,season:"giu-set",desc:"Costa orientale della Corsica.",source:"https://www.sari-solenzara.fr/"},
+
   // ─── MAR NERO / fuori scala marginale (escluso) ───
 ];
 
@@ -293,7 +345,8 @@ const TYPES = {
   wave:   {label:"Ondametrica",   color:"#c0392b"},
   meteo:  {label:"Meteo-marina",  color:"#0d4a72"},
   current:{label:"Correntometro", color:"#146248"},
-  multi:  {label:"Multiparametrica",color:"#7a4ec9"}
+  multi:  {label:"Multiparametrica",color:"#7a4ec9"},
+  mooring:{label:"ZMEL / Mouillage",color:"#e67e22"}
 };
 const PARAM_LABELS = {
   Hs:"Altezza onda",Tp:"Periodo onda",Dir:"Direzione onda",
@@ -324,7 +377,7 @@ const map = L.map('map',{
   zoomControl:true
 });
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
-  attribution:'&copy; OpenStreetMap, &copy; CARTO &middot; Dati boe: ISPRA, Puertos del Estado, CEREMA, M&eacute;t&eacute;o-France, HCMR, IOLR e altre reti pubbliche',
+  attribution:'&copy; OpenStreetMap, &copy; CARTO &middot; Dati: ISPRA, Puertos del Estado, CEREMA, M&eacute;t&eacute;o-France, HCMR, IOLR, ZMEL (DREAL/communes) e altre reti pubbliche',
   subdomains:'abcd',
   maxZoom:11
 }).addTo(map);
@@ -413,12 +466,15 @@ function render(){
   // list
   listEl.innerHTML = visible.map(b=>{
     const c = TYPES[b.type].color;
+    const meta = b.type === 'mooring'
+      ? `${b.lat.toFixed(2)}&deg;N &middot; ${b.lon.toFixed(2)}&deg;E &middot; ~${b.capacity} boe`
+      : `${b.lat.toFixed(2)}&deg;N &middot; ${b.lon.toFixed(2)}&deg;E &middot; ${b.depth} m`;
     return `<div class="item${b.id===state.selectedId?' active':''}" data-id="${b.id}">
       <div class="it-top">
         <div class="it-name">${b.name}</div>
         <div class="it-flag">${b.flag}</div>
       </div>
-      <div class="it-meta">${b.lat.toFixed(2)}&deg;N &middot; ${b.lon.toFixed(2)}&deg;E &middot; ${b.depth} m</div>
+      <div class="it-meta">${meta}</div>
       <span class="it-net" style="background:${c}">${b.network}</span>
     </div>`;
   }).join('') || `<div style="padding:1.5rem 1.4rem;color:var(--muted);font-size:.85rem">Nessuna boa corrisponde ai filtri.</div>`;
@@ -446,16 +502,30 @@ function selectBuoy(id,{pan}={}){
   const b = BUOYS.find(x=>x.id===id);
   if(!b) return;
   state.selectedId = id;
-  $('#d-network').textContent  = `${b.network} &middot; ${b.operator}`.replace('&middot;','·');
+  $('#d-network').textContent  = `${b.network} · ${b.operator}`.replace(/&[a-z]+;/g,m=>({'&eacute;':'é','&egrave;':'è','&ocirc;':'ô','&icirc;':'î','&agrave;':'à','&ugrave;':'ù','&ccedil;':'ç','&Icirc;':'Î','&Eacute;':'É','&Scaron;':'Š'}[m]||m));
   $('#d-name').innerHTML       = b.name;
   $('#d-coord').textContent    = `${b.lat.toFixed(4)}° N — ${b.lon.toFixed(4)}° E`;
   $('#d-country').innerHTML    = `${b.country} ${b.flag}`;
   $('#d-type').textContent     = TYPES[b.type].label;
-  $('#d-depth').textContent    = `${b.depth} m`;
   $('#d-operator').innerHTML   = b.operator;
   $('#d-desc').innerHTML       = b.desc;
-  $('#d-params').innerHTML     = b.params.map(p=>`<li title="${PARAM_LABELS[p]||p}">${p}</li>`).join('');
   $('#d-source').href          = b.source;
+
+  if(b.type === 'mooring'){
+    $('#d-metric-k').textContent = 'Capacità';
+    $('#d-metric-v').textContent = `~${b.capacity} boe`;
+    $('#d-params-h').textContent = 'Caratteristiche';
+    const tags = [];
+    if(b.maxLength) tags.push(`max ${b.maxLength} m`);
+    if(b.season)    tags.push(b.season);
+    tags.push('eco-mouillage');
+    $('#d-params').innerHTML = tags.map(t=>`<li>${t}</li>`).join('');
+  } else {
+    $('#d-metric-k').textContent = 'Profondità';
+    $('#d-metric-v').textContent = `${b.depth} m`;
+    $('#d-params-h').textContent = 'Parametri misurati';
+    $('#d-params').innerHTML = (b.params||[]).map(p=>`<li title="${PARAM_LABELS[p]||p}">${p}</li>`).join('');
+  }
   detailEl.classList.add('open');
   detailEl.setAttribute('aria-hidden','false');
 
