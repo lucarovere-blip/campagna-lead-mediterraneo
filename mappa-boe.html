@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mappa Boe del Mediterraneo — Seainnova</title>
+<meta name="description" content="Mappa interattiva di tutti i campi boe del Mediterraneo: reti oceanografiche RON, Puertos del Estado, CANDHIS, POSEIDON e altre.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital,wght@0,400;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<style>
+:root{
+  --ocean:#051c2e;--mid:#0d4a72;--bright:#0ea5c9;--white:#fff;--paper:#f6f3ee;
+  --cream:#faf8f5;--ink:#111c24;--muted:#5e7282;--rule:rgba(5,28,46,.1);
+  --wave:#c0392b;--current:#146248;--meteo:#0d4a72;--multi:#7a4ec9;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Syne',sans-serif;background:var(--cream);color:var(--ink);overflow:hidden}
+
+/* ── TOP BAR ── */
+header.bar{position:fixed;top:0;left:0;right:0;height:56px;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;background:rgba(5,28,46,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
+.brand{display:flex;align-items:center;gap:.9rem;color:#fff;text-decoration:none}
+.brand .logo{font-size:1.05rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.brand .logo .dot{color:var(--bright)}
+.brand .crumb{font-family:'DM Mono',monospace;font-size:.7rem;color:rgba(255,255,255,.55);letter-spacing:.08em;text-transform:uppercase;padding-left:.9rem;border-left:1px solid rgba(255,255,255,.15)}
+.bar-actions{display:flex;align-items:center;gap:1.2rem}
+.bar-actions a{font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s}
+.bar-actions a:hover{color:#fff}
+.bar-actions .cta{color:var(--ocean);background:var(--bright);padding:.5rem 1.1rem;font-weight:700}
+.bar-actions .cta:hover{opacity:.88;color:var(--ocean)}
+
+/* ── LAYOUT ── */
+main{position:fixed;top:56px;left:0;right:0;bottom:0;display:grid;grid-template-columns:340px 1fr}
+#sidebar{background:#fff;border-right:1px solid var(--rule);overflow-y:auto;display:flex;flex-direction:column}
+#map{position:relative;height:100%;background:#a9c8de}
+
+/* ── SIDEBAR ── */
+.side-pad{padding:1.4rem 1.4rem 1rem}
+.eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;display:flex;align-items:center;gap:.7rem}
+.eyebrow::after{content:'';height:1px;flex:1;background:var(--rule)}
+h1.app-h1{font-family:'Instrument Serif',serif;font-size:1.7rem;font-weight:400;line-height:1.15;color:var(--ink);margin-bottom:.35rem}
+h1.app-h1 em{font-style:italic;color:var(--mid)}
+.lead{font-size:.83rem;line-height:1.55;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;padding:1rem 1.4rem;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper)}
+.stat{text-align:center}
+.stat .n{font-family:'Instrument Serif',serif;font-size:1.4rem;color:var(--ocean);line-height:1}
+.stat .l{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.3rem}
+
+/* ── FILTERS ── */
+.filters{padding:1rem 1.4rem;border-bottom:1px solid var(--rule)}
+.f-label{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.search{width:100%;padding:.6rem .75rem;font-family:inherit;font-size:.85rem;border:1px solid var(--rule);background:#fff;color:var(--ink);border-radius:0;outline:none;transition:border-color .15s}
+.search:focus{border-color:var(--bright)}
+.chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.7rem;margin-bottom:.9rem}
+.chip{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:.32rem .6rem;border:1px solid var(--rule);background:#fff;color:var(--muted);cursor:pointer;transition:all .15s;user-select:none}
+.chip:hover{border-color:var(--mid);color:var(--ink)}
+.chip.active{background:var(--ocean);border-color:var(--ocean);color:#fff}
+.chip .dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:.4rem;vertical-align:1px}
+
+/* ── LIST ── */
+.list{flex:1;overflow-y:auto}
+.item{padding:.85rem 1.4rem;border-bottom:1px solid var(--rule);cursor:pointer;transition:background .12s}
+.item:hover{background:var(--paper)}
+.item.active{background:var(--paper);border-left:3px solid var(--bright);padding-left:calc(1.4rem - 3px)}
+.item .it-top{display:flex;align-items:baseline;justify-content:space-between;gap:.6rem}
+.item .it-name{font-size:.92rem;font-weight:600;color:var(--ink)}
+.item .it-flag{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.08em}
+.item .it-meta{font-family:'DM Mono',monospace;font-size:.66rem;color:var(--muted);margin-top:.25rem;letter-spacing:.04em}
+.item .it-net{display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;padding:.12rem .4rem;margin-top:.35rem}
+
+/* ── DETAIL PANEL ── */
+.detail{position:absolute;top:1rem;right:1rem;width:340px;max-height:calc(100% - 2rem);background:#fff;box-shadow:0 12px 40px rgba(5,28,46,.18);border:1px solid var(--rule);overflow-y:auto;z-index:600;transform:translateX(380px);transition:transform .3s ease;display:flex;flex-direction:column}
+.detail.open{transform:translateX(0)}
+.detail .d-head{padding:1.2rem 1.4rem 1rem;border-bottom:1px solid var(--rule);background:var(--ocean);color:#fff;position:relative}
+.detail .d-close{position:absolute;top:.7rem;right:.8rem;background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;font-size:1.4rem;line-height:1;padding:.2rem .4rem;transition:color .15s}
+.detail .d-close:hover{color:#fff}
+.detail .d-eyebrow{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bright);margin-bottom:.4rem}
+.detail .d-name{font-family:'Instrument Serif',serif;font-size:1.6rem;line-height:1.15;font-weight:400;margin-bottom:.4rem}
+.detail .d-coord{font-family:'DM Mono',monospace;font-size:.72rem;color:rgba(255,255,255,.7)}
+.detail .d-body{padding:1rem 1.4rem 1.4rem}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:.7rem .9rem;margin-bottom:1rem}
+.kv .k{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.kv .v{font-size:.85rem;color:var(--ink);margin-top:.15rem}
+.params{margin-top:1rem}
+.params h4{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem}
+.params ul{list-style:none;display:flex;flex-wrap:wrap;gap:.3rem}
+.params li{font-family:'DM Mono',monospace;font-size:.66rem;padding:.25rem .55rem;background:var(--paper);color:var(--ink);border:1px solid var(--rule)}
+.d-link{display:inline-block;margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);text-decoration:none;border-bottom:1px solid var(--mid);padding-bottom:2px}
+.d-link:hover{color:var(--bright);border-color:var(--bright)}
+
+/* ── LEGEND ── */
+.legend{position:absolute;bottom:1rem;left:1rem;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);padding:.85rem 1rem;border:1px solid var(--rule);box-shadow:0 4px 14px rgba(5,28,46,.08);z-index:500;font-size:.72rem}
+.legend h5{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.legend .row{display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--ink)}
+.legend .row:last-child{margin-bottom:0}
+.legend .sw{width:10px;height:10px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.2)}
+
+/* ── MAP MARKERS ── */
+.buoy-marker{border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.25),0 2px 6px rgba(0,0,0,.25);cursor:pointer;transition:transform .15s}
+.buoy-marker:hover{transform:scale(1.25)}
+
+/* ── SCROLLBARS ── */
+#sidebar::-webkit-scrollbar,.list::-webkit-scrollbar,.detail::-webkit-scrollbar{width:6px}
+#sidebar::-webkit-scrollbar-thumb,.list::-webkit-scrollbar-thumb,.detail::-webkit-scrollbar-thumb{background:rgba(5,28,46,.18)}
+#sidebar::-webkit-scrollbar-track,.list::-webkit-scrollbar-track,.detail::-webkit-scrollbar-track{background:transparent}
+
+/* ── LEAFLET OVERRIDES ── */
+.leaflet-container{font-family:'Syne',sans-serif;background:#a9c8de}
+.leaflet-control-zoom a{background:#fff;color:var(--ocean);border:1px solid var(--rule)}
+.leaflet-control-attribution{font-size:.62rem;background:rgba(255,255,255,.85)}
+.leaflet-popup-content-wrapper{border-radius:0;box-shadow:0 6px 20px rgba(5,28,46,.18)}
+.leaflet-popup-content{margin:.7rem .9rem;font-size:.78rem;line-height:1.45}
+.leaflet-popup-content strong{font-family:'Instrument Serif',serif;font-weight:400;font-size:1rem;display:block;margin-bottom:.2rem}
+
+/* ── RESPONSIVE ── */
+@media (max-width:900px){
+  main{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  #sidebar{max-height:42vh;border-right:none;border-bottom:1px solid var(--rule)}
+  .detail{width:auto;left:1rem;right:1rem;top:auto;bottom:1rem;max-height:60vh;transform:translateY(120%)}
+  .detail.open{transform:translateY(0)}
+  .legend{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <a href="index.html" class="brand">
+    <span class="logo">SEAINNOVA<span class="dot">.</span></span>
+    <span class="crumb">Mappa Boe Mediterraneo</span>
+  </a>
+  <div class="bar-actions">
+    <a href="index.html#soluzioni">Soluzioni</a>
+    <a href="index.html#about">Chi siamo</a>
+    <a href="index.html#contatti" class="cta">Contatti</a>
+  </div>
+</header>
+
+<main>
+  <aside id="sidebar">
+    <div class="side-pad">
+      <p class="eyebrow">Reti oceanografiche</p>
+      <h1 class="app-h1">Tutte le boe<br>del <em>Mediterraneo.</em></h1>
+      <p class="lead">Un atlante interattivo dei principali campi di boe ondametriche, meteo-marine e multiparametriche distribuiti nel Mediterraneo, raccolti dalle reti pubbliche di Italia, Spagna, Francia, Grecia, Cipro e Israele.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="n" id="stat-total">0</div><div class="l">Boe</div></div>
+      <div class="stat"><div class="n" id="stat-net">0</div><div class="l">Reti</div></div>
+      <div class="stat"><div class="n" id="stat-country">0</div><div class="l">Paesi</div></div>
+    </div>
+
+    <div class="filters">
+      <p class="f-label">Cerca</p>
+      <input type="search" class="search" id="search" placeholder="Nome boa, citt&agrave;, rete&hellip;" autocomplete="off">
+
+      <p class="f-label" style="margin-top:1rem">Tipo</p>
+      <div class="chips" id="chips-type"></div>
+
+      <p class="f-label">Paese</p>
+      <div class="chips" id="chips-country"></div>
+    </div>
+
+    <div class="list" id="list"></div>
+  </aside>
+
+  <div id="map">
+    <div class="legend">
+      <h5>Tipologia</h5>
+      <div class="row"><span class="sw" style="background:var(--wave)"></span> Ondametrica</div>
+      <div class="row"><span class="sw" style="background:var(--meteo)"></span> Meteo-marina</div>
+      <div class="row"><span class="sw" style="background:var(--current)"></span> Corrente / ADCP</div>
+      <div class="row"><span class="sw" style="background:var(--multi)"></span> Multiparametrica</div>
+    </div>
+
+    <aside class="detail" id="detail" aria-hidden="true">
+      <div class="d-head">
+        <button class="d-close" id="d-close" aria-label="Chiudi">&times;</button>
+        <div class="d-eyebrow" id="d-network">&mdash;</div>
+        <h2 class="d-name" id="d-name">&mdash;</h2>
+        <div class="d-coord" id="d-coord">&mdash;</div>
+      </div>
+      <div class="d-body">
+        <div class="kv">
+          <div><div class="k">Paese</div><div class="v" id="d-country">&mdash;</div></div>
+          <div><div class="k">Tipo</div><div class="v" id="d-type">&mdash;</div></div>
+          <div><div class="k">Profondit&agrave;</div><div class="v" id="d-depth">&mdash;</div></div>
+          <div><div class="k">Operatore</div><div class="v" id="d-operator">&mdash;</div></div>
+        </div>
+        <p id="d-desc" style="font-size:.85rem;line-height:1.6;color:var(--muted)"></p>
+        <div class="params">
+          <h4>Parametri misurati</h4>
+          <ul id="d-params"></ul>
+        </div>
+        <a href="#" class="d-link" id="d-source" target="_blank" rel="noopener">Fonte dati &rarr;</a>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+/* ──────────────────────────────────────────────────────────────
+   DATASET — Boe principali del Mediterraneo
+   Fonti: ISPRA RON, Puertos del Estado, CANDHIS, POSEIDON HCMR,
+   IOLR, OGS E2M3A, Copernicus Marine in-situ, EMODnet Physics.
+   Coordinate approssimative; per dato ufficiale consultare ente.
+   ────────────────────────────────────────────────────────────── */
+const BUOYS = [
+  // ─── ITALIA — RON (Rete Ondametrica Nazionale, ISPRA) ───
+  {id:"ron-alghero",name:"Alghero",country:"Italia",flag:"IT",network:"RON",operator:"ISPRA",type:"wave",lat:40.5483,lon:8.1067,depth:90,params:["Hs","Tp","Dir","SST"],desc:"Boa ondametrica direzionale Datawell al largo della costa NW della Sardegna.",source:"https://www.mareografico.it/"},
+  {id:"ron-ancona",name:"Ancona",country:"Italia",flag:"IT",network:"RON",operator:"ISPRA",type:"wave",lat:43.8300,lon:13.7167,depth:70,params:["Hs","Tp","Dir","SST"],desc:"Adriatico centrale, off-shore Ancona.",source:"https://www.mareografico.it/"},
+  {id:"ron-capocomino",name:"Capo Comino",country:"Italia",flag:"IT",network:"RON",operator:"ISPRA",type:"wave",lat:40.5333,lon:9.8333,depth:100,params:["Hs","Tp","Dir","SST"],desc:"Sardegna orientale, area Siniscola.",source:"https://www.mareografico.it/"},
+  {id:"ron-capogallo",name:"Capo Gallo",country:"Italia",flag:"IT",network:"RON",operator:"ISPRA",type:"wave",lat:38.2433,lon:13.3167,depth:120,params:["Hs","Tp","Dir","SST"],desc:"Tirreno meridionale, off-shore Palermo.",source:"https://www.mareografico.it/"},
+  {id:"ron-capolinaro",name:"Capo Linaro",country:"Italia",flag:"IT",network:"RON",operator:"ISPRA",type:"wave",lat:42.0167,lon:11.7667,depth:110,params:["Hs","Tp","Dir","SST"],desc:"Tirreno centrale, off-shore Civitavecchia.",source:"https://www.mareografico.it/"},
+  {id:"ron-capomele",name:"Capo Mele",country:"Italia",flag:"IT",network:"RON",operator:"ISPRA",type:"wave",lat:43.8167,lon:8.1667,depth:90,params:["Hs","Tp","Dir","SST"],desc:"Mar Ligure, off-shore Imperia.",source:"https://www.mareografico.it/"},
+  {id:"ron-catania",name:"Catania",country:"Italia",flag:"IT",network:"RON",operator:"ISPRA",type:"wave",lat:37.4400,lon:15.1500,depth:80,params:["Hs","Tp","Dir","SST"],desc:"Ionio occidentale, off-shore Catania.",source:"https://www.mareografico.it/"},
+  {id:"ron-cetraro",name:"Cetraro",country:"Italia",flag:"IT",network:"RON",operator:"ISPRA",type:"wave",lat:39.4533,lon:15.9167,depth:100,params:["Hs","Tp","Dir","SST"],desc:"Tirreno meridionale, costa calabra tirrenica.",source:"https://www.mareografico.it/"},
+  {id:"ron-crotone",name:"Crotone",country:"Italia",flag:"IT",network:"RON",operator:"ISPRA",type:"wave",lat:39.0167,lon:17.2167,depth:70,params:["Hs","Tp","Dir","SST"],desc:"Ionio settentrionale, off-shore Crotone.",source:"https://www.mareografico.it/"},
+  {id:"ron-laspezia",name:"La Spezia",country:"Italia",flag:"IT",network:"RON",operator:"ISPRA",type:"wave",lat:43.9300,lon:9.8267,depth:90,params:["Hs","Tp","Dir","SST"],desc:"Mar Ligure orientale.",source:"https://www.mareografico.it/"},
+  {id:"ron-mazara",name:"Mazara del Vallo",country:"Italia",flag:"IT",network:"RON",operator:"ISPRA",type:"wave",lat:37.5183,lon:12.5350,depth:80,params:["Hs","Tp","Dir","SST"],desc:"Canale di Sicilia, off-shore Mazara del Vallo.",source:"https://www.mareografico.it/"},
+  {id:"ron-monopoli",name:"Monopoli",country:"Italia",flag:"IT",network:"RON",operator:"ISPRA",type:"wave",lat:40.9750,lon:17.3767,depth:80,params:["Hs","Tp","Dir","SST"],desc:"Adriatico meridionale, off-shore Monopoli.",source:"https://www.mareografico.it/"},
+  {id:"ron-ortona",name:"Ortona",country:"Italia",flag:"IT",network:"RON",operator:"ISPRA",type:"wave",lat:42.4083,lon:14.5333,depth:70,params:["Hs","Tp","Dir","SST"],desc:"Adriatico centrale, off-shore Ortona.",source:"https://www.mareografico.it/"},
+  {id:"ron-ponza",name:"Ponza",country:"Italia",flag:"IT",network:"RON",operator:"ISPRA",type:"wave",lat:40.8700,lon:12.9500,depth:100,params:["Hs","Tp","Dir","SST"],desc:"Tirreno centrale, isole Pontine.",source:"https://www.mareografico.it/"},
+  {id:"ron-puntamaestra",name:"Punta della Maestra",country:"Italia",flag:"IT",network:"RON",operator:"ISPRA",type:"wave",lat:45.0617,lon:12.5500,depth:30,params:["Hs","Tp","Dir","SST"],desc:"Adriatico settentrionale, delta del Po.",source:"https://www.mareografico.it/"},
+
+  // ─── ITALIA — Altre reti ───
+  {id:"ogs-e2m3a",name:"E2-M3A",country:"Italia",flag:"IT",network:"E2M3A",operator:"OGS",type:"multi",lat:45.5800,lon:13.5500,depth:25,params:["SST","SSS","O2","Chl","Met"],desc:"Boa multiparametrica del nord Adriatico, golfo di Trieste.",source:"https://nettuno.ogs.trieste.it/"},
+  {id:"cnr-w1m3a",name:"W1-M3A",country:"Italia",flag:"IT",network:"W1M3A",operator:"CNR",type:"multi",lat:43.7900,lon:9.1100,depth:1200,params:["SST","SSS","O2","Met","Hs"],desc:"Boa multiparametrica del Mar Ligure, gestita da CNR.",source:"https://www.ismar.cnr.it/"},
+  {id:"cnr-paloma",name:"PALOMA",country:"Italia",flag:"IT",network:"PALOMA",operator:"CNR-ISMAR",type:"multi",lat:45.6200,lon:13.5700,depth:25,params:["SST","SSS","O2","Met"],desc:"Piattaforma osservativa del Golfo di Trieste.",source:"https://www.ismar.cnr.it/"},
+  {id:"arpa-cesenatico",name:"Cesenatico",country:"Italia",flag:"IT",network:"ARPAE",operator:"ARPAE Emilia-Romagna",type:"meteo",lat:44.2200,lon:12.4767,depth:10,params:["Met","SST","Hs","Tp"],desc:"Boa costiera Adriatico centrale, off-shore Cesenatico.",source:"https://www.arpae.it/"},
+  {id:"arpa-nausicaa",name:"Nausicaa",country:"Italia",flag:"IT",network:"ARPAL",operator:"ARPAL Liguria",type:"meteo",lat:43.9933,lon:9.8267,depth:80,params:["Met","SST","Hs"],desc:"Boa meteo-marina del Mar Ligure, La Spezia.",source:"https://www.arpal.liguria.it/"},
+
+  // ─── SPAGNA — Puertos del Estado ───
+  {id:"pde-begur",name:"Cabo de Begur",country:"Spagna",flag:"ES",network:"REDEXT",operator:"Puertos del Estado",type:"wave",lat:41.9000,lon:3.6500,depth:1200,params:["Hs","Tp","Dir","SST","Met"],desc:"Boa di acque profonde, costa NE della Catalogna.",source:"https://www.puertos.es/"},
+  {id:"pde-tarragona",name:"Tarragona",country:"Spagna",flag:"ES",network:"REDCOS",operator:"Puertos del Estado",type:"wave",lat:40.6800,lon:1.4700,depth:15,params:["Hs","Tp","Dir","SST"],desc:"Boa costiera del porto di Tarragona.",source:"https://www.puertos.es/"},
+  {id:"pde-valencia",name:"Valencia",country:"Spagna",flag:"ES",network:"REDCOS",operator:"Puertos del Estado",type:"wave",lat:39.5117,lon:0.2050,depth:21,params:["Hs","Tp","Dir","SST"],desc:"Boa costiera del porto di Valencia.",source:"https://www.puertos.es/"},
+  {id:"pde-cabopalos",name:"Cabo de Palos",country:"Spagna",flag:"ES",network:"REDEXT",operator:"Puertos del Estado",type:"wave",lat:37.6483,lon:-0.3300,depth:230,params:["Hs","Tp","Dir","SST","Met"],desc:"Acque profonde, costa di Murcia.",source:"https://www.puertos.es/"},
+  {id:"pde-dragonera",name:"Dragonera",country:"Spagna",flag:"ES",network:"REDEXT",operator:"Puertos del Estado",type:"wave",lat:39.5567,lon:2.1017,depth:135,params:["Hs","Tp","Dir","SST","Met"],desc:"Acque profonde, ovest di Maiorca (Baleari).",source:"https://www.puertos.es/"},
+  {id:"pde-mahon",name:"Mah&oacute;n",country:"Spagna",flag:"ES",network:"REDEXT",operator:"Puertos del Estado",type:"wave",lat:39.7167,lon:4.4400,depth:300,params:["Hs","Tp","Dir","SST","Met"],desc:"Acque profonde, off-shore Minorca.",source:"https://www.puertos.es/"},
+  {id:"pde-cabrera",name:"Cabrera",country:"Spagna",flag:"ES",network:"REDEXT",operator:"Puertos del Estado",type:"wave",lat:39.0967,lon:2.9583,depth:90,params:["Hs","Tp","Dir","SST"],desc:"Sud di Maiorca, parco nazionale di Cabrera.",source:"https://www.puertos.es/"},
+  {id:"pde-malaga",name:"M&aacute;laga",country:"Spagna",flag:"ES",network:"REDCOS",operator:"Puertos del Estado",type:"wave",lat:36.6967,lon:-4.4183,depth:25,params:["Hs","Tp","Dir","SST"],desc:"Boa costiera del porto di Malaga, Mar di Alboran.",source:"https://www.puertos.es/"},
+  {id:"pde-cabogata",name:"Cabo de Gata",country:"Spagna",flag:"ES",network:"REDEXT",operator:"Puertos del Estado",type:"wave",lat:36.5683,lon:-2.3417,depth:536,params:["Hs","Tp","Dir","SST","Met"],desc:"Acque profonde, Almer&iacute;a, Mar di Alboran.",source:"https://www.puertos.es/"},
+
+  // ─── FRANCIA — CANDHIS / Météo-France ───
+  {id:"cand-nice",name:"Nice C&ocirc;te d'Azur",country:"Francia",flag:"FR",network:"CANDHIS",operator:"CEREMA",type:"wave",lat:43.6233,lon:7.2533,depth:90,params:["Hs","Tp","Dir"],desc:"Boa direzionale al largo di Nizza.",source:"https://candhis.cerema.fr/"},
+  {id:"cand-banyuls",name:"Banyuls",country:"Francia",flag:"FR",network:"CANDHIS",operator:"CEREMA",type:"wave",lat:42.4900,lon:3.1733,depth:30,params:["Hs","Tp","Dir"],desc:"Costa catalana francese, Pyr&eacute;n&eacute;es-Orientales.",source:"https://candhis.cerema.fr/"},
+  {id:"cand-leucate",name:"Leucate",country:"Francia",flag:"FR",network:"CANDHIS",operator:"CEREMA",type:"wave",lat:42.9117,lon:3.1183,depth:35,params:["Hs","Tp","Dir"],desc:"Golfo del Leone, Aude.",source:"https://candhis.cerema.fr/"},
+  {id:"cand-sete",name:"S&egrave;te",country:"Francia",flag:"FR",network:"CANDHIS",operator:"CEREMA",type:"wave",lat:43.3700,lon:3.7800,depth:30,params:["Hs","Tp","Dir"],desc:"H&eacute;rault, golfo del Leone.",source:"https://candhis.cerema.fr/"},
+  {id:"cand-porquerolles",name:"Porquerolles",country:"Francia",flag:"FR",network:"CANDHIS",operator:"CEREMA",type:"wave",lat:42.9817,lon:6.2000,depth:97,params:["Hs","Tp","Dir"],desc:"Var, Iles d'Hy&egrave;res.",source:"https://candhis.cerema.fr/"},
+  {id:"mf-azur",name:"AZUR",country:"Francia",flag:"FR",network:"M&eacute;t&eacute;o-France",operator:"M&eacute;t&eacute;o-France",type:"meteo",lat:43.3800,lon:7.8333,depth:2400,params:["Met","SST","Hs"],desc:"Boa meteo-marina di acque profonde nel Golfo del Leone.",source:"https://donneespubliques.meteofrance.fr/"},
+  {id:"mf-lion",name:"LION",country:"Francia",flag:"FR",network:"M&eacute;t&eacute;o-France",operator:"M&eacute;t&eacute;o-France",type:"meteo",lat:42.0667,lon:4.6333,depth:2350,params:["Met","SST","Hs"],desc:"Boa di alto mare al centro del Golfo del Leone.",source:"https://donneespubliques.meteofrance.fr/"},
+  {id:"mola-corsica",name:"DYFAMED",country:"Francia",flag:"FR",network:"MOOSE",operator:"CNRS-INSU",type:"multi",lat:43.4167,lon:7.8667,depth:2350,params:["SST","SSS","O2","Chl"],desc:"Sito osservativo a lungo termine del Mar Ligure (LTER).",source:"https://www.moose-network.fr/"},
+
+  // ─── PRINCIPATO DI MONACO ───
+  {id:"mc-mola",name:"M.O.L.A.",country:"Monaco",flag:"MC",network:"M.O.L.A.",operator:"Centre Scientifique de Monaco",type:"multi",lat:43.6800,lon:7.4233,depth:2300,params:["SST","SSS","Met","Chl"],desc:"Mediterranean Ocean Long-term Analysis station.",source:"https://www.centrescientifique.mc/"},
+
+  // ─── GRECIA — POSEIDON / HCMR ───
+  {id:"pos-athos",name:"Athos",country:"Grecia",flag:"GR",network:"POSEIDON",operator:"HCMR",type:"multi",lat:39.9667,lon:24.7167,depth:200,params:["Hs","Tp","Met","SST","Chl"],desc:"Mare di Tracia, Egeo settentrionale.",source:"https://poseidon.hcmr.gr/"},
+  {id:"pos-lesvos",name:"Lesvos",country:"Grecia",flag:"GR",network:"POSEIDON",operator:"HCMR",type:"multi",lat:39.1500,lon:25.8167,depth:1500,params:["Hs","Tp","Met","SST"],desc:"Egeo nord-orientale, off-shore Lesbo.",source:"https://poseidon.hcmr.gr/"},
+  {id:"pos-mykonos",name:"Mykonos",country:"Grecia",flag:"GR",network:"POSEIDON",operator:"HCMR",type:"multi",lat:37.5167,lon:25.4500,depth:600,params:["Hs","Tp","Met","SST"],desc:"Egeo centrale, isole Cicladi.",source:"https://poseidon.hcmr.gr/"},
+  {id:"pos-saronikos",name:"Saronikos",country:"Grecia",flag:"GR",network:"POSEIDON",operator:"HCMR",type:"multi",lat:37.6167,lon:23.5667,depth:400,params:["Hs","Tp","Met","SST","Chl"],desc:"Golfo Saronico, off-shore Atene.",source:"https://poseidon.hcmr.gr/"},
+  {id:"pos-e1m3a",name:"E1-M3A",country:"Grecia",flag:"GR",network:"POSEIDON",operator:"HCMR",type:"multi",lat:35.7300,lon:25.1300,depth:1440,params:["SST","SSS","O2","Met","Chl"],desc:"Sito osservativo cretese-egeo, sud di Creta.",source:"https://poseidon.hcmr.gr/"},
+  {id:"pos-pylos",name:"Pylos",country:"Grecia",flag:"GR",network:"POSEIDON",operator:"HCMR",type:"multi",lat:36.8333,lon:21.6000,depth:1600,params:["SST","SSS","O2","Met"],desc:"Mar Ionio orientale, off-shore Pylos (Peloponneso).",source:"https://poseidon.hcmr.gr/"},
+  {id:"pos-cretan",name:"Cretan Sea",country:"Grecia",flag:"GR",network:"POSEIDON",operator:"HCMR",type:"current",lat:35.7500,lon:25.0000,depth:2000,params:["Currents","SST","SSS"],desc:"Boa correntometrica del bacino cretese.",source:"https://poseidon.hcmr.gr/"},
+
+  // ─── CIPRO ───
+  {id:"cy-m5",name:"CYBO M5",country:"Cipro",flag:"CY",network:"CYCOFOS",operator:"OC-UCY",type:"multi",lat:34.7333,lon:33.0500,depth:1500,params:["SST","SSS","Met","Hs"],desc:"Cyprus Coastal Ocean Forecasting and Observing System.",source:"https://www.oceanography.ucy.ac.cy/"},
+
+  // ─── MALTA ───
+  {id:"mt-seawatch",name:"SeaWatch",country:"Malta",flag:"MT",network:"PML",operator:"University of Malta",type:"meteo",lat:35.9300,lon:14.4500,depth:60,params:["Met","SST","Hs"],desc:"Boa meteo-marina al largo di Malta.",source:"https://www.um.edu.mt/"},
+
+  // ─── ISRAELE ───
+  {id:"il-haifa",name:"Hadera",country:"Israele",flag:"IL",network:"IOLR",operator:"IOLR",type:"wave",lat:32.4667,lon:34.8500,depth:27,params:["Hs","Tp","Dir","SST"],desc:"Boa direzionale Datawell, Mediterraneo orientale (Levantino).",source:"https://isramar.ocean.org.il/"},
+  {id:"il-ashqelon",name:"Ashqelon",country:"Israele",flag:"IL",network:"IOLR",operator:"IOLR",type:"wave",lat:31.6667,lon:34.5167,depth:24,params:["Hs","Tp","Dir","SST"],desc:"Costa meridionale di Israele, bacino Levantino.",source:"https://isramar.ocean.org.il/"},
+
+  // ─── CROAZIA ───
+  {id:"hr-piran",name:"PIRAN",country:"Croazia/Slovenia",flag:"HR",network:"NIB",operator:"Marine Biology Station Piran",type:"multi",lat:45.5483,lon:13.5500,depth:21,params:["SST","SSS","O2","Met"],desc:"Boa multiparametrica del golfo di Trieste/Pirano.",source:"https://www.nib.si/mbp/"},
+  {id:"hr-jadran",name:"Jadran S1",country:"Croazia",flag:"HR",network:"IZOR",operator:"Institute of Oceanography and Fisheries",type:"meteo",lat:43.5100,lon:15.9300,depth:80,params:["Met","SST","Hs"],desc:"Adriatico centrale, off-shore Sebenico (&Scaron;ibenik).",source:"https://www.izor.hr/"},
+
+  // ─── TURCHIA ───
+  {id:"tr-erdemli",name:"Erdemli",country:"Turchia",flag:"TR",network:"METU-IMS",operator:"METU Institute of Marine Sciences",type:"multi",lat:36.5667,lon:34.2833,depth:200,params:["SST","SSS","Met","Currents"],desc:"Mediterraneo orientale, costa turca meridionale.",source:"https://ims.metu.edu.tr/"},
+
+  // ─── MAR NERO / fuori scala marginale (escluso) ───
+];
+
+/* ──────────────────────────────────────────────────────────────
+   CONFIG / TIPOLOGIE
+   ────────────────────────────────────────────────────────────── */
+const TYPES = {
+  wave:   {label:"Ondametrica",   color:"#c0392b"},
+  meteo:  {label:"Meteo-marina",  color:"#0d4a72"},
+  current:{label:"Correntometro", color:"#146248"},
+  multi:  {label:"Multiparametrica",color:"#7a4ec9"}
+};
+const PARAM_LABELS = {
+  Hs:"Altezza onda",Tp:"Periodo onda",Dir:"Direzione onda",
+  SST:"Temperatura superficie",SSS:"Salinit&agrave; superficie",
+  O2:"Ossigeno disciolto",Chl:"Clorofilla",
+  Met:"Meteo (vento, P, T)",Currents:"Correnti (ADCP)"
+};
+
+/* ──────────────────────────────────────────────────────────────
+   STATE
+   ────────────────────────────────────────────────────────────── */
+const state = {
+  search:"",
+  types:new Set(Object.keys(TYPES)),
+  countries:new Set(),
+  selectedId:null
+};
+
+/* ──────────────────────────────────────────────────────────────
+   MAP INIT
+   ────────────────────────────────────────────────────────────── */
+const map = L.map('map',{
+  center:[39.5,16],
+  zoom:5,
+  minZoom:4,
+  maxZoom:11,
+  worldCopyJump:false,
+  zoomControl:true
+});
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
+  attribution:'&copy; OpenStreetMap, &copy; CARTO &middot; Dati boe: ISPRA, Puertos del Estado, CEREMA, M&eacute;t&eacute;o-France, HCMR, IOLR e altre reti pubbliche',
+  subdomains:'abcd',
+  maxZoom:11
+}).addTo(map);
+
+/* ──────────────────────────────────────────────────────────────
+   MARKERS
+   ────────────────────────────────────────────────────────────── */
+const markersById = new Map();
+function makeIcon(type){
+  const c = TYPES[type]?.color || "#0d4a72";
+  return L.divIcon({
+    className:'',
+    html:`<div class="buoy-marker" style="width:14px;height:14px;background:${c}"></div>`,
+    iconSize:[14,14],
+    iconAnchor:[7,7]
+  });
+}
+BUOYS.forEach(b=>{
+  const m = L.marker([b.lat,b.lon],{icon:makeIcon(b.type),title:b.name});
+  m.bindTooltip(`<strong>${b.name}</strong><br><span style="font-family:'DM Mono',monospace;font-size:.7rem;color:#5e7282">${b.network} &middot; ${b.country}</span>`,{direction:'top',offset:[0,-6],opacity:.96});
+  m.on('click',()=>selectBuoy(b.id,{pan:false}));
+  m.addTo(map);
+  markersById.set(b.id,m);
+});
+
+/* ──────────────────────────────────────────────────────────────
+   SIDEBAR — chips, lista, filtri
+   ────────────────────────────────────────────────────────────── */
+const $ = sel=>document.querySelector(sel);
+const listEl   = $('#list');
+const searchEl = $('#search');
+const chipsTypeEl = $('#chips-type');
+const chipsCountryEl = $('#chips-country');
+
+const allCountries = [...new Set(BUOYS.map(b=>b.country))].sort();
+state.countries = new Set(allCountries);
+
+function buildChips(){
+  chipsTypeEl.innerHTML = Object.entries(TYPES).map(([k,v])=>
+    `<button class="chip active" data-type="${k}"><span class="dot" style="background:${v.color}"></span>${v.label}</button>`
+  ).join('');
+  chipsCountryEl.innerHTML = allCountries.map(c=>
+    `<button class="chip active" data-country="${c}">${c}</button>`
+  ).join('');
+
+  chipsTypeEl.querySelectorAll('.chip').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const t = el.dataset.type;
+      if(state.types.has(t)) state.types.delete(t); else state.types.add(t);
+      el.classList.toggle('active');
+      render();
+    });
+  });
+  chipsCountryEl.querySelectorAll('.chip').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const c = el.dataset.country;
+      if(state.countries.has(c)) state.countries.delete(c); else state.countries.add(c);
+      el.classList.toggle('active');
+      render();
+    });
+  });
+}
+
+function matches(b){
+  if(!state.types.has(b.type)) return false;
+  if(!state.countries.has(b.country)) return false;
+  if(state.search){
+    const q = state.search.toLowerCase();
+    const blob = `${b.name} ${b.network} ${b.operator} ${b.country} ${b.id}`.toLowerCase();
+    if(!blob.includes(q)) return false;
+  }
+  return true;
+}
+
+function render(){
+  const visible = BUOYS.filter(matches);
+
+  // markers
+  BUOYS.forEach(b=>{
+    const m = markersById.get(b.id);
+    const v = matches(b);
+    if(v && !map.hasLayer(m)) m.addTo(map);
+    else if(!v && map.hasLayer(m)) map.removeLayer(m);
+  });
+
+  // list
+  listEl.innerHTML = visible.map(b=>{
+    const c = TYPES[b.type].color;
+    return `<div class="item${b.id===state.selectedId?' active':''}" data-id="${b.id}">
+      <div class="it-top">
+        <div class="it-name">${b.name}</div>
+        <div class="it-flag">${b.flag}</div>
+      </div>
+      <div class="it-meta">${b.lat.toFixed(2)}&deg;N &middot; ${b.lon.toFixed(2)}&deg;E &middot; ${b.depth} m</div>
+      <span class="it-net" style="background:${c}">${b.network}</span>
+    </div>`;
+  }).join('') || `<div style="padding:1.5rem 1.4rem;color:var(--muted);font-size:.85rem">Nessuna boa corrisponde ai filtri.</div>`;
+
+  listEl.querySelectorAll('.item').forEach(el=>{
+    el.addEventListener('click',()=>selectBuoy(el.dataset.id,{pan:true}));
+  });
+
+  // stats
+  $('#stat-total').textContent   = visible.length;
+  $('#stat-net').textContent     = new Set(visible.map(b=>b.network)).size;
+  $('#stat-country').textContent = new Set(visible.map(b=>b.country)).size;
+}
+
+searchEl.addEventListener('input',e=>{
+  state.search = e.target.value.trim();
+  render();
+});
+
+/* ──────────────────────────────────────────────────────────────
+   DETAIL PANEL
+   ────────────────────────────────────────────────────────────── */
+const detailEl = $('#detail');
+function selectBuoy(id,{pan}={}){
+  const b = BUOYS.find(x=>x.id===id);
+  if(!b) return;
+  state.selectedId = id;
+  $('#d-network').textContent  = `${b.network} &middot; ${b.operator}`.replace('&middot;','·');
+  $('#d-name').innerHTML       = b.name;
+  $('#d-coord').textContent    = `${b.lat.toFixed(4)}° N — ${b.lon.toFixed(4)}° E`;
+  $('#d-country').innerHTML    = `${b.country} ${b.flag}`;
+  $('#d-type').textContent     = TYPES[b.type].label;
+  $('#d-depth').textContent    = `${b.depth} m`;
+  $('#d-operator').innerHTML   = b.operator;
+  $('#d-desc').innerHTML       = b.desc;
+  $('#d-params').innerHTML     = b.params.map(p=>`<li title="${PARAM_LABELS[p]||p}">${p}</li>`).join('');
+  $('#d-source').href          = b.source;
+  detailEl.classList.add('open');
+  detailEl.setAttribute('aria-hidden','false');
+
+  if(pan){
+    map.flyTo([b.lat,b.lon],Math.max(map.getZoom(),7),{duration:.6});
+  }
+  // re-render to update active row
+  listEl.querySelectorAll('.item').forEach(el=>{
+    el.classList.toggle('active',el.dataset.id===id);
+  });
+}
+$('#d-close').addEventListener('click',()=>{
+  detailEl.classList.remove('open');
+  detailEl.setAttribute('aria-hidden','true');
+  state.selectedId = null;
+  listEl.querySelectorAll('.item.active').forEach(el=>el.classList.remove('active'));
+});
+
+/* ──────────────────────────────────────────────────────────────
+   BOOT
+   ────────────────────────────────────────────────────────────── */
+buildChips();
+render();
+</script>
+</body>
+</html>
