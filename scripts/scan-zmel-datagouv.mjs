@@ -1,31 +1,30 @@
 #!/usr/bin/env node
 /**
- * scan-zmel-datagouv.mjs — Scan API data.gouv.fr per dataset ZMEL Méditerranée.
+ * scan-zmel-datagouv.mjs v2 — Search + per-dataset deep fetch
  *
- * Strategia: i WFS pubblici non hanno il dataset ZMEL. Su data.gouv.fr invece
- * ci sono dataset ZMEL ufficiali pubblicati DREAL/préfecture per dipartimento.
- * Lo script:
- *   1) Cerca con 4 query diverse (ZMEL, mouillages, ecc)
- *   2) Filtra per i 9 dipartimenti Méd (06,13,83,30,34,11,66,2A,2B)
- *   3) Estrae i link diretti ai file (GeoJSON, shapefile, KML, ZIP)
- *   4) Salva report strutturato
+ * v1 trovava i dataset ma "filesCount:0" perché l'API search non include
+ * le risorse. v2 fa una seconda GET /datasets/{slug}/ per ognuno per
+ * ottenere i link reali ai file. Inoltre regex Med stricter (no falsi
+ * positivi Loire-Atlantique→Aude).
  *
- * Esecuzione:
- *   node scripts/scan-zmel-datagouv.mjs
- *
- * Output:
- *   ./zmel-scan.json   ← mandami questo
+ * Esecuzione:  node scripts/scan-zmel-datagouv.mjs
+ * Output:      ./zmel-scan.json
  */
 
 import fs from 'node:fs';
 
 const API = 'https://www.data.gouv.fr/api/1';
+
 const QUERIES = [
   'ZMEL',
   'zones de mouillages',
   'mouillages organisés',
+  'mouillages collectifs',
+  'mouillage individuel',
   'mouillage plaisance',
+  'AOT mouillage',
   'mouillages équipements légers',
+  'plaisance mer',
 ];
 
 const MED_DEPTS = {
@@ -40,152 +39,171 @@ const MED_DEPTS = {
   '83': 'Var',
 };
 
-const MED_NAMES = [
-  ...Object.values(MED_DEPTS),
-  'PACA', 'Provence', "Côte d'Azur", 'Méditerranée', 'Corse', 'Languedoc',
-  'Roussillon', 'Occitanie', 'Provence-Alpes-Côte',
+const MED_NAMES_LC = [
+  'alpes-maritimes', 'aude', 'bouches-du-rhône', 'bouches du rhône',
+  'corse-du-sud', 'corse du sud', 'haute-corse', 'haute corse',
+  'corse', 'gard', 'hérault', 'pyrénées-orientales', 'pyrénées orientales',
+  'var', 'paca', 'provence', "côte d'azur", 'méditerranée', 'mediterranee',
+  'languedoc', 'roussillon', 'occitanie', 'provence-alpes-côte',
 ];
 
 async function api(path) {
   const url = `${API}${path}`;
-  const res = await fetch(url, { headers: { Accept: 'application/json', 'User-Agent': 'audit-zmel/1.0' } });
-  if (!res.ok) throw new Error(`HTTP ${res.status} on ${url}`);
+  const res = await fetch(url, {
+    headers: { Accept: 'application/json', 'User-Agent': 'audit-zmel/2.0' },
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status} on ${path}`);
   return res.json();
 }
 
 async function searchDatasets(query) {
-  // L'API supporta paginazione: prendiamo prime 2 pagine (200 dataset max per query)
   const all = [];
-  for (let page = 1; page <= 2; page++) {
+  for (let page = 1; page <= 3; page++) {
     try {
       const j = await api(`/datasets/?q=${encodeURIComponent(query)}&page=${page}&page_size=100`);
-      if (!j.data || !j.data.length) break;
+      if (!j.data?.length) break;
       all.push(...j.data);
       if (j.data.length < 100) break;
     } catch (e) {
-      console.error(`  err page ${page}: ${e.message}`);
+      console.error(`    [page ${page}] ${e.message}`);
       break;
     }
   }
   return all;
 }
 
-function isMediterranean(dataset) {
-  const blob = [
-    dataset.title || '',
-    dataset.description || '',
-    ...(dataset.tags || []),
-    ...(dataset.spatial?.zones || []).map(z => z.name || ''),
-  ].join(' ');
+function checkMed(d) {
+  const title = (d.title || '').toLowerCase();
+  const zonesArr = (d.spatial?.zones || []).map(z => {
+    if (typeof z === 'string') return z;
+    return z?.name || z?.id || '';
+  });
+  const zones = zonesArr.join(' | ').toLowerCase();
+  const tags = (d.tags || []).map(t => String(t).toLowerCase()).join(' | ');
 
-  // Match codici dipartimento (es. " 83 ", "(83)", "_083_", "dept83", "Var (83)")
+  // 1. Codice dipartimento — STRICT: solo in title/zones/tags, con boundary
+  //    accettiamo solo: " 83 ", "(83)", "[83]", "-83-", "_83_", "/83/", "(83)"
   for (const code of Object.keys(MED_DEPTS)) {
-    const padded = code.padStart(3, '0'); // 083, 013, ecc
-    const patterns = [
-      new RegExp(`[^0-9]${code}[^0-9]`, 'i'),
-      new RegExp(`_${padded}[._]`, 'i'),
-      new RegExp(`d[ée]p\\w*[ -]*${code}\\b`, 'i'),
-    ];
-    if (patterns.some(p => p.test(blob))) return { dept: code, name: MED_DEPTS[code], match: 'codice' };
+    const re = new RegExp(`(?:^|[\\s\\(\\[\\-_/])${code}(?:[\\s\\)\\]\\-_/.,]|$)`, 'i');
+    if (re.test(title)) return { dept: code, name: MED_DEPTS[code], via: 'codice in title' };
+    if (re.test(zones)) return { dept: code, name: MED_DEPTS[code], via: 'codice in zones' };
+    if (re.test(tags))  return { dept: code, name: MED_DEPTS[code], via: 'codice in tags' };
   }
-  // Match nome regionale
-  const lower = blob.toLowerCase();
-  for (const name of MED_NAMES) {
-    if (lower.includes(name.toLowerCase())) {
-      // trova il dipartimento corrispondente se è un nome dipartimento
-      const code = Object.entries(MED_DEPTS).find(([_, n]) => n === name)?.[0] || '?';
-      return { dept: code, name, match: 'nome' };
-    }
+  // 2. Nome
+  for (const nm of MED_NAMES_LC) {
+    if (title.includes(nm)) return { dept: '?', name: nm, via: 'nome in title' };
+    if (zones.includes(nm)) return { dept: '?', name: nm, via: 'nome in zones' };
+    if (tags.includes(nm))  return { dept: '?', name: nm, via: 'nome in tags' };
   }
   return null;
 }
 
-function extractFiles(dataset) {
-  const resources = dataset.resources || [];
-  return resources
-    .filter(r => {
-      const fmt = (r.format || '').toLowerCase();
-      const url = r.url || '';
-      return /(geojson|shp|zip|gpkg|kml|kmz|gml|json)$/i.test(fmt) || /\.(geojson|shp|zip|gpkg|kml|kmz|gml)$/i.test(url);
-    })
-    .map(r => ({
-      title: r.title,
-      format: r.format,
-      url: r.url,
-      filesize: r.filesize ?? null,
-      lastModified: r.last_modified ?? null,
-      mime: r.mime ?? null,
-    }));
+function extractFiles(d) {
+  return (d.resources || []).map(r => ({
+    title: r.title,
+    format: (r.format || '').toLowerCase(),
+    mime: r.mime || null,
+    url: r.url,
+    filesize: r.filesize ?? null,
+    lastModified: r.last_modified || null,
+    type: r.type || null,
+  }));
 }
 
 (async () => {
-  console.log('▶ scan-zmel-datagouv.mjs — ricerca dataset ZMEL Méditerranée su data.gouv.fr');
-  console.log(`  Dipartimenti target: ${Object.entries(MED_DEPTS).map(([c, n]) => `${c}=${n}`).join(', ')}`);
+  console.log('▶ scan-zmel-datagouv.mjs v2 — search + deep fetch + filtri Méd stricter');
 
+  // 1) Aggregate search results (deduplicate by id)
   const seen = new Map();
   for (const q of QUERIES) {
-    process.stdout.write(`\n  Query "${q}" ... `);
+    process.stdout.write(`  q="${q}" ... `);
     try {
       const data = await searchDatasets(q);
-      console.log(`${data.length} dataset`);
+      console.log(`${data.length} risultati`);
       for (const d of data) if (!seen.has(d.id)) seen.set(d.id, d);
     } catch (e) {
       console.log(`KO ${e.message}`);
     }
   }
-  console.log(`\n  Totale dataset unici visti: ${seen.size}`);
+  console.log(`\n  Totale dataset unici: ${seen.size}`);
 
-  // Filtra Méditerranée
-  const candidates = [];
-  const allMooringDatasets = []; // anche quelli non Med, per logging
+  // 2) Filtro Méditerranée
+  const medList = [];
   for (const d of seen.values()) {
-    const med = isMediterranean(d);
-    const files = extractFiles(d);
-    const entry = {
-      id: d.id,
-      slug: d.slug,
-      title: d.title,
-      mediterranean: med,
-      organization: d.organization?.name || d.owner?.first_name || null,
-      lastUpdate: d.last_update || d.last_modified || null,
-      datasetUrl: `https://www.data.gouv.fr/datasets/${d.slug}/`,
-      filesCount: files.length,
-      files,
-    };
-    if (med) candidates.push(entry);
-    allMooringDatasets.push(entry);
+    const med = checkMed(d);
+    if (med) medList.push({ d, med });
+  }
+  console.log(`  Pre-fetch Med candidates: ${medList.length}`);
+
+  // 3) Deep fetch ognuno per ottenere risorse
+  console.log('\n  Deep fetch /datasets/{slug}/ per ognuno...');
+  const enriched = [];
+  let i = 0;
+  for (const { d, med } of medList) {
+    i++;
+    process.stdout.write(`  [${i}/${medList.length}] ${d.slug.slice(0, 60)}... `);
+    try {
+      const full = await api(`/datasets/${d.slug}/`);
+      const files = extractFiles(full);
+      const tags = (full.tags || []);
+      const zones = (full.spatial?.zones || []);
+      console.log(`${files.length} risorse`);
+      enriched.push({
+        id: full.id, slug: full.slug, title: full.title,
+        mediterranean: med,
+        organization: full.organization?.name || null,
+        lastUpdate: (full.last_update || full.last_modified || '').slice(0, 10) || null,
+        license: full.license || null,
+        tags,
+        zones: typeof zones[0] === 'string' ? zones : zones.map(z => z?.name || z?.id),
+        datasetUrl: `https://www.data.gouv.fr/datasets/${full.slug}/`,
+        filesCount: files.length,
+        files,
+      });
+    } catch (e) {
+      console.log(`KO ${e.message}`);
+      enriched.push({ id: d.id, slug: d.slug, title: d.title, mediterranean: med, error: e.message });
+    }
   }
 
-  console.log(`\n→ Dataset Méditerranée: ${candidates.length} / ${allMooringDatasets.length}`);
-  console.log('─'.repeat(70));
-  for (const c of candidates) {
-    console.log(`\n[${c.mediterranean.dept} - ${c.mediterranean.name}] ${c.title}`);
+  // 4) Sort: Méd con file scaricabili in cima
+  enriched.sort((a, b) => (b.filesCount || 0) - (a.filesCount || 0));
+
+  // 5) Print summary
+  console.log('\n' + '═'.repeat(72));
+  console.log(' RIEPILOGO CANDIDATI MÉDITERRANÉE');
+  console.log('═'.repeat(72));
+  let withFiles = 0;
+  for (const c of enriched) {
+    if (c.filesCount > 0) withFiles++;
+    console.log(`\n[${c.mediterranean.dept || '?'}/${c.mediterranean.name}] ${c.title}`);
+    console.log(`  via: ${c.mediterranean.via}`);
     console.log(`  ${c.datasetUrl}`);
-    console.log(`  Org: ${c.organization || '?'} | upd: ${c.lastUpdate?.slice(0, 10) || '?'} | files: ${c.filesCount}`);
-    for (const f of c.files.slice(0, 5)) {
-      const sz = f.filesize ? ` (${(f.filesize / 1024).toFixed(0)} KB)` : '';
-      console.log(`    • [${f.format || '?'}]${sz} ${f.url}`);
+    console.log(`  Org: ${c.organization || '?'} | upd: ${c.lastUpdate || '?'}`);
+    if (c.files?.length) {
+      for (const f of c.files.slice(0, 8)) {
+        const sz = f.filesize ? ` (${(f.filesize / 1024).toFixed(0)}KB)` : '';
+        console.log(`    [${f.format || '?'}]${sz} ${f.url}`);
+      }
+      if (c.files.length > 8) console.log(`    ... +${c.files.length - 8} altri`);
+    } else if (c.error) {
+      console.log(`  ⚠ errore: ${c.error}`);
+    } else {
+      console.log(`  ⚠ nessuna risorsa nel dataset`);
     }
   }
-
-  // Mostra anche i dataset non-Med per controllo (limit 10)
-  const otherWithFiles = allMooringDatasets
-    .filter(c => !c.mediterranean && c.filesCount > 0)
-    .slice(0, 10);
-  if (otherWithFiles.length) {
-    console.log(`\n─ Altri dataset mouillages (non-Med, primi ${otherWithFiles.length}):`);
-    for (const c of otherWithFiles) {
-      console.log(`  • ${c.title} → ${c.datasetUrl}`);
-    }
-  }
+  console.log('\n' + '═'.repeat(72));
+  console.log(` ${enriched.length} candidati Med, di cui ${withFiles} con file scaricabili`);
+  console.log('═'.repeat(72));
 
   fs.writeFileSync('./zmel-scan.json', JSON.stringify({
     generatedAt: new Date().toISOString(),
     queriedKeywords: QUERIES,
     deptFilter: MED_DEPTS,
     totalDatasetsScanned: seen.size,
-    mediterraneanCandidates: candidates,
-    otherCandidatesSample: otherWithFiles,
+    candidatesCount: enriched.length,
+    candidatesWithFiles: withFiles,
+    candidates: enriched,
   }, null, 2));
   console.log(`\n✔ Salvato: ${process.cwd()}/zmel-scan.json`);
 })();
