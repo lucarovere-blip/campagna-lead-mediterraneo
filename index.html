@@ -664,6 +664,8 @@ function openEmail(p) {
 }
 function openEmailById(i) { openEmail(ports[i]); }
 
+const statiCampagna = {"Puerto Banús":{stato:"inviato",data:"05/05/2026"},"Marina Marbella":{stato:"inviato",data:"05/05/2026"},"Marina Ibiza":{stato:"inviato",data:"05/05/2026"},"Port Adriano":{stato:"inviato",data:"05/05/2026"},"Puerto Portals":{stato:"inviato",data:"05/05/2026"},"Club de Mar Mallorca":{stato:"inviato",data:"05/05/2026"},"RCNB Barcelona":{stato:"inviato",data:"05/05/2026"},"Marina Port Vell":{stato:"inviato",data:"05/05/2026"},"Parco Nazionale Cabrera":{stato:"bounce",data:"05/05/2026",nota:"Bounce su autoritzacions@dgmambie.caib.es"},"ZMEL Hyères":{stato:"inviato",data:"05/05/2026"},"ZMEL Cannes Mouré Rouge":{stato:"inviato",data:"05/05/2026"},"IGY Vieux-Port Cannes":{stato:"inviato",data:"05/05/2026"},"Port Vauban Antibes":{stato:"inviato",data:"05/05/2026"},"UPACA — 58 porti PACA":{stato:"inviato",data:"05/05/2026"},"Port Hercule Monaco":{stato:"inviato",data:"05/05/2026"},"Port Bonifacio Corsica":{stato:"inviato",data:"05/05/2026"},"Portosole Sanremo":{stato:"inviato",data:"05/05/2026"},"Porto Antico Genova":{stato:"inviato",data:"05/05/2026"},"Porto Lotti La Spezia":{stato:"inviato",data:"05/05/2026"},"Approdo Madonnina Viareggio":{stato:"inviato",data:"05/05/2026"},"Marina di Scarlino":{stato:"inviato",data:"05/05/2026"},"IGY Marina Porto Cervo":{stato:"inviato",data:"05/05/2026"},"Marina Porto Rotondo":{stato:"inviato",data:"05/05/2026"},"Porto Montenegro Tivat":{stato:"inviato",data:"05/05/2026"},"ACI Marina Dubrovnik":{stato:"inviato",data:"05/05/2026"}};
+function getStatoBadge(s){const cfg={risposto:{label:"RISPOSTO",bg:"#00C851",txt:"white"},inviato:{label:"INVIATO",bg:"#FFBB33",txt:"#1A2B3C"},bounce:{label:"BOUNCE",bg:"#FF4444",txt:"white"},follow_up:{label:"FOLLOW-UP",bg:"#33B5E5",txt:"white"}};const c=cfg[s]||{label:s.toUpperCase(),bg:"#7A8FA0",txt:"white"};return `<span style="display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;background:${c.bg};color:${c.txt}">${c.label}</span>`;}
 let map, markers = [], infoWindows = [];
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -674,14 +676,15 @@ function initMap() {
   ports.forEach((p, i) => {
     const marker = new google.maps.Marker({
       position: { lat: p.lat, lng: p.lng }, map, title: p.name,
-      icon: { path: google.maps.SymbolPath.CIRCLE, scale: 9, fillColor: p.col, fillOpacity: 1, strokeColor: '#ffffff', strokeWeight: 2 }
+      icon: { path: google.maps.SymbolPath.CIRCLE, scale: (statiCampagna[p.name]||{}).stato==="risposto"?12:9, fillColor: (statiCampagna[p.name]||{}).stato==="risposto"?"#00C851":(statiCampagna[p.name]||{}).stato==="bounce"?"#FF4444":"#FFBB33", fillOpacity: 1, strokeColor: '#ffffff', strokeWeight: 2 }
     });
     const refHtml = p.ref ? `<div style="font-size:11px;color:#7A8FA0;margin-bottom:6px">${p.ref}</div>` : '';
     const previewShort = (p.body.substring(0, 140).replace(/\n/g, ' ')) + '…';
     const contentString = `
       <div style="font-family:'DM Sans',sans-serif;min-width:280px;max-width:320px">
         <div style="font-size:11px;color:#7A8FA0;margin-bottom:2px">${p.flag} ${p.country}</div>
-        <div style="font-family:Georgia,serif;font-size:15px;font-weight:bold;color:#03213F;margin-bottom:3px">${p.name}</div>
+        <div style="font-family:Georgia,serif;font-size:15px;font-weight:bold;color:#03213F;margin-bottom:6px">${p.name}</div>
+        <div style="margin-bottom:6px">${getStatoBadge((statiCampagna[p.name]||{stato:'inviato'}).stato)} <span style="font-size:10px;color:#7A8FA0;margin-left:6px">${(statiCampagna[p.name]||{data:''}).data}</span></div>
         ${refHtml}
         <div style="font-size:10px;color:#1A7BB8;font-weight:600;margin-bottom:6px">${p.prod}</div>
         <div style="font-size:10px;color:#7A8FA0;text-transform:uppercase;letter-spacing:0.5px">Email</div>
