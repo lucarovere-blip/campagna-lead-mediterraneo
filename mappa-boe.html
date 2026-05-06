@@ -71,7 +71,7 @@ h1.app-h1 em{font-style:italic;color:var(--mid)}
 .item .it-net{display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;padding:.12rem .4rem;margin-top:.35rem}
 
 /* ── DETAIL PANEL ── */
-.detail{position:absolute;top:1rem;right:1rem;width:340px;max-height:calc(100% - 2rem);background:#fff;box-shadow:0 12px 40px rgba(5,28,46,.18);border:1px solid var(--rule);overflow-y:auto;z-index:600;transform:translateX(380px);transition:transform .3s ease;display:flex;flex-direction:column}
+.detail{position:fixed;top:80px;right:1rem;width:360px;max-height:calc(100vh - 100px);background:#fff;box-shadow:0 12px 40px rgba(5,28,46,.18);border:1px solid var(--rule);overflow-y:auto;z-index:600;transform:translateX(420px);transition:transform .3s ease;display:flex;flex-direction:column}
 .detail.open{transform:translateX(0)}
 .detail .d-head{padding:1.2rem 1.4rem 1rem;border-bottom:1px solid var(--rule);background:var(--ocean);color:#fff;position:relative}
 .detail .d-close{position:absolute;top:.4rem;right:.4rem;width:40px;height:40px;background:rgba(255,255,255,.08);border:none;color:rgba(255,255,255,.85);cursor:pointer;font-size:1.5rem;line-height:1;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background .15s,color .15s}
@@ -90,6 +90,15 @@ h1.app-h1 em{font-style:italic;color:var(--mid)}
 .params li{font-family:'DM Mono',monospace;font-size:.66rem;padding:.25rem .55rem;background:var(--paper);color:var(--ink);border:1px solid var(--rule)}
 .d-link{display:inline-block;margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);text-decoration:none;border-bottom:1px solid var(--mid);padding-bottom:2px}
 .d-link:hover{color:var(--bright);border-color:var(--bright)}
+
+/* ── CLOSE BAR (sempre visibile, sticky in cima al pannello) ── */
+.d-close-bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:.6rem;width:100%;padding:.95rem 1.1rem;background:#0a1d30;color:#fff;border:none;border-bottom:1px solid rgba(255,255,255,.12);font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;text-align:left;touch-action:manipulation;-webkit-tap-highlight-color:rgba(14,165,201,.3)}
+.d-close-bar:hover,.d-close-bar:active{background:#10283f;color:var(--bright)}
+.d-close-bar .arr{font-family:'DM Mono',monospace;font-size:1.1rem;font-weight:400}
+
+/* ── BACKDROP (chiusura al tap fuori dal pannello) ── */
+.detail-backdrop{position:fixed;inset:0;background:rgba(5,28,46,.45);z-index:550;opacity:0;pointer-events:none;transition:opacity .25s}
+.detail-backdrop.open{opacity:1;pointer-events:auto}
 
 /* ── LEGEND ── */
 .legend{position:absolute;bottom:1rem;left:1rem;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);padding:.85rem 1rem;border:1px solid var(--rule);box-shadow:0 4px 14px rgba(5,28,46,.08);z-index:500;font-size:.72rem}
@@ -214,7 +223,11 @@ h1.app-h1 em{font-style:italic;color:var(--mid)}
       <div class="row"><span class="sw" style="background:var(--mooring)"></span> ZMEL / Mouillage</div>
     </div>
 
+    <div class="detail-backdrop" id="detail-backdrop" aria-hidden="true"></div>
     <aside class="detail" id="detail" aria-hidden="true">
+      <button class="d-close-bar" id="d-close-bar" aria-label="Chiudi e torna alla mappa">
+        <span class="arr">&larr;</span> Chiudi &middot; Torna alla mappa
+      </button>
       <span class="d-handle" id="d-handle" aria-hidden="true"></span>
       <div class="d-head">
         <button class="d-close" id="d-close" aria-label="Chiudi">&times;</button>
@@ -693,12 +706,22 @@ function selectBuoy(id,{pan}={}){
     el.classList.toggle('active',el.dataset.id===id);
   });
 }
+const backdropEl = document.getElementById('detail-backdrop');
+
+function syncBackdrop(){
+  const isOpen = detailEl.classList.contains('open');
+  backdropEl.classList.toggle('open',isOpen);
+  backdropEl.setAttribute('aria-hidden',isOpen?'false':'true');
+}
+
 function closeDetail(){
   if(!detailEl.classList.contains('open')) return;
   detailEl.classList.remove('open');
   detailEl.setAttribute('aria-hidden','true');
+  detailEl.style.transform = '';
   state.selectedId = null;
   listEl.querySelectorAll('.item.active').forEach(el=>el.classList.remove('active'));
+  syncBackdrop();
 }
 
 function dismissDetail(){
@@ -711,6 +734,8 @@ function dismissDetail(){
 }
 
 $('#d-close').addEventListener('click',dismissDetail);
+$('#d-close-bar').addEventListener('click',dismissDetail);
+backdropEl.addEventListener('click',dismissDetail);
 
 // Tap fuori (sulla mappa) chiude il detail
 map.on('click',()=>{ if(detailEl.classList.contains('open')) dismissDetail(); });
@@ -782,6 +807,7 @@ function selectSeainnova(id,{pan}={}){
 }
 
 function pushDetailState(id){
+  syncBackdrop();
   // evita push duplicati e push durante popstate
   if(history.state && history.state.detail === id) return;
   history.pushState({detail:id},'','#'+id);
