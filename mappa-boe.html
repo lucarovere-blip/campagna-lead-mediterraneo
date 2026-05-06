@@ -91,10 +91,16 @@ h1.app-h1 em{font-style:italic;color:var(--mid)}
 .d-link{display:inline-block;margin-top:1rem;font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);text-decoration:none;border-bottom:1px solid var(--mid);padding-bottom:2px}
 .d-link:hover{color:var(--bright);border-color:var(--bright)}
 
-/* ── CLOSE BAR (sempre visibile, sticky in cima al pannello) ── */
-.d-close-bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:.6rem;width:100%;padding:.95rem 1.1rem;background:#0a1d30;color:#fff;border:none;border-bottom:1px solid rgba(255,255,255,.12);font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;text-align:left;touch-action:manipulation;-webkit-tap-highlight-color:rgba(14,165,201,.3)}
+/* ── CLOSE BAR (sempre in cima, posizione semplice non-sticky per Safari) ── */
+.d-close-bar{display:flex;align-items:center;gap:.6rem;width:100%;padding:1rem 1.1rem;background:#0a1d30;color:#fff;border:none;border-bottom:1px solid rgba(255,255,255,.12);font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;text-align:left;touch-action:manipulation;-webkit-tap-highlight-color:rgba(14,165,201,.4);flex-shrink:0}
 .d-close-bar:hover,.d-close-bar:active{background:#10283f;color:var(--bright)}
-.d-close-bar .arr{font-family:'DM Mono',monospace;font-size:1.1rem;font-weight:400}
+.d-close-bar .arr{font-family:'DM Mono',monospace;font-size:1.2rem;font-weight:400}
+
+/* ── FLOATING CLOSE PILL (galleggia sempre visibile quando il pannello è aperto) ── */
+.float-close{position:fixed;top:calc(env(safe-area-inset-top,0px) + 70px);right:1rem;z-index:700;display:none;align-items:center;gap:.5rem;padding:.7rem 1.1rem;background:#0a1d30;color:#fff;border:none;font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 14px rgba(5,28,46,.4);touch-action:manipulation;-webkit-tap-highlight-color:rgba(14,165,201,.4);border-radius:999px}
+.float-close:hover,.float-close:active{background:#10283f;color:var(--bright)}
+.float-close.open{display:inline-flex}
+.float-close .x{font-size:1rem;line-height:1}
 
 /* ── BACKDROP (chiusura al tap fuori dal pannello) ── */
 .detail-backdrop{position:fixed;inset:0;background:rgba(5,28,46,.45);z-index:550;opacity:0;pointer-events:none;transition:opacity .25s}
@@ -224,6 +230,7 @@ h1.app-h1 em{font-style:italic;color:var(--mid)}
     </div>
 
     <div class="detail-backdrop" id="detail-backdrop" aria-hidden="true"></div>
+    <button class="float-close" id="float-close" aria-label="Chiudi"><span class="x">&times;</span> Chiudi</button>
     <aside class="detail" id="detail" aria-hidden="true">
       <button class="d-close-bar" id="d-close-bar" aria-label="Chiudi e torna alla mappa">
         <span class="arr">&larr;</span> Chiudi &middot; Torna alla mappa
@@ -707,10 +714,12 @@ function selectBuoy(id,{pan}={}){
   });
 }
 const backdropEl = document.getElementById('detail-backdrop');
+const floatCloseEl = document.getElementById('float-close');
 
 function syncBackdrop(){
   const isOpen = detailEl.classList.contains('open');
   backdropEl.classList.toggle('open',isOpen);
+  floatCloseEl.classList.toggle('open',isOpen);
   backdropEl.setAttribute('aria-hidden',isOpen?'false':'true');
 }
 
@@ -735,6 +744,7 @@ function dismissDetail(){
 
 $('#d-close').addEventListener('click',dismissDetail);
 $('#d-close-bar').addEventListener('click',dismissDetail);
+floatCloseEl.addEventListener('click',dismissDetail);
 backdropEl.addEventListener('click',dismissDetail);
 
 // Tap fuori (sulla mappa) chiude il detail
