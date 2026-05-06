@@ -114,10 +114,12 @@ h1.app-h1 em{font-style:italic;color:var(--mid)}
 .legend .sw{width:10px;height:10px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.2)}
 
 /* ── MAP MARKERS ── */
-.buoy-marker{border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.25),0 2px 6px rgba(0,0,0,.25);cursor:pointer;transition:transform .15s}
-.buoy-marker:hover{transform:scale(1.25)}
-.seainnova-marker{width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 30% 28%,#5fd8f4,#0ea5c9 60%,#0a7fa0);border:2px solid #fff;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Syne',sans-serif;font-weight:800;font-size:11px;letter-spacing:0;cursor:pointer;transition:transform .15s;animation:sea-pulse 2.6s ease-in-out infinite;box-shadow:0 0 0 1px rgba(0,0,0,.18),0 4px 10px rgba(5,28,46,.28)}
-.seainnova-marker:hover{transform:scale(1.18);animation-play-state:paused}
+.buoy-marker-wrap{width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:rgba(14,165,201,.3)}
+.buoy-marker{width:14px;height:14px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.25),0 2px 6px rgba(0,0,0,.25);transition:transform .15s}
+.buoy-marker-wrap:hover .buoy-marker{transform:scale(1.25)}
+.seainnova-wrap{width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:rgba(14,165,201,.3)}
+.seainnova-marker{width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 30% 28%,#5fd8f4,#0ea5c9 60%,#0a7fa0);border:2px solid #fff;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Syne',sans-serif;font-weight:800;font-size:11px;letter-spacing:0;transition:transform .15s;animation:sea-pulse 2.6s ease-in-out infinite;box-shadow:0 0 0 1px rgba(0,0,0,.18),0 4px 10px rgba(5,28,46,.28)}
+.seainnova-wrap:hover .seainnova-marker{transform:scale(1.18);animation-play-state:paused}
 @keyframes sea-pulse{
   0%,100%{box-shadow:0 0 0 0 rgba(14,165,201,.55),0 4px 10px rgba(5,28,46,.28)}
   50%   {box-shadow:0 0 0 10px rgba(14,165,201,0),0 4px 10px rgba(5,28,46,.28)}
@@ -507,9 +509,9 @@ function makeIcon(type){
   const c = TYPES[type]?.color || "#0d4a72";
   return L.divIcon({
     className:'',
-    html:`<div class="buoy-marker" style="width:14px;height:14px;background:${c}"></div>`,
-    iconSize:[14,14],
-    iconAnchor:[7,7]
+    html:`<div class="buoy-marker-wrap"><div class="buoy-marker" style="background:${c}"></div></div>`,
+    iconSize:[30,30],
+    iconAnchor:[15,15]
   });
 }
 BUOYS.forEach(b=>{
@@ -525,9 +527,9 @@ const seaLayer = L.featureGroup();
 function makeSeaIcon(){
   return L.divIcon({
     className:'',
-    html:`<div class="seainnova-marker">S</div>`,
-    iconSize:[24,24],
-    iconAnchor:[12,12]
+    html:`<div class="seainnova-wrap"><div class="seainnova-marker">S</div></div>`,
+    iconSize:[36,36],
+    iconAnchor:[18,18]
   });
 }
 SEAINNOVA_BUOYS.forEach(b=>{
@@ -735,6 +737,7 @@ function closeDetail(){
 
 function dismissDetail(){
   // Se abbiamo pushato uno state, usa history.back così iOS "back" funziona
+  // ma solo se siamo SICURI di non uscire dalla pagina (almeno una entry storica nostra)
   if(history.state && history.state.detail){
     history.back();
   } else {
@@ -746,9 +749,8 @@ $('#d-close').addEventListener('click',dismissDetail);
 $('#d-close-bar').addEventListener('click',dismissDetail);
 floatCloseEl.addEventListener('click',dismissDetail);
 backdropEl.addEventListener('click',dismissDetail);
-
-// Tap fuori (sulla mappa) chiude il detail
-map.on('click',()=>{ if(detailEl.classList.contains('open')) dismissDetail(); });
+// Nota: NON chiudiamo al tap sulla mappa: troppo facile mancare un marker e
+// trovarsi a chiudere la scheda + consumare history (back ti porterebbe fuori).
 
 // ESC su desktop
 document.addEventListener('keydown',e=>{
@@ -818,9 +820,15 @@ function selectSeainnova(id,{pan}={}){
 
 function pushDetailState(id){
   syncBackdrop();
-  // evita push duplicati e push durante popstate
+  // stesso id: niente da fare
   if(history.state && history.state.detail === id) return;
-  history.pushState({detail:id},'','#'+id);
+  // un detail è già aperto: rimpiazza lo state senza aggiungere entry
+  // (così il back consuma una sola entry, non una per ogni boa visitata)
+  if(history.state && history.state.detail){
+    history.replaceState({detail:id},'','#'+id);
+  } else {
+    history.pushState({detail:id},'','#'+id);
+  }
 }
 
 // Toggle Seainnova layer
