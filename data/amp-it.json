@@ -1,0 +1,710 @@
+{
+  "$schema": "AMP italiane — dataset curato Betty Buoys",
+  "generated": "2026-05-06",
+  "verified_by": "Manual research from siti gestori, decreti istitutivi, MASE, articles presse specializzata",
+  "scope": "Aree Marine Protette italiane con campi ormeggio organizzati",
+  "stats": {
+    "complete": 14,
+    "partial": 12,
+    "total": 26
+  },
+  "ampFields": [
+    {
+      "id": "amp-tavolara",
+      "name": "Tavolara - Punta Coda Cavallo",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Sardegna",
+      "lat": 40.8917,
+      "lon": 9.7167,
+      "established": 1997,
+      "area_ha": 15091,
+      "coast_km": 40,
+      "capacity": {
+        "total": 80,
+        "breakdown": "Cala Cavallo: 80 posti su 5.000 m² (giugno-settembre) + 16 siti diving riservati centri autorizzati",
+        "since": null
+      },
+      "season": "giugno-settembre",
+      "manager": {
+        "name": "Consorzio di Gestione AMP Tavolara - Punta Coda Cavallo",
+        "type": "consorzio",
+        "website": "https://www.amptavolara.com/",
+        "phone": "+39 0789 203013",
+        "email": "segreteria@amptavolara.it",
+        "address": "Via Dante 1, 07026 Olbia (SS)"
+      },
+      "notes": "Cliente CRM Betty Buoys.",
+      "sources": [
+        "https://www.amptavolara.com/",
+        "https://www.mase.gov.it/portale/area-marina-protetta-tavolara-punta-coda-cavallo"
+      ]
+    },
+    {
+      "id": "amp-egadi",
+      "name": "Isole Egadi",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Sicilia",
+      "lat": 37.9333,
+      "lon": 12.3333,
+      "capacity": {
+        "total": 182,
+        "breakdown": "9 campi ormeggio attivi (4 Favignana + 3 Levanzo + 2 Marettimo). Progetto 17 campi totali, 182 gavitelli",
+        "since": null
+      },
+      "season": "estiva",
+      "manager": {
+        "name": "AMP Isole Egadi",
+        "type": "consorzio",
+        "website": "https://www.ampisoleegadi.it/",
+        "phone": "+39 0923 921659",
+        "email": "info@ampisoleegadi.it",
+        "address": "Favignana (TP)",
+        "online_auth": "https://autorizzazionionline.ampisoleegadi.it/"
+      },
+      "notes": "AMP più estesa d'Europa. Cliente CRM Betty Buoys.",
+      "sources": [
+        "https://www.ampisoleegadi.it/"
+      ]
+    },
+    {
+      "id": "amp-punta-campanella",
+      "name": "Punta Campanella",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Campania",
+      "lat": 40.5667,
+      "lon": 14.3333,
+      "capacity": {
+        "total": 49,
+        "breakdown": "Le Mortelle 35 boe (storico) + Isca-Crapolla 14 gavitelli (nuovo 2024). Pianificati Puolo + Mitigliano.",
+        "since": 2024
+      },
+      "manager": {
+        "name": "AMP Punta Campanella",
+        "type": "amp_authority",
+        "website": "https://www.puntacampanella.org/",
+        "phone": null,
+        "email": null,
+        "address": "Visitor Center: lun-ven 10-13, mar/gio anche 15-18"
+      },
+      "notes": "Zone B (Ieranto, Li Galli, Crapolla, Isca) ancoraggio vietato. Cliente CRM Betty Buoys.",
+      "sources": [
+        "https://www.puntacampanella.org/comunicati-amp-punta-campanella/punta-campanella-ecco-il-nuovo-campo-boe-tra-isca-e-crapolla"
+      ]
+    },
+    {
+      "id": "amp-cinque-terre",
+      "name": "Cinque Terre",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Liguria",
+      "lat": 44.1167,
+      "lon": 9.7333,
+      "capacity": {
+        "total": 100,
+        "breakdown": "96 boe ricreative (bianche biconiche) + 4 rosse riservate centri diving autorizzati",
+        "since": 2015
+      },
+      "season": "rimozione stagionale",
+      "manager": {
+        "name": "Parco Nazionale delle Cinque Terre",
+        "type": "national_park",
+        "website": "https://www.parconazionale5terre.it/campi-ormeggio.php",
+        "phone": "+39 0187 762600",
+        "email": null,
+        "address": "Via Discovolo snc - c/o Stazione Manarola - 19017 Riomaggiore (SP)"
+      },
+      "regulation": {
+        "decree": "Disciplinare uso gavitelli, Risoluzione Presidenziale 47/2015"
+      },
+      "notes": "Velocità max 3 nodi in campo boe. Sosta ammessa fino mare forza 2.",
+      "sources": [
+        "https://www.parconazionale5terre.it/campi-ormeggio.php"
+      ]
+    },
+    {
+      "id": "amp-capo-caccia",
+      "name": "Capo Caccia - Isola Piana",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Sardegna",
+      "lat": 40.5667,
+      "lon": 8.1667,
+      "capacity": {
+        "total": 89,
+        "breakdown": "75 boe (campo principale) + 14 boe Punta del Dentul - Baia di Porto Conte. 4 ancoraggi 'intelligenti' davanti complesso grotte (>100, più grande Italia)",
+        "since": null
+      },
+      "manager": {
+        "name": "Parco Naturale Regionale di Porto Conte",
+        "type": "regional_park",
+        "website": "https://www.algheroparks.it/larea-marina-protetta-di-capo-caccia-e-isola-piana/",
+        "phone": null,
+        "email": null,
+        "address": "Alghero (SS)"
+      },
+      "notes": "Iscrizione e autorizzazione online per boe.",
+      "sources": [
+        "https://www.algheroparks.it/"
+      ]
+    },
+    {
+      "id": "amp-capo-carbonara",
+      "name": "Capo Carbonara",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Sardegna",
+      "lat": 39.1083,
+      "lon": 9.5167,
+      "area_ha": 8857,
+      "coast_km": 30,
+      "capacity": {
+        "total": null,
+        "breakdown": "22 siti diving autorizzati, alcuni con boe sommerse",
+        "since": null
+      },
+      "manager": {
+        "name": "AMP Capo Carbonara",
+        "type": "amp_authority",
+        "website": "https://www.ampcapocarbonara.it/",
+        "phone": null,
+        "email": null,
+        "address": "Villasimius (SU)"
+      },
+      "sources": [
+        "https://www.ampcapocarbonara.it/"
+      ]
+    },
+    {
+      "id": "amp-ustica",
+      "name": "Ustica",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Sicilia",
+      "lat": 38.7000,
+      "lon": 13.1833,
+      "capacity": {
+        "total": null,
+        "breakdown": "Campi ormeggio designati attivi",
+        "since": 1986
+      },
+      "manager": {
+        "name": "Comune di Ustica",
+        "type": "commune",
+        "website": "http://www.ampustica.it/",
+        "phone": "+39 091 8449237",
+        "fax": "+39 091 8449194",
+        "email": "info@ampustica.it",
+        "address": "Via Petriera, 90010 Ustica (PA)"
+      },
+      "notes": "Prima AMP istituita in Italia.",
+      "sources": [
+        "http://www.ampustica.it/"
+      ]
+    },
+    {
+      "id": "amp-plemmirio",
+      "name": "Plemmirio",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Sicilia",
+      "lat": 37.0167,
+      "lon": 15.3333,
+      "capacity": {
+        "total": null,
+        "breakdown": "Boe a nord di Baia di Ognina (Punta Milocca - Capo Murro di Porco). Solo con autorizzazione preventiva.",
+        "since": null
+      },
+      "manager": {
+        "name": "AMP Plemmirio",
+        "type": "amp_authority",
+        "website": "https://www.plemmirio.eu/",
+        "phone": null,
+        "email": null,
+        "address": "Penisola della Maddalena, Siracusa"
+      },
+      "notes": "Cliente CRM Betty Buoys.",
+      "sources": [
+        "https://www.plemmirio.eu/"
+      ]
+    },
+    {
+      "id": "amp-tremiti",
+      "name": "Isole Tremiti",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Puglia",
+      "lat": 42.1217,
+      "lon": 15.5083,
+      "capacity": {
+        "total": 69,
+        "breakdown": "69 boe per imbarcazioni di varie taglie",
+        "since": null
+      },
+      "manager": {
+        "name": "Ente Parco Nazionale del Gargano (gestore AMP) — operatori boe",
+        "type": "national_park",
+        "website": "https://www.riservamarinaisoletremiti.it/campi-boe/",
+        "phone": "+39 348 7457462 / +39 392 0817206 (Tonino o Pasquale)",
+        "email": "boetremiti@prismambiente.it",
+        "address": "Tremiti (FG)",
+        "reservation_app": "Blue Discovery"
+      },
+      "sources": [
+        "https://www.parcogargano.it/amp-isole-tremiti-gestione-dei-campi-boe-per-lanno-2024/",
+        "https://www.riservamarinaisoletremiti.it/campi-boe/"
+      ]
+    },
+    {
+      "id": "amp-porto-cesareo",
+      "name": "Porto Cesareo",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Puglia",
+      "lat": 40.2583,
+      "lon": 17.8917,
+      "manager": {
+        "name": "Consorzio di Gestione AMP Porto Cesareo",
+        "type": "consorzio",
+        "website": "http://www.ampportocesareo.it/",
+        "phone": "+39 0833 560144",
+        "email": "segreteria@ampportocesareo.it",
+        "address": "Via Manzoni 30, 73010 Porto Cesareo (LE)"
+      },
+      "notes": "Gestisce sinergicamente con Torre Guaceto + CoNISMa.",
+      "sources": [
+        "http://www.ampportocesareo.it/"
+      ]
+    },
+    {
+      "id": "amp-torre-guaceto",
+      "name": "Torre Guaceto",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Puglia",
+      "lat": 40.7167,
+      "lon": 17.7833,
+      "capacity": {
+        "total": null,
+        "breakdown": "Campo boe telematico in Zone C a 250m dalla costa",
+        "since": null
+      },
+      "manager": {
+        "name": "Consorzio di Gestione Torre Guaceto",
+        "type": "consorzio",
+        "website": "https://www.riservaditorreguaceto.it/",
+        "phone": null,
+        "email": null,
+        "address": "Brindisi"
+      },
+      "notes": "Co-gestione con Porto Cesareo + CoNISMa.",
+      "sources": [
+        "https://www.riservaditorreguaceto.it/"
+      ]
+    },
+    {
+      "id": "amp-regno-nettuno",
+      "name": "Regno di Nettuno",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Campania",
+      "lat": 40.7000,
+      "lon": 13.9333,
+      "capacity": {
+        "total": 45,
+        "breakdown": "45 single moorings (ancoraggi a vite elicoidale) a Lacco Ameno",
+        "since": null
+      },
+      "manager": {
+        "name": "AMP Regno di Nettuno",
+        "type": "amp_authority",
+        "website": "https://www.nettunoamp.org/",
+        "phone": null,
+        "email": null,
+        "address": "Ischia, Procida e Vivara"
+      },
+      "sources": [
+        "https://www.nettunoamp.org/le-attivita/",
+        "https://www.ilgolfo24.it/lacco-ameno-ecco-il-campo-boe-per-lamp/"
+      ]
+    },
+    {
+      "id": "amp-pelagie",
+      "name": "Isole Pelagie",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Sicilia",
+      "lat": 35.5167,
+      "lon": 12.6000,
+      "manager": {
+        "name": "Comune di Lampedusa e Linosa",
+        "type": "commune",
+        "website": "http://www.ampisolepelagie.it/",
+        "phone": "+39 0922 975780",
+        "email": "info@ampisolepelagie.it",
+        "address": "Via Cameroni, Lampedusa (AG)"
+      },
+      "notes": "Lampedusa, Linosa, Lampione — estremo sud Mediterraneo.",
+      "sources": [
+        "http://www.ampisolepelagie.it/"
+      ]
+    },
+    {
+      "id": "amp-sinis",
+      "name": "Penisola del Sinis - Mal di Ventre",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Sardegna",
+      "lat": 39.9333,
+      "lon": 8.3167,
+      "established": 1997,
+      "manager": {
+        "name": "Comune di Cabras",
+        "type": "commune",
+        "website": "https://www.areamarinasinis.it/",
+        "phone": "+39 0783 391097",
+        "email": "info.ampsinis@comune.cabras.or.it",
+        "address": "Corso Italia 108, 09072 Cabras (OR)"
+      },
+      "regulation": {
+        "decree": "DM 12 dicembre 1997"
+      },
+      "notes": "Cliente CRM Betty Buoys.",
+      "sources": [
+        "https://www.areamarinasinis.it/"
+      ]
+    },
+    {
+      "id": "amp-asinara",
+      "name": "Isola dell'Asinara",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Sardegna",
+      "lat": 41.0667,
+      "lon": 8.2833,
+      "manager": {
+        "name": "Parco Nazionale dell'Asinara / AMP",
+        "type": "national_park",
+        "website": "https://www.parcoasinara.org/",
+        "phone": null,
+        "email": null,
+        "address": "Porto Torres (SS)"
+      },
+      "notes": "Sardegna NW, ex carcere di massima sicurezza, ora Parco Nazionale + AMP. Cliente CRM Betty Buoys. Capacità campi ormeggio non pubblicata.",
+      "sources": []
+    },
+    {
+      "id": "amp-portofino",
+      "name": "Portofino",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Liguria",
+      "lat": 44.3000,
+      "lon": 9.2167,
+      "capacity": {
+        "total": null,
+        "breakdown": "Cale Olivetta, dell'Oro, Niasca. App dedicata 'AMP Portofino' per booking.",
+        "since": null
+      },
+      "manager": {
+        "name": "Consorzio AMP Portofino",
+        "type": "consorzio",
+        "website": "https://www.portofinoamp.it/",
+        "phone": null,
+        "email": null,
+        "address": "Portofino (GE)",
+        "reservation_app": "AMP Portofino (App Store)"
+      },
+      "sources": [
+        "https://www.portofinoamp.it/"
+      ]
+    },
+    {
+      "id": "amp-castellabate",
+      "name": "Santa Maria di Castellabate",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Campania",
+      "lat": 40.2700,
+      "lon": 14.9333,
+      "manager": {
+        "name": "AMP S.M. Castellabate",
+        "type": "amp_authority",
+        "website": "https://www.amp-santamariadicastellabate.it/",
+        "phone": null,
+        "email": null,
+        "address": "Castellabate (SA)"
+      },
+      "notes": "Cilento, costa di Punta Licosa. Capacità campi ormeggio non pubblicata.",
+      "sources": []
+    },
+    {
+      "id": "amp-infreschi",
+      "name": "Costa degli Infreschi e della Masseta",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Campania",
+      "lat": 40.0333,
+      "lon": 15.4500,
+      "capacity": {
+        "total": null,
+        "breakdown": "Zone C: ormeggio a boe per imbarcazioni eco-compatibili",
+        "since": null
+      },
+      "manager": {
+        "name": "AMP Costa degli Infreschi e della Masseta",
+        "type": "amp_authority",
+        "website": "https://www.cilentoediano.it/",
+        "phone": null,
+        "email": null,
+        "address": "Marina di Camerota (SA)"
+      },
+      "sources": [
+        "https://www.cilentoediano.it/wp-content/uploads/2024/05/AMP-CIM-DISCIPLINARE-2024.pdf"
+      ]
+    },
+    {
+      "id": "amp-ciclopi",
+      "name": "Isole Ciclopi",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Sicilia",
+      "lat": 37.5583,
+      "lon": 15.1733,
+      "capacity": {
+        "total": null,
+        "breakdown": "Zona A: 5 boe gialle delimitazione + boe ormeggio in zone equipped",
+        "since": null
+      },
+      "manager": {
+        "name": "AMP Isole Ciclopi",
+        "type": "amp_authority",
+        "website": "https://www.isoleciclopi.it/",
+        "phone": null,
+        "email": null,
+        "address": "Aci Trezza (CT)"
+      },
+      "sources": [
+        "https://www.isoleciclopi.it/zonizzazione/"
+      ]
+    },
+    {
+      "id": "amp-cerrano",
+      "name": "Torre del Cerrano",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Abruzzo",
+      "lat": 42.5833,
+      "lon": 14.0833,
+      "manager": {
+        "name": "AMP Torre del Cerrano",
+        "type": "amp_authority",
+        "website": "https://www.torredelcerrano.it/",
+        "phone": null,
+        "email": null,
+        "address": "Pineto-Silvi (TE)"
+      },
+      "notes": "Adriatico abruzzese.",
+      "sources": [
+        "https://www.torredelcerrano.it/archivio-news/riposizionato-in-amp-il-campo-boe-di-ormeggio.html"
+      ]
+    },
+    {
+      "id": "amp-tor-paterno",
+      "name": "Secche di Tor Paterno",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Lazio",
+      "lat": 41.5783,
+      "lon": 12.3517,
+      "manager": {
+        "name": "RomaNatura",
+        "type": "regional_authority",
+        "website": "https://www.romanatura.roma.it/",
+        "phone": null,
+        "email": null,
+        "address": "Roma"
+      },
+      "notes": "Unica AMP del Lazio. Secche off-shore Castel Porziano.",
+      "sources": []
+    },
+    {
+      "id": "amp-bergeggi",
+      "name": "Isola di Bergeggi",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Liguria",
+      "lat": 44.2367,
+      "lon": 8.4400,
+      "manager": {
+        "name": "AMP Isola di Bergeggi",
+        "type": "amp_authority",
+        "website": "https://www.ampisolabergeggi.it/",
+        "phone": null,
+        "email": null,
+        "address": "Bergeggi (SV)"
+      },
+      "sources": []
+    },
+    {
+      "id": "amp-miramare",
+      "name": "Miramare",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Friuli-Venezia Giulia",
+      "lat": 45.7000,
+      "lon": 13.7167,
+      "manager": {
+        "name": "WWF AMP Miramare",
+        "type": "ngo",
+        "website": "https://www.riservamarinamiramare.it/",
+        "phone": null,
+        "email": null,
+        "address": "Trieste"
+      },
+      "notes": "Prima AMP gestita da WWF. Golfo di Trieste.",
+      "sources": [
+        "https://www.riservamarinamiramare.it/"
+      ]
+    },
+    {
+      "id": "amp-capo-rizzuto",
+      "name": "Capo Rizzuto",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Calabria",
+      "lat": 38.9000,
+      "lon": 17.0833,
+      "manager": {
+        "name": "AMP Capo Rizzuto",
+        "type": "amp_authority",
+        "website": "https://www.riservamarinacaporizzuto.it/",
+        "phone": null,
+        "email": null,
+        "address": "Crotone"
+      },
+      "notes": "Ionio calabrese, area marina più estesa d'Italia per superficie.",
+      "sources": [
+        "https://www.riservamarinacaporizzuto.it/"
+      ]
+    },
+    {
+      "id": "amp-capo-gallo",
+      "name": "Capo Gallo - Isola delle Femmine",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Sicilia",
+      "lat": 38.2167,
+      "lon": 13.2833,
+      "manager": {
+        "name": "AMP Capo Gallo",
+        "type": "amp_authority",
+        "website": "https://www.ampcapogallo.it/",
+        "phone": null,
+        "email": null,
+        "address": "Palermo"
+      },
+      "notes": "Tirreno palermitano, costa rocciosa. Capacità campi ormeggio non pubblicata.",
+      "sources": []
+    },
+    {
+      "id": "amp-capo-milazzo",
+      "name": "Capo Milazzo",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Sicilia",
+      "lat": 38.2833,
+      "lon": 15.2333,
+      "manager": {
+        "name": "AMP Capo Milazzo",
+        "type": "amp_authority",
+        "website": "https://www.ampcapomilazzo.it/",
+        "phone": null,
+        "email": null,
+        "address": "Milazzo (ME)"
+      },
+      "notes": "AMP istituita di recente.",
+      "sources": []
+    }
+  ]
+}
