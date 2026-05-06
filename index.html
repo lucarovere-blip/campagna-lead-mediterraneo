@@ -1,13 +1,753 @@
-ml
--rw-r--r--@ 1 luca  staff  1322527  7 Mar 20:14 /Users/luca/Downloads/index_5.html
--rw-r--r--@ 1 luca  staff  1488195  7 Mar 20:18 /Users/luca/Downloads/index_6.html
--rw-r--r--@ 1 luca  staff  1488226  7 Mar 20:20 /Users/luca/Downloads/index_7.html
--rw-r--r--@ 1 luca  staff  1488226  7 Mar 20:20 /Users/luca/Downloads/index_8.html
--rw-r--r--@ 1 luca  staff  1488183  7 Mar 20:21 /Users/luca/Downloads/index_9.html
-Mac-Pro-di-luca:~ luca$ cat ~/Downloads/index_24.html | pbcopy
-Mac-Pro-di-luca:~ luca$ pbpaste | head -1
-pbpaste | head -1Mac-Pro-di-luca:~ luca$ wc -c < ~/Downloads/index_24.html
-   49631
-Mac-Pro-di-luca:~ luca$ head -1 ~/Downloads/index_24.html
 <!DOCTYPE html>
-Mac-Pro-di-luca:~ luca$ 
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SeaInnova — Campagna Mediterraneo 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #03213F; --ocean: #0B4F82; --wave: #1A7BB8; --aqua: #00C9A7;
+  --sand: #F5F0E8; --amber: #E07B2A; --text: #1A2B3C; --muted: #7A8FA0;
+  --border: #D8E3EC; --card-bg: #FFFFFF;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+header { background: var(--navy); padding: 0 28px; height: 58px; display: flex; align-items: center; gap: 20px; flex-shrink: 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.logo { font-family: 'DM Serif Display', serif; font-size: 19px; color: white; letter-spacing: -0.3px; }
+.logo span { color: var(--aqua); }
+.header-sub { font-size: 11px; color: rgba(255,255,255,0.45); font-weight: 300; letter-spacing: 0.5px; }
+.divider-v { width: 1px; height: 24px; background: rgba(255,255,255,0.12); }
+.badge { margin-left: auto; background: var(--aqua); color: var(--navy); font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; letter-spacing: 0.3px; }
+nav { background: white; display: flex; align-items: center; padding: 0 28px; gap: 4px; height: 44px; flex-shrink: 0; border-bottom: 1px solid var(--border); }
+nav button { height: 44px; padding: 0 16px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--muted); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+nav button.active, nav button:hover { color: var(--navy); border-bottom-color: var(--aqua); }
+.nav-count { display: inline-block; background: var(--border); color: var(--muted); font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 10px; margin-left: 5px; }
+nav button.active .nav-count { background: var(--aqua); color: var(--navy); }
+.tab { display: none; flex: 1; overflow: hidden; }
+.tab.active { display: flex; }
+#tab-mappa { flex-direction: row; }
+#map { flex: 1; height: 100%; }
+.sidebar { width: 340px; flex-shrink: 0; background: var(--card-bg); border-left: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+.sidebar-head { padding: 16px 20px 12px; border-bottom: 1px solid var(--border); background: white; }
+.sidebar-head h3 { font-family: 'DM Serif Display', serif; font-size: 16px; color: var(--navy); }
+.sidebar-head p { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.sidebar-list { flex: 1; overflow-y: auto; padding: 8px 0; }
+.sidebar-list::-webkit-scrollbar { width: 4px; }
+.sidebar-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.port-item { display: flex; align-items: center; gap: 10px; padding: 9px 16px; cursor: pointer; border-left: 3px solid transparent; transition: all 0.12s; }
+.port-item:hover { background: var(--sand); border-left-color: var(--wave); }
+.port-item.active { background: #EBF6FF; border-left-color: var(--wave); }
+.port-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.port-info { flex: 1; min-width: 0; }
+.port-name { font-size: 12px; font-weight: 600; color: var(--navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.port-country { font-size: 10px; color: var(--muted); margin-top: 1px; }
+#toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--navy); color: white; font-size: 12px; font-weight: 500; padding: 10px 20px; border-radius: 24px; z-index: 9999; transition: transform 0.3s ease; pointer-events: none; }
+#toast.show { transform: translateX(-50%) translateY(0); }
+#tab-email { overflow-y: auto; display: none; flex-direction: column; }
+#tab-email.active { display: flex; }
+.email-wrap { max-width: 820px; margin: 0 auto; padding: 28px 24px 48px; width: 100%; }
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
+.stat-card { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+.stat-val { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--navy); }
+.stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.section-title { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--navy); margin-bottom: 4px; }
+.section-sub { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+.ecards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 32px; }
+.ecard { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 12px; transition: all 0.15s; }
+.ecard:hover { box-shadow: 0 4px 16px rgba(3,33,63,0.08); border-color: var(--wave); transform: translateY(-1px); }
+.ecard.zmel { border-left: 3px solid var(--aqua); }
+.ecard.strategic { border-left: 3px solid var(--amber); }
+.flag { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.ei { flex: 1; min-width: 0; }
+.ei-name { font-size: 13px; font-weight: 600; color: var(--navy); }
+.ei-ref { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.ei-email { font-family: monospace; font-size: 10.5px; color: #4A7FA0; margin-top: 2px; }
+.ei-prod { font-size: 10px; color: var(--muted); margin-top: 3px; }
+.mail-btn { display: inline-block; margin-top: 8px; background: var(--navy); color: white; border: none; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; padding: 6px 14px; border-radius: 5px; cursor: pointer; transition: background 0.15s; }
+.mail-btn:hover { background: var(--ocean); }
+.mail-btn.green { background: #0B7A5E; }
+.mail-btn.green:hover { background: #085E48; }
+.mail-btn.orange { background: var(--amber); }
+.mail-btn.orange:hover { background: #C06820; }
+.preview-box { display: none; margin-top: 10px; background: #F7FAFD; border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; font-size: 11px; color: var(--text); line-height: 1.5; white-space: pre-wrap; max-height: 200px; overflow-y: auto; }
+.preview-box.open { display: block; }
+.preview-toggle { font-size: 10px; color: var(--wave); cursor: pointer; margin-top: 4px; display: inline-block; }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Sea<span>Innova</span></div>
+  <div class="divider-v"></div>
+  <div class="header-sub">CAMPAGNA MEDITERRANEO 2026</div>
+  <div class="badge">25 contatti · 7 paesi</div>
+</header>
+<nav>
+  <button class="active" onclick="showTab('mappa',this)">Mappa <span class="nav-count">25</span></button>
+  <button onclick="showTab('email',this)">Email Launcher <span class="nav-count">25</span></button>
+</nav>
+<div id="tab-mappa" class="tab active">
+  <div id="map"></div>
+  <div class="sidebar">
+    <div class="sidebar-head">
+      <h3>Porti contattati</h3>
+      <p>Campagna 5 maggio 2026 — testi reali</p>
+    </div>
+    <div class="sidebar-list" id="sidebar-list"></div>
+  </div>
+</div>
+<div id="tab-email" class="tab">
+  <div class="email-wrap">
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-val">25</div><div class="stat-label">Contatti</div></div>
+      <div class="stat-card"><div class="stat-val">7</div><div class="stat-label">Paesi</div></div>
+      <div class="stat-card"><div class="stat-val">2</div><div class="stat-label">Bounce</div></div>
+      <div class="stat-card"><div class="stat-val">9 mag</div><div class="stat-label">Follow-up</div></div>
+    </div>
+    <div class="section-title">Email Launcher</div>
+    <div class="section-sub">Click su "Copia + Apri email" copia il testo reale negli appunti, apre Thunderbird con destinatario+oggetto. Cmd+V per incollare.</div>
+    <div class="ecards" id="email-cards"></div>
+  </div>
+</div>
+<div id="toast">Testo copiato — incolla con Cmd+V in Thunderbird</div>
+<script>
+const ports = [
+  { lat:36.486, lng:-4.9544, name:"Puerto Banús", country:"Spagna", flag:"🇪🇸", email:"mjda@marinaatraques.net", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"", subj:`Betty Buoys y Sentinel para Puerto Banús — SeaInnova S.r.l.`, body:`Estimado/a equipo,
+
+Me dirijo a ustedes en nombre de SeaInnova S.r.l., empresa italiana especializada en tecnologías IoT para infraestructuras náuticas de alto nivel, con sede en La Maddalena, Cerdeña.
+
+Puerto Banús es una de las referencias del Mediterráneo occidental en gestión portuaria de prestigio. Creemos que nuestras soluciones pueden aportar un valor real a su operativa diaria.
+
+Ofrecemos dos sistemas complementarios:
+
+Betty Buoys — sistema de amarre inteligente con monitorización en tiempo real de cada puesto — tensiones, posición, condiciones meteomarinas — integrado en nuestra plataforma cloud NaviGoo24. Permite gestionar los amarres de forma remota y ofrecer a los navegantes una experiencia digital completa.
+
+Sentinel — boya autónoma para el control del tráfico marino y la vigilancia perimetral h24, con sistema de detección integrado y alertas en tiempo real, sin infraestructura fija en tierra.
+
+Estaría encantado de presentarles ambos sistemas en una videollamada de 30 minutos, sin compromiso.
+
+Quedo a su disposición para cualquier consulta.
+
+Atentamente,
+
+Luca Rovere
+
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:36.51, lng:-4.8823, name:"Marina Marbella", country:"Spagna", flag:"🇪🇸", email:"info@marinamarbella.net", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"", subj:`Betty Buoys y Sentinel para Marina Marbella — SeaInnova S.r.l.`, body:`Estimado/a equipo,
+
+Me dirijo a ustedes en nombre de SeaInnova S.r.l., empresa italiana especializada en tecnologías IoT para infraestructuras náuticas de alto nivel, con sede en La Maddalena, Cerdeña.
+
+Marina Marbella es una referencia reconocida en la Costa del Sol para la náutica de alto nivel. Creemos que nuestras soluciones pueden aportar un valor real a su gestión portuaria.
+
+Ofrecemos dos sistemas complementarios:
+
+Betty Buoys — sistema de amarre inteligente con monitorización en tiempo real de cada puesto — tensiones, posición, condiciones meteomarinas — integrado en nuestra plataforma cloud NaviGoo24. Permite gestionar los amarres de forma remota y ofrecer a los navegantes una experiencia digital completa.
+
+Sentinel — boya autónoma para el control del tráfico marino y la vigilancia perimetral h24, con sistema de detección integrado y alertas en tiempo real, sin infraestructura fija en tierra.
+
+Estaría encantado de presentarles ambos sistemas en una videollamada de 30 minutos, sin compromiso.
+
+Quedo a su disposición para cualquier consulta.
+
+Atentamente,
+
+Luca Rovere SeaInnova
+
+Luca Rovere
+
+Founder & CEO
+
+luca.rovere@seainnova.com  | +39 338 804 5513
+
+www.seainnova.com <https://www.seainnova.com>  | SeaInnova S.r.l. — La Maddalena (SS) — P.IVA 02969660907
+
+Sentinel Sentinel · SeaInnova Marine traffic detection system · 24/7 www.seainnova.com <https://www.seainnova.com>
+
+*RISERVATEZZA E PROTEZIONE DEI DATI* Ai sensi dell’art. 616 c.p., del D.Lgs. 196/2003 e ss.mm.ii. (D.Lgs. 101/2018) e del Regolamento Europeo 2016/679 (GDPR), il presente messaggio e i suoi eventuali allegati sono destinati esclusivamente al destinatario indicato e possono contenere informazioni riservate e confidenziali. Qualsiasi utilizzo, riproduzione, diffusione o distribuzione da parte di soggetti diversi dal destinatario è tassativamente vietata e può costituire violazione di legge. Qualora il presente messaggio Le fosse pervenuto per errore, La preghiamo di avvisare immediatamente il mittente e di eliminare il messaggio originale e ogni eventuale copia o stampa senza farne uso.
+
+*CONFIDENTIALITY NOTICE* Pursuant to art. 616 of the Italian Criminal Code, D.Lgs. 196/2003 as amended (D.Lgs. 101/2018) and EU Regulation 2016/679 (GDPR), this message and any attachments are intended solely for the named recipient and may contain confidential and privileged information. Any use, reproduction, disclosure or distribution by persons other than the intended recipient is strictly prohibited and may be unlawful. If you have received this message in error, please notify the sender immediately and delete the original message and any copies or prints without making any use of them.` },
+  { lat:38.9146, lng:1.4432, name:"Marina Ibiza", country:"Spagna", flag:"🇪🇸", email:"info@marinaibiza.com", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"", subj:`Sentinel and Betty Buoys for Marina Ibiza — SeaInnova S.r.l.`, body:`Dear Marina Ibiza team,
+
+I am writing from SeaInnova S.r.l., an Italian company specialising in IoT technologies for high-end marina infrastructure, based in Sardinia.
+
+Ibiza is one of the most demanding maritime environments in the Mediterranean — intense summer traffic, high-value vessels arriving at all hours, and mooring operations that require constant attention.
+
+We offer two complementary solutions:
+
+Sentinel — an autonomous buoy with an integrated marine traffic detection system, operating 24/7 with real-time alerts and vessel classification, requiring no fixed infrastructure.
+
+Betty Buoys — an intelligent mooring system with real-time monitoring of each berth — tension, position, meteo-marine conditions — integrated with our NaviGoo24 cloud platform.
+
+I would be happy to arrange a brief presentation at your convenience.
+
+Best regards,
+
+Luca Rovere
+
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:39.4906, lng:2.479, name:"Port Adriano", country:"Mallorca", flag:"🇪🇸", email:"info@portadriano.com", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"", subj:`Betty Buoys y Sentinel para Port Adriano`, body:`Estimado/a equipo,
+
+Me dirijo a ustedes en nombre de SeaInnova S.r.l., empresa italiana especializada en tecnologías IoT para infraestructuras náuticas de alto nivel, con sede en La Maddalena, Cerdeña.
+
+Port Adriano es una de las marinas más modernas y exclusivas de Mallorca, con una clientela de alto perfil y una gestión portuaria exigente. Creemos que nuestras soluciones encajan perfectamente con su nivel de servicio.
+
+Ofrecemos dos sistemas complementarios:
+
+Betty Buoys — sistema de amarre inteligente con monitorización en tiempo real de cada puesto — tensiones, posición, condiciones meteomarinas — integrado en nuestra plataforma cloud NaviGoo24.
+
+Sentinel — boya autónoma para el control del tráfico marino y la vigilancia perimetral h24, con sistema de detección integrado y alertas en tiempo real, sin infraestructura fija en tierra.
+
+Estaría encantado de presentarles ambos sistemas en una videollamada de 30 minutos, sin compromiso.
+
+Atentamente, Luca Rovere
+
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:39.5295, lng:2.5659, name:"Puerto Portals", country:"Mallorca", flag:"🇪🇸", email:"info@puertoportals.com", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"", subj:`Betty Buoys y Sentinel para Puerto Portals — SeaInnova S.r.l.`, body:`Estimado/a equipo,
+
+Me dirijo a ustedes en nombre de SeaInnova S.r.l., empresa italiana especializada en tecnologías IoT para infraestructuras náuticas de alto nivel, con sede en La Maddalena, Cerdeña.
+
+Puerto Portals es una de las marinas más exclusivas del Mediterráneo, referencia internacional para la náutica de lujo en Mallorca. Creemos que nuestras soluciones pueden aportar valor a su gestión operativa.
+
+Ofrecemos dos sistemas complementarios:
+
+Betty Buoys — sistema de amarre inteligente con monitorización en tiempo real de cada puesto — tensiones, posición, condiciones meteomarinas — integrado en nuestra plataforma cloud NaviGoo24.
+
+Sentinel — boya autónoma para el control del tráfico marino y la vigilancia perimetral h24, con sistema de detección integrado y alertas en tiempo real, sin infraestructura fija en tierra.
+
+Estaría encantado de presentarles ambos sistemas en una videollamada de 30 minutos, sin compromiso.
+
+Atentamente, Luca Rovere
+
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:39.5538, lng:2.6246, name:"Club de Mar Mallorca", country:"Mallorca", flag:"🇪🇸", email:"info@clubdemar-mallorca.com", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"", subj:`Betty Buoys e Sentinel per Club de Mar Mallorca — SeaInnova S.r.l.`, body:`Gentile Direzione,
+
+Le scrivo da SeaInnova S.r.l., società italiana specializzata in tecnologie IoT per infrastrutture nautiche di alto livello, con sede a La Maddalena.
+
+Betty Buoys è un sistema di ormeggio intelligente brevettato con monitoraggio in tempo reale di ogni posto barca — tensioni, posizione, condizioni meteo-marine — integrato con la piattaforma cloud NaviGoo24. Ulteriori informazioni su www.bettybuoys.com
+
+Sentinel è la nostra boa autonoma per il controllo del traffico marino e la sorveglianza perimetrale h24, senza infrastruttura fissa a terra.
+
+Sarei lieto di presentarLe entrambe le soluzioni in una videoconferenza di 30 minuti.
+
+Distinti saluti,
+
+Luca Rovere
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:41.377, lng:2.1829, name:"RCNB Barcelona", country:"Spagna", flag:"🇪🇸", email:"rcnb@rcnb.com", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"", subj:`Betty Buoys e Sentinel per RCNB Barcelona — SeaInnova S.r.l.`, body:`Gentile Direzione,
+
+Le scrivo da SeaInnova S.r.l., società italiana specializzata in tecnologie IoT per infrastrutture nautiche di alto livello, con sede a La Maddalena.
+
+Betty Buoys è un sistema di ormeggio intelligente brevettato con monitoraggio in tempo reale di ogni posto barca — tensioni, posizione, condizioni meteo-marine — integrato con la piattaforma cloud NaviGoo24. Ulteriori informazioni su www.bettybuoys.com
+
+Sentinel è la nostra boa autonoma per il controllo del traffico marino e la sorveglianza perimetrale h24, senza infrastruttura fissa a terra.
+
+Sarei lieto di presentarLe entrambe le soluzioni in una videoconferenza di 30 minuti.
+
+Distinti saluti,
+
+Luca Rovere
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:41.3802, lng:2.1863, name:"Marina Port Vell", country:"Barcellona", flag:"🇪🇸", email:"reception@marinaportvell.com", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"", subj:`Betty Buoys y Sentinel para Marina Port Vell — SeaInnova S.r.l.`, body:`Estimado/a equipo,
+
+Me dirijo a ustedes en nombre de SeaInnova S.r.l., empresa italiana especializada en tecnologías IoT para infraestructuras náuticas de alto nivel, con sede en La Maddalena, Cerdeña.
+
+Marina Port Vell es una de las referencias del puerto de Barcelona y del Mediterráneo occidental. Creemos que nuestras soluciones pueden aportar un valor real a su gestión portuaria.
+
+Ofrecemos dos sistemas complementarios:
+
+Betty Buoys — sistema de amarre inteligente con monitorización en tiempo real de cada puesto — tensiones, posición, condiciones meteomarinas — integrado en nuestra plataforma cloud NaviGoo24.
+
+Sentinel — boya autónoma para el control del tráfico marino y la vigilancia perimetral h24, con sistema de detección integrado y alertas en tiempo real, sin infraestructura fija en tierra.
+
+Estaría encantado de presentarles ambos sistemas en una videollamada de 30 minutos, sin compromiso.
+
+Atentamente,
+
+Luca Rovere
+
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:39.149, lng:2.9313, name:"Parco Nazionale Cabrera", country:"Spagna", flag:"🇪🇸", email:"parcnacionaldecabrera@gmail.com", prod:"Sentinel — area protetta", col:"#00C9A7", ref:"", "cls":"zmel", subj:`Sentinel y Betty Buoys para el Parque Nacional Marítimo-Terrestre del Archipiélago de Cabrera — SeaInnova S.r.l.`, body:`Estimado Director,
+
+Me dirijo a usted en nombre de SeaInnova S.r.l., empresa italiana especializada en tecnologías IoT para infraestructuras náuticas y áreas marinas protegidas, con sede en La Maddalena, Cerdeña — una isla cuya gestión costera comparte muchos de los retos del Archipiélago de Cabrera.
+
+Le presentamos dos soluciones complementarias especialmente relevantes para un parque nacional marino:
+
+*Sentinel* — boya autónoma para el control del tráfico marítimo y la vigilancia perimetral h24, sin infraestructura fija en tierra. Permite monitorizar en tiempo real las embarcaciones que acceden al área protegida, registrar las entradas y salidas, y generar alertas automáticas ante accesos no autorizados. Ideal para zonas de fondeo regulado y perímetros de protección marina.
+
+*Betty Buoys* — sistema de amarre inteligente y patentado con monitorización en tiempo real de cada cuerpo muerto — tensiones, posición, condiciones meteo-marinas — integrado con la plataforma cloud NaviGoo24. Más información en www.bettybuoys.com <http://www.bettybuoys.com>
+
+Estaría encantado de presentarle ambas soluciones en una videoconferencia de 30 minutos a su conveniencia.
+
+Atentamente,
+
+Luca Rovere
+
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:43.08, lng:6.1574, name:"ZMEL Hyères", country:"Francia", flag:"🇫🇷", email:"contact@portshyeres.fr", prod:"Betty Buoys — ZMEL 2026", col:"#00C9A7", ref:"", "cls":"zmel", subj:`Betty Buoys — monitoring breveté pour la ZMEL Saint-Pierre d'Hyères — SeaInnova S.r.l.`, body:`Madame, Monsieur,
+
+Je me permets de vous contacter au nom de SeaInnova S.r.l., société italienne spécialisée dans les technologies IoT pour les infrastructures nautiques, basée à La Maddalena, Sardaigne.
+
+La ZMEL Saint-Pierre, entrée en vigueur en janvier 2026 et actuellement en phase d'installation, représente une avancée majeure pour la protection des herbiers de posidonie à Hyères. C'est précisément à ce stade que l'intégration d'un système de monitoring digital apporte le plus de valeur.
+
+Betty Buoys est un système d'amarrage intelligent breveté, avec monitoring en temps réel de chaque bouée — tensions, position, conditions météo-marines — intégré à notre plateforme cloud NaviGoo24. Le gestionnaire peut superviser l'ensemble de la ZMEL à distance, anticiper les problèmes techniques et améliorer la sécurité des plaisanciers sans rondes physiques systématiques.
+
+Plus d'informations sur www.bettybuoys.com <http://www.bettybuoys.com>
+
+Je serais heureux de vous présenter la solution lors d'une visioconférence de 30 minutes.
+
+Cordialement,
+
+Luca Rovere
+
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:43.5421, lng:7.0408, name:"ZMEL Cannes Mouré Rouge", country:"Francia", flag:"🇫🇷", email:"portmourerouge@ville-cannes.fr", prod:"Betty Buoys — Campo boe", col:"#00C9A7", ref:"", "cls":"zmel", subj:`Betty Buoys — système de monitoring pour la ZMEL de Cannes — SeaInnova S.r.l.`, body:`Madame, Monsieur,
+
+Je me permets de vous contacter au nom de SeaInnova S.r.l., société italienne spécialisée dans les technologies IoT pour les infrastructures nautiques, basée à La Maddalena, Sardaigne.
+
+La ZMEL de Cannes, située dans l'anse Sainte-Anne, accueille 28 navires dans une zone écologiquement sensible. La gestion quotidienne — surveillance de l'occupation, sécurité des amarrages, contrôle des conditions météo-marines — peut être considérablement simplifiée grâce à Betty Buoys.
+
+Betty Buoys est un système d'amarrage intelligent breveté, avec monitoring en temps réel de chaque bouée — tensions, position, conditions météo-marines — intégré à notre plateforme cloud NaviGoo24. Il permet au gestionnaire de superviser l'ensemble de la ZMEL depuis une interface unique, sans rondes physiques systématiques, tout en améliorant la sécurité des plaisanciers et la préservation des fonds marins.
+
+Plus d'informations sur www.bettybuoys.com <http://www.bettybuoys.com>
+
+Je serais heureux de vous présenter la solution lors d'une visioconférence de 30 minutes.
+
+Cordialement,
+
+Luca Rovere
+
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:43.5488, lng:7.0173, name:"IGY Vieux-Port Cannes", country:"Francia", flag:"🇫🇷", email:"vpdc@igymarinas.com", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"Emmanuel Messiaen", subj:`Betty Buoys e Sentinel per IGY Vieux-Port Cannes — SeaInnova S.r.l.`, body:`Gentile Direzione,
+
+Le scrivo da SeaInnova S.r.l., società italiana specializzata in tecnologie IoT per infrastrutture nautiche di alto livello, con sede a La Maddalena.
+
+Betty Buoys è un sistema di ormeggio intelligente brevettato con monitoraggio in tempo reale di ogni posto barca — tensioni, posizione, condizioni meteo-marine — integrato con la piattaforma cloud NaviGoo24. Ulteriori informazioni su www.bettybuoys.com
+
+Sentinel è la nostra boa autonoma per il controllo del traffico marino e la sorveglianza perimetrale h24, senza infrastruttura fissa a terra.
+
+Sarei lieto di presentarLe entrambe le soluzioni in una videoconferenza di 30 minuti.
+
+Distinti saluti,
+
+Luca Rovere
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:43.5854, lng:7.1271, name:"Port Vauban Antibes", country:"Francia", flag:"🇫🇷", email:"commercial@vauban21.com", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"", subj:`Betty Buoys e Sentinel per Port Vauban Antibes — SeaInnova S.r.l.`, body:`Gentile Direzione,
+
+Le scrivo da SeaInnova S.r.l., società italiana specializzata in tecnologie IoT per infrastrutture nautiche di alto livello, con sede a La Maddalena.
+
+Betty Buoys è un sistema di ormeggio intelligente brevettato con monitoraggio in tempo reale di ogni posto barca — tensioni, posizione, condizioni meteo-marine — integrato con la piattaforma cloud NaviGoo24. Ulteriori informazioni su www.bettybuoys.com
+
+Sentinel è la nostra boa autonoma per il controllo del traffico marino e la sorveglianza perimetrale h24, senza infrastruttura fissa a terra.
+
+Sarei lieto di presentarLe entrambe le soluzioni in una videoconferenza di 30 minuti.
+
+Distinti saluti,
+
+Luca Rovere
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:43.4533, lng:4.4286, name:"UPACA — 58 porti PACA", country:"Francia", flag:"🇫🇷", email:"vtourrel@upaca.com", prod:"Strategico · ZMEL · Betty Buoys + Sentinel", col:"#E07B2A", ref:"Véronique Tourrel-Clément", "cls":"strategic", subj:`Betty Buoys — solution IoT brevetée pour la gestion des ZMEL en Méditerranée — SeaInnova S.r.l.`, body:`Madame Tourrel,
+
+Je vous contacte au nom de SeaInnova S.r.l., société italienne spécialisée en technologies IoT pour la gestion des zones de mouillage et des infrastructures portuaires, basée à La Maddalena, Sardaigne.
+
+L'UPACA représente 97% des ports de plaisance de la région PACA et de Monaco — ce qui en fait un partenaire stratégique privilégié pour nous.
+
+Nos solutions :
+
+Betty Buoys — système de monitoring intelligent et breveté pour corps-morts et zones de mouillage, avec suivi en temps réel et plateforme cloud NaviGoo24. www.bettybuoys.com
+
+Sentinel — bouée autonome pour le contrôle du trafic maritime et la surveillance h24.
+
+Je serais honoré de pouvoir vous présenter nos solutions et d'explorer une collaboration avec les membres de l'UPACA.
+
+Cordialement,
+
+Luca Rovere
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:43.7348, lng:7.4239, name:"Port Hercule Monaco", country:"Monaco", flag:"🇲🇨", email:"info@ports-monaco.com", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"", subj:`Betty Buoys e Sentinel per Port Hercule Monaco — SeaInnova S.r.l.`, body:`Gentile Direzione,
+
+Le scrivo da SeaInnova S.r.l., società italiana specializzata in tecnologie IoT per infrastrutture nautiche di alto livello, con sede a La Maddalena.
+
+Betty Buoys è un sistema di ormeggio intelligente brevettato con monitoraggio in tempo reale di ogni posto barca — tensioni, posizione, condizioni meteo-marine — integrato con la piattaforma cloud NaviGoo24. Ulteriori informazioni su www.bettybuoys.com
+
+Sentinel è la nostra boa autonoma per il controllo del traffico marino e la sorveglianza perimetrale h24, senza infrastruttura fissa a terra.
+
+Sarei lieto di presentarLe entrambe le soluzioni in una videoconferenza di 30 minuti.
+
+Distinti saluti,
+
+Luca Rovere
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:41.3885, lng:9.1567, name:"Port Bonifacio Corsica", country:"Corsica", flag:"🇫🇷", email:"directeur@bonifacio-marina.corsica", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"Michel Mallaroni", subj:`Sentinel et Betty Buoys pour le Port de Bonifacio — SeaInnova S.r.l.`, body:`Monsieur Mallaroni,
+
+Je me permets de vous contacter au nom de SeaInnova S.r.l., société italienne spécialisée dans les technologies IoT pour les infrastructures portuaires, basée à La Maddalena, Sardaigne.
+
+Bonifacio se trouve au cœur de l’un des passages maritimes les plus fréquentés de Méditerranée. Le trafic entre la Corse et la Sardaigne est dense, souvent imprévisible, et difficile à surveiller depuis la banchina.
+
+Nous proposons deux solutions complémentaires conçues pour des ports comme le vôtre:
+
+Sentinel — bouée autonome de contrôle du trafic marin et de surveillance périmétrique h24, avec système de détection intégré et alertes en temps réel, sans infrastructure à terre.
+
+Betty Buoys — système d’amarrage intelligent avec monitoring en temps réel de chaque poste — tensions, position, conditions météo-marines — intégré à notre plateforme cloud NaviGoo24.
+
+Notre siège est à La Maddalena, à 10 km de Bonifacio — nous connaissons parfaitement ces eaux et les défis spécifiques de ce passage maritime. Je serais heureux de vous proposer une démonstration en visioconférence de 30 minutes ou directement sur site.
+
+Cordialement,
+
+Luca Rovere
+
+SeaInnova
+
+Luca Rovere
+
+Founder & CEO
+
+luca.rovere@seainnova.com  | +39 338 804 5513
+
+www.seainnova.com <https://www.seainnova.com>  | SeaInnova S.r.l. — La Maddalena (SS) — P.IVA 02969660907
+
+Sentinel Sentinel · SeaInnova Marine traffic detection system · 24/7 www.seainnova.com <https://www.seainnova.com>
+
+*RISERVATEZZA E PROTEZIONE DEI DATI* Ai sensi dell’art. 616 c.p., del D.Lgs. 196/2003 e ss.mm.ii. (D.Lgs. 101/2018) e del Regolamento Europeo 2016/679 (GDPR), il presente messaggio e i suoi eventuali allegati sono destinati esclusivamente al destinatario indicato e possono contenere informazioni riservate e confidenziali. Qualsiasi utilizzo, riproduzione, diffusione o distribuzione da parte di soggetti diversi dal destinatario è tassativamente vietata e può costituire violazione di legge. Qualora il presente messaggio Le fosse pervenuto per errore, La preghiamo di avvisare immediatamente il mittente e di eliminare il messaggio originale e ogni eventuale copia o stampa senza farne uso.
+
+*CONFIDENTIALITY NOTICE* Pursuant to art. 616 of the Italian Criminal Code, D.Lgs. 196/2003 as amended (D.Lgs. 101/2018) and EU Regulation 2016/679 (GDPR), this message and any attachments are intended solely for the named recipient and may contain confidential and privileged information. Any use, reproduction, disclosure or distribution by persons other than the intended recipient is strictly prohibited and may be unlawful. If you have received this message in error, please notify the sender immediately and delete the original message and any copies or prints without making any use of them.` },
+  { lat:43.819, lng:7.787, name:"Portosole Sanremo", country:"Italia", flag:"🇮🇹", email:"info@portosolesanremo.it", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"Giorgio Casareto", subj:`Betty Buoys e Sentinel per Portosole Sanremo — SeaInnova S.r.l.`, body:`Gentile Direzione,
+
+Le scrivo da SeaInnova S.r.l., società italiana specializzata in tecnologie IoT per infrastrutture nautiche di alto livello, con sede a La Maddalena.
+
+Betty Buoys è un sistema di ormeggio intelligente brevettato con monitoraggio in tempo reale di ogni posto barca — tensioni, posizione, condizioni meteo-marine — integrato con la piattaforma cloud NaviGoo24. Ulteriori informazioni su www.bettybuoys.com
+
+Sentinel è la nostra boa autonoma per il controllo del traffico marino e la sorveglianza perimetrale h24, senza infrastruttura fissa a terra.
+
+Sarei lieto di presentarLe entrambe le soluzioni in una videoconferenza di 30 minuti.
+
+Distinti saluti,
+
+Luca Rovere
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:44.4097, lng:8.9283, name:"Porto Antico Genova", country:"Italia", flag:"🇮🇹", email:"portoantico@portoantico.it", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"Vincenzo Monaco", subj:`Betty Buoys e Sentinel per Porto Antico Genova — SeaInnova S.r.l.`, body:`Gentile Direzione,
+
+Le scrivo da SeaInnova S.r.l., società italiana specializzata in tecnologie IoT per infrastrutture nautiche di alto livello, con sede a La Maddalena.
+
+Betty Buoys è un sistema di ormeggio intelligente brevettato con monitoraggio in tempo reale di ogni posto barca — tensioni, posizione, condizioni meteo-marine — integrato con la piattaforma cloud NaviGoo24. Ulteriori informazioni su www.bettybuoys.com
+
+Sentinel è la nostra boa autonoma per il controllo del traffico marino e la sorveglianza perimetrale h24, senza infrastruttura fissa a terra.
+
+Sarei lieto di presentarLe entrambe le soluzioni in una videoconferenza di 30 minuti.
+
+Distinti saluti,
+
+Luca Rovere
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:44.099, lng:9.8619, name:"Porto Lotti La Spezia", country:"Italia", flag:"🇮🇹", email:"ufficioporto@portolotti.it", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"", subj:`Betty Buoys e Sentinel per Porto Lotti — SeaInnova S.r.l.`, body:`Gentile Direzione,
+
+Le scrivo da SeaInnova S.r.l., società italiana specializzata in tecnologie IoT per infrastrutture nautiche di alto livello, con sede a La Maddalena.
+
+Porto Lotti è una delle marine più esclusive del Mediterraneo, con 560 posti e imbarcazioni fino a 180 metri. Esattamente il profilo per cui le nostre soluzioni generano il maggiore valore operativo.
+
+Betty Buoys è un sistema di ormeggio intelligente brevettato con monitoraggio in tempo reale di ogni posto barca — tensioni, posizione, condizioni meteo-marine — integrato con la piattaforma cloud NaviGoo24. Ulteriori informazioni su www.bettybuoys.com <http://www.bettybuoys.com>
+
+Sentinel è la nostra boa autonoma per il controllo del traffico marino e la sorveglianza perimetrale h24, senza infrastruttura fissa a terra.
+
+Sarei lieto di presentarLe entrambe le soluzioni in una videoconferenza di 30 minuti.
+
+Distinti saluti,
+
+Luca Rovere
+
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:43.8634, lng:10.2412, name:"Approdo Madonnina Viareggio", country:"Italia", flag:"🇮🇹", email:"approdoturistico@icareviareggio.it", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"", subj:`Betty Buoys e Sentinel per l'Approdo Turistico La Madonnina — SeaInnova S.r.l.`, body:`Gentile Direzione,
+
+Le scrivo da SeaInnova S.r.l., società italiana specializzata in tecnologie IoT per infrastrutture nautiche, con sede a La Maddalena.
+
+L'Approdo Turistico La Madonnina, con i suoi 550 posti e la posizione strategica nel porto di Viareggio, è una delle marine di riferimento del Tirreno settentrionale.
+
+Betty Buoys è un sistema di ormeggio intelligente brevettato con monitoraggio in tempo reale di ogni posto barca — tensioni, posizione, condizioni meteo-marine — integrato con la piattaforma cloud NaviGoo24. Ulteriori informazioni su www.bettybuoys.com <http://www.bettybuoys.com>
+
+Sentinel è la nostra boa autonoma per il controllo del traffico marino e la sorveglianza perimetrale h24, senza infrastruttura fissa a terra.
+
+Sarei lieto di presentarLe entrambe le soluzioni in una videoconferenza di 30 minuti.
+
+Distinti saluti,
+
+Luca Rovere
+
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:42.8862, lng:10.7856, name:"Marina di Scarlino", country:"Italia", flag:"🇮🇹", email:"booking@marinadiscarlino.com", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"", subj:`Betty Buoys e Sentinel per Marina di Scarlino — SeaInnova S.r.l.`, body:`Gentile Direzione,
+
+Le scrivo da SeaInnova S.r.l., società italiana specializzata in tecnologie IoT per infrastrutture nautiche, con sede a La Maddalena.
+
+Marina di Scarlino, con i suoi 950 posti attrezzati nella splendida Maremma toscana, è una delle marine più grandi e complete del Tirreno.
+
+Betty Buoys è un sistema di ormeggio intelligente brevettato con monitoraggio in tempo reale di ogni posto barca — tensioni, posizione, condizioni meteo-marine — integrato con la piattaforma cloud NaviGoo24. Ulteriori informazioni su www.bettybuoys.com <http://www.bettybuoys.com>
+
+Sentinel è la nostra boa autonoma per il controllo del traffico marino e la sorveglianza perimetrale h24, senza infrastruttura fissa a terra.
+
+Sarei lieto di presentarLe entrambe le soluzioni in una videoconferenza di 30 minuti.
+
+Distinti saluti,
+
+Luca Rovere
+
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:41.136, lng:9.5272, name:"IGY Marina Porto Cervo", country:"Sardegna", flag:"🇮🇹", email:"sbryan@igymarinas.com", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"Simon Bryan", subj:`Sentinel and Betty Buoys for Porto Cervo Marina — SeaInnova S.r.l.`, body:`Dear Mr Bryan,
+
+I am writing to you from SeaInnova S.r.l., an Italian company based in La Maddalena, Sardinia, specialising in IoT technologies for premium nautical infrastructure.
+
+Porto Cervo is one of the most prestigious marinas in the Mediterranean, with some of the highest-value vessels in the world. Managing vessel arrivals, perimeter security and mooring operations at this level requires tools that go beyond traditional harbour watch.
+
+We offer two complementary solutions designed for marinas of your standing:
+
+Sentinel — an autonomous buoy with an integrated marine traffic detection system, operating 24/7 with real-time alerts and vessel classification, requiring no fixed onshore infrastructure.
+
+Betty Buoys — an intelligent mooring system with real-time monitoring of each berth — tension, position, meteo-marine conditions — integrated with our NaviGoo24 cloud platform.
+
+Given that you are already familiar with SeaInnova through our contact with the IGY Marinas network, I would welcome the opportunity to discuss how both systems could support Porto Cervo’s operational needs.
+
+Would you be available for a 30-minute call at your convenience?
+
+Best regards,
+
+Luca Rovere
+
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:40.9745, lng:9.5312, name:"Marina Porto Rotondo", country:"Sardegna", flag:"🇮🇹", email:"amministrazione@marinadiportorotondo.it", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"Matteo Molinas", subj:`Betty Buoys e Sentinel per Marina Porto Rotondo — SeaInnova S.r.l.`, body:`Gentile Direzione,
+
+Le scrivo da SeaInnova S.r.l., società italiana specializzata in tecnologie IoT per infrastrutture nautiche di alto livello, con sede a La Maddalena.
+
+Betty Buoys è un sistema di ormeggio intelligente brevettato con monitoraggio in tempo reale di ogni posto barca — tensioni, posizione, condizioni meteo-marine — integrato con la piattaforma cloud NaviGoo24. Ulteriori informazioni su www.bettybuoys.com
+
+Sentinel è la nostra boa autonoma per il controllo del traffico marino e la sorveglianza perimetrale h24, senza infrastruttura fissa a terra.
+
+Sarei lieto di presentarLe entrambe le soluzioni in una videoconferenza di 30 minuti.
+
+Distinti saluti,
+
+Luca Rovere
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:42.4351, lng:18.6939, name:"Porto Montenegro Tivat", country:"Montenegro", flag:"🇲🇪", email:"sales@portomontenegro.com", prod:"Betty Buoys · Sentinel", col:"#03213F", ref:"", subj:`Sentinel and Betty Buoys for Porto Montenegro — SeaInnova S.r.l.`, body:`Dear Porto Montenegro team,
+
+I am writing from SeaInnova S.r.l., an Italian company specialising in IoT systems for premium marina infrastructure, based in Sardinia.
+
+Porto Montenegro is the largest and most sophisticated superyacht marina in the Eastern Mediterranean. The combination of high-value vessels, intense seasonal traffic and the need for 24/7 perimeter control and mooring management makes it an ideal environment for our systems.
+
+We offer two complementary solutions:
+
+Sentinel — an autonomous buoy with an integrated marine traffic detection system, providing real-time vessel identification, classification and perimeter alerts 24/7, without any fixed onshore infrastructure.
+
+Betty Buoys — an intelligent mooring system with real-time monitoring of each berth — tension, position, meteo-marine conditions — integrated with our NaviGoo24 cloud platform.
+
+I would welcome the opportunity to present both systems in a 30-minute video call with your operations or commercial team.
+
+Best regards,
+
+Luca Rovere
+
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+  { lat:42.671, lng:18.1257, name:"ACI Marina Dubrovnik", country:"Croazia", flag:"🇭🇷", email:"aci@aci-club.hr", prod:"Betty Buoys · Sentinel — 22 marine", col:"#03213F", ref:"", subj:`Sentinel and Betty Buoys for ACI Marinas — SeaInnova S.r.l.`, body:`Dear ACI Marinas team,
+
+I am writing from SeaInnova S.r.l., an Italian company specialising in IoT systems for marina infrastructure, based in Sardinia.
+
+ACI Marinas operates 22 marinas along the Croatian Adriatic — one of the most traffic-intensive sailing destinations in Europe, with extreme seasonal peaks and complex multi-island navigation channels.
+
+We offer two complementary solutions designed for networks of your scale:
+
+Sentinel — an autonomous buoy with an integrated marine traffic detection system, providing real-time vessel identification, perimeter surveillance and automatic alerts 24/7, without fixed onshore infrastructure. A single system covers up to 10 nautical miles.
+
+Betty Buoys — an intelligent mooring system with real-time monitoring of each berth — tension, position, meteo-marine conditions — integrated with our NaviGoo24 cloud platform.
+
+Given the scale of your network, I would welcome the opportunity to discuss a pilot installation at one of your marinas, with a view to a broader rollout across the ACI portfolio.
+
+Would you be available for a 30-minute video call?
+
+Best regards,
+
+Luca Rovere
+
+Founder & CEO — SeaInnova S.r.l.
+luca.rovere@seainnova.com
++39 338 804 5513
+www.seainnova.com` },
+];
+
+function showTab(id, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg || 'Testo copiato — incolla con Cmd+V in Thunderbird';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+function openEmail(p) {
+  navigator.clipboard.writeText(p.body).then(() => {
+    showToast('Testo copiato — incolla con Cmd+V in Thunderbird');
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = p.body;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Testo copiato — incolla con Cmd+V in Thunderbird');
+  });
+  window.location.href = 'mailto:' + p.email + '?subject=' + encodeURIComponent(p.subj);
+}
+function openEmailById(i) { openEmail(ports[i]); }
+
+let map, markers = [], infoWindows = [];
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: 41.5, lng: 8.0 }, zoom: 5, mapTypeId: 'satellite',
+    mapTypeControl: true, streetViewControl: false, fullscreenControl: true,
+  });
+  const sidebarList = document.getElementById('sidebar-list');
+  ports.forEach((p, i) => {
+    const marker = new google.maps.Marker({
+      position: { lat: p.lat, lng: p.lng }, map, title: p.name,
+      icon: { path: google.maps.SymbolPath.CIRCLE, scale: 9, fillColor: p.col, fillOpacity: 1, strokeColor: '#ffffff', strokeWeight: 2 }
+    });
+    const refHtml = p.ref ? `<div style="font-size:11px;color:#7A8FA0;margin-bottom:6px">${p.ref}</div>` : '';
+    const previewShort = (p.body.substring(0, 140).replace(/\n/g, ' ')) + '…';
+    const contentString = `
+      <div style="font-family:'DM Sans',sans-serif;min-width:280px;max-width:320px">
+        <div style="font-size:11px;color:#7A8FA0;margin-bottom:2px">${p.flag} ${p.country}</div>
+        <div style="font-family:Georgia,serif;font-size:15px;font-weight:bold;color:#03213F;margin-bottom:3px">${p.name}</div>
+        ${refHtml}
+        <div style="font-size:10px;color:#1A7BB8;font-weight:600;margin-bottom:6px">${p.prod}</div>
+        <div style="font-size:10px;color:#7A8FA0;text-transform:uppercase;letter-spacing:0.5px">Email</div>
+        <div style="font-family:monospace;font-size:11px;color:#1A2B3C;margin-top:1px;margin-bottom:4px">${p.email}</div>
+        <div style="font-size:10px;color:#7A8FA0;text-transform:uppercase;letter-spacing:0.5px;margin-top:6px">Oggetto</div>
+        <div style="font-size:11px;color:#1A2B3C;margin-top:1px;margin-bottom:8px;font-style:italic">${p.subj}</div>
+        <div style="font-size:10px;color:#7A8FA0;text-transform:uppercase;letter-spacing:0.5px">Anteprima</div>
+        <div style="font-size:11px;color:#4A7FA0;margin-top:2px;margin-bottom:10px;line-height:1.4">${previewShort}</div>
+        <button onclick="openEmailById(${i})" style="display:block;width:100%;text-align:center;background:#03213F;color:white;border:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:9px;border-radius:5px;cursor:pointer">
+          Copia testo + Apri email
+        </button>
+      </div>`;
+    const infoWindow = new google.maps.InfoWindow({ content: contentString, maxWidth: 340 });
+    infoWindows.push(infoWindow);
+    markers.push(marker);
+    marker.addListener('click', () => {
+      infoWindows.forEach(iw => iw.close());
+      infoWindow.open(map, marker);
+      highlightSidebar(i);
+    });
+    const item = document.createElement('div');
+    item.className = 'port-item';
+    item.dataset.index = i;
+    item.innerHTML = `<div class="port-dot" style="background:${p.col}"></div><div class="port-info"><div class="port-name">${p.flag} ${p.name}</div><div class="port-country">${p.country} — ${p.prod}</div></div>`;
+    item.addEventListener('click', () => {
+      map.panTo({ lat: p.lat, lng: p.lng }); map.setZoom(10);
+      infoWindows.forEach(iw => iw.close());
+      infoWindow.open(map, marker);
+      highlightSidebar(i);
+    });
+    sidebarList.appendChild(item);
+  });
+}
+function highlightSidebar(i) {
+  document.querySelectorAll('.port-item').forEach(el => el.classList.remove('active'));
+  const el = document.querySelector(`.port-item[data-index="${i}"]`);
+  if (el) { el.classList.add('active'); el.scrollIntoView({ block: 'nearest' }); }
+}
+function buildEmailCards() {
+  const container = document.getElementById('email-cards');
+  ports.forEach((p, i) => {
+    const cls = p.cls || '';
+    const refHtml = p.ref ? `<div class="ei-ref">${p.ref}</div>` : '';
+    const btnCls = cls === 'zmel' ? 'mail-btn green' : cls === 'strategic' ? 'mail-btn orange' : 'mail-btn';
+    const card = document.createElement('div');
+    card.className = `ecard ${cls}`;
+    card.innerHTML = `
+      <div class="flag">${p.flag}</div>
+      <div class="ei">
+        <div class="ei-name">${p.name}</div>
+        ${refHtml}
+        <div class="ei-email">${p.email}</div>
+        <div class="ei-prod">${p.prod}</div>
+        <button class="${btnCls}" onclick="openEmailById(${i})">Copia + Apri email</button>
+        <span class="preview-toggle" onclick="togglePreview(this)">▼ Vedi testo</span>
+        <div class="preview-box">${p.body.replace(/</g,'&lt;')}</div>
+      </div>`;
+    container.appendChild(card);
+  });
+}
+function togglePreview(el) {
+  const box = el.nextElementSibling;
+  box.classList.toggle('open');
+  el.textContent = box.classList.contains('open') ? '▲ Nascondi' : '▼ Vedi testo';
+}
+document.addEventListener('DOMContentLoaded', buildEmailCards);
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMnAMiZF85hY16fN7YkiHSu7BzIeVMqIo&callback=initMap"></script>
+</body>
+</html>
