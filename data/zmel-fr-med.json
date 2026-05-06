@@ -1,0 +1,699 @@
+{
+  "$schema": "ZMEL Méditerranée française — dataset curato Betty Buoys",
+  "generated": "2026-05-06",
+  "verified_by": "Manual research from arrêtés préfectoraux, sites communes, PNF/PNRC, articles presse spécialisée",
+  "scope": "Méditerranée française (PACA + Occitanie + Corse) — ZMEL et campos de mouillages organisés officiels",
+  "stats": {
+    "operative": 15,
+    "in_progress": 5,
+    "total": 20
+  },
+  "buoyFields": [
+    {
+      "id": "zmel-pampelonne",
+      "name": "Pampelonne",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "operative",
+      "dept_code": "83",
+      "dept_name": "Var",
+      "lat": 43.2167,
+      "lon": 6.6500,
+      "capacity": {
+        "total": 210,
+        "breakdown": "60 grande plaisance + 50 résidents + 100 plagistes",
+        "since": 2025
+      },
+      "vessel_min_length_m": 7,
+      "vessel_max_length_m": 80,
+      "season": "mai-octobre",
+      "manager": {
+        "name": "Commune de Ramatuelle",
+        "type": "commune",
+        "website": "https://www.ramatuelle.fr/projet-de-zone-de-mouillage-dequipements-legers-zmel/",
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "regulation": {
+        "decree": "Arrêté préfectoral 045/2025",
+        "date": "2025-03-21",
+        "duration_years": null
+      },
+      "tech": "Corinthe Ingénierie — ancrages à vis sur roche, sans béton, sans contact avec posidonie",
+      "reservation_app": "Donia",
+      "sources": [
+        "https://www.ramatuelle.fr/projet-de-zone-de-mouillage-dequipements-legers-zmel/",
+        "https://www.constructionbtp.com/infrastructures/article/2025/06/30/153480/zmel-plage-pampelonne-ouvre-ses-premiers-emplacements"
+      ]
+    },
+    {
+      "id": "zmel-cavaliere",
+      "name": "Cavalière (Le Lavandou)",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "operative",
+      "dept_code": "83",
+      "dept_name": "Var",
+      "lat": 43.1300,
+      "lon": 6.3700,
+      "capacity": {
+        "total": 71,
+        "breakdown": "passage jusqu'à 40m + riverains + professionnels",
+        "since": 2025
+      },
+      "vessel_max_length_m": 40,
+      "area_ha": 86,
+      "season": "annuelle",
+      "manager": {
+        "name": "Commune du Lavandou",
+        "type": "commune",
+        "website": "https://www.le-lavandou.fr/",
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "regulation": {
+        "decree": "Arrêté inter-préfectoral",
+        "date": "2024-07-25",
+        "duration_years": null
+      },
+      "notes": "Lauréat Prix Thomas Joly 2024. Travaux automne 2024, ouverture mai 2025.",
+      "sources": [
+        "https://www.le-lavandou.fr/"
+      ]
+    },
+    {
+      "id": "zmel-hyeres-st-pierre",
+      "name": "Hyères Saint-Pierre",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "operative",
+      "dept_code": "83",
+      "dept_name": "Var",
+      "lat": 43.0900,
+      "lon": 6.1500,
+      "capacity": {
+        "total": 49,
+        "breakdown": "Sud (170 ha) : 46 bouées <24m + Est (75 ha) : 3 coffres 24-40m",
+        "since": 2026
+      },
+      "vessel_max_length_m": 40,
+      "area_ha": 245,
+      "season": "annuelle",
+      "manager": {
+        "name": "Commune d'Hyères / portsHyeres",
+        "type": "commune",
+        "website": "https://www.hyeres.fr/",
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "regulation": {
+        "decree": "Arrêtés inter-préfectoraux",
+        "date": "2026-01-09",
+        "duration_years": null
+      },
+      "notes": "NUOVA 2026. Installation mars-avril 2026, opérationnelle été 2026.",
+      "sources": [
+        "https://www.var.gouv.fr/Actions-de-l-Etat/Mer-et-littoral/Une-ZMEL-a-Hyeres-a-l-ete-2026"
+      ]
+    },
+    {
+      "id": "zmel-portcros-bagaud",
+      "name": "Port-Cros — Bagaud",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "operative",
+      "dept_code": "83",
+      "dept_name": "Var",
+      "lat": 43.0167,
+      "lon": 6.4000,
+      "capacity": {
+        "total": 68,
+        "breakdown": "60 bouées 0-15m (4 zones) + 5 bouées 15-30m + 3 résidents <15m",
+        "since": 2020
+      },
+      "vessel_max_length_m": 30,
+      "area_ha": 176,
+      "season": "15 avril - 15 octobre",
+      "manager": {
+        "name": "Parc national de Port-Cros et Porquerolles",
+        "type": "national_park",
+        "website": "https://www.portcros-parcnational.fr/",
+        "phone": "+33 4 94 01 40 72",
+        "email": "capitainerie@portcros-parcnational.fr",
+        "contact_person": "Capitainerie PNF"
+      },
+      "regulation": {
+        "decree": "Arrêté inter-préfectoral 039/2020 PREMAR / DDTM-SML 001/2020",
+        "date": "2020-03-24",
+        "duration_years": 15
+      },
+      "reservation_app": "portcros.smartwaters.com",
+      "notes": "Usage diurne libre 8-18h, nuit payante avec réservation.",
+      "sources": [
+        "https://www.portcros-parcnational.fr/fr/des-decouvertes/sejourner/la-zmel-de-bagaud"
+      ]
+    },
+    {
+      "id": "zmel-agay",
+      "name": "Agay",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "operative",
+      "dept_code": "83",
+      "dept_name": "Var",
+      "lat": 43.4283,
+      "lon": 6.8567,
+      "capacity": {
+        "total": 163,
+        "breakdown": "123 bouées <16m + 40 places sur brise-lames <5m",
+        "since": 2019
+      },
+      "vessel_max_length_m": 16,
+      "season": "avril-octobre (bouées retirées en hiver)",
+      "manager": {
+        "name": "Commune de Saint-Raphaël — Ports de Saint-Raphaël",
+        "type": "commune",
+        "website": "https://www.ville-saintraphael.fr/",
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "regulation": {
+        "decree": "Arrêté préfectoral 135/2019",
+        "date": "2019",
+        "duration_years": null
+      },
+      "tech": "Système à tension flottante intermédiaire, protection herbiers de posidonie.",
+      "sources": [
+        "https://www.ville-saintraphael.fr/"
+      ]
+    },
+    {
+      "id": "zmel-antibes-crouton",
+      "name": "Antibes — Anse du Croûton",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "operative",
+      "dept_code": "06",
+      "dept_name": "Alpes-Maritimes",
+      "lat": 43.5667,
+      "lon": 7.1300,
+      "capacity": {
+        "total": 47,
+        "breakdown": "47 bouées été (15 avr - 15 oct) / 9 bouées hiver",
+        "since": 2025
+      },
+      "vessel_max_length_m": null,
+      "season": "annuelle (capacité réduite hiver)",
+      "manager": {
+        "name": "Ville d'Antibes Juan-les-Pins",
+        "type": "commune",
+        "website": "https://www.antibes-juanlespins.com/vivre-a-antibes/lenvironnement/natura-2000/zone-de-mouillage-et-dequipements-legers-zmel-anse-du-crouton",
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "regulation": {
+        "decree": null,
+        "date": "2025-07-19",
+        "duration_years": null
+      },
+      "notes": "Site Natura 2000. Opérationnel depuis 19 juillet 2025.",
+      "sources": [
+        "https://www.antibes-juanlespins.com/vivre-a-antibes/lenvironnement/natura-2000/zone-de-mouillage-et-dequipements-legers-zmel-anse-du-crouton"
+      ]
+    },
+    {
+      "id": "zmel-villefranche",
+      "name": "Villefranche-sur-Mer",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "operative",
+      "dept_code": "06",
+      "dept_name": "Alpes-Maritimes",
+      "lat": 43.7000,
+      "lon": 7.3083,
+      "capacity": {
+        "total": 60,
+        "breakdown": "30 bouées Rochambeau + 30 bouées Palais de la Marine. 25% réservés à la plaisance de passage.",
+        "since": 2021
+      },
+      "vessel_min_length_m": 6,
+      "vessel_max_length_m": 16,
+      "season": "annuelle",
+      "manager": {
+        "name": "Commune de Villefranche-sur-Mer",
+        "type": "commune",
+        "website": "https://villefranche-sur-mer.fr/le-service-des-mouillages/",
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "regulation": {
+        "decree": "Arrêté inter-préfectoral",
+        "date": "2020-12-23",
+        "duration_years": 15
+      },
+      "sources": [
+        "https://villefranche-sur-mer.fr/le-service-des-mouillages/"
+      ]
+    },
+    {
+      "id": "zmel-port-miou",
+      "name": "Calanque de Port-Miou (Cassis)",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "operative",
+      "dept_code": "13",
+      "dept_name": "Bouches-du-Rhône",
+      "lat": 43.2117,
+      "lon": 5.5333,
+      "capacity": {
+        "total": 487,
+        "breakdown": "388 bouées permanentes + 69 de passage (jour) + 30 bouées écologiques en pré-Calanque",
+        "since": 2010
+      },
+      "vessel_max_length_m": 17,
+      "season": "annuelle",
+      "manager": {
+        "name": "CN Port-Miou (Club Nautique)",
+        "type": "association",
+        "website": "https://www.cnport-miou.org/",
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "tech": "Pontons flottants + fixes. Bouées écologiques depuis 2010 dans la zone d'entrée du Parc national des Calanques.",
+      "notes": "Plus grand campo boe organisé d'France Méditerranée par capacité.",
+      "sources": [
+        "https://www.cnport-miou.org/"
+      ]
+    },
+    {
+      "id": "zmel-pn-calanques",
+      "name": "PN Calanques (Marseille)",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "operative",
+      "dept_code": "13",
+      "dept_name": "Bouches-du-Rhône",
+      "lat": 43.2150,
+      "lon": 5.4400,
+      "capacity": {
+        "total": null,
+        "breakdown": "Schéma global: 7 sites planifiés pour 2024 (Pomègues ouest/Frioul, Marseilleveyre, Sormiou, Pierres Tombées/Morgiou, Île Verte/La Ciotat, baie de La Ciotat, Pointe Grenier/Saint-Cyr).",
+        "since": 2012
+      },
+      "vessel_max_length_m": null,
+      "season": "annuelle",
+      "manager": {
+        "name": "Parc national des Calanques",
+        "type": "national_park",
+        "website": "https://www.calanques-parcnational.fr/",
+        "phone": "+33 4 20 10 50 00",
+        "email": null,
+        "contact_person": "Eloïse Faure — Chargée de mission organisation des mouillages",
+        "address": "141 avenue du Prado, Bâtiment A, 13008 Marseille"
+      },
+      "notes": "Interdiction d'ancrage à En-Vau et Port-Pin. Bouées obligatoires sur sites Sormiou/Morgiou. Dataset OpenData officiel disponible (geo.data.gouv.fr).",
+      "sources": [
+        "https://www.calanques-parcnational.fr/en/general-mooring-strategy",
+        "https://geo.data.gouv.fr/fr/datasets/e0dd7624d1415f2072580f9adb5a9c973f8f8998"
+      ]
+    },
+    {
+      "id": "zmel-cerbere-banyuls",
+      "name": "Réserve marine Cerbère-Banyuls",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "operative",
+      "dept_code": "66",
+      "dept_name": "Pyrénées-Orientales",
+      "lat": 42.4833,
+      "lon": 3.1283,
+      "capacity": {
+        "total": 32,
+        "breakdown": null,
+        "since": 1974
+      },
+      "vessel_max_length_m": null,
+      "season": "annuelle",
+      "manager": {
+        "name": "Réserve marine de Cerbère-Banyuls (Département des Pyrénées-Orientales)",
+        "type": "marine_reserve",
+        "website": "https://reserves-naturelles.org/cerbere-banyuls",
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "regulation": {
+        "decree": "Décret de création RN 1974",
+        "date": "1974",
+        "duration_years": null
+      },
+      "sources": [
+        "https://reserves-naturelles.org/cerbere-banyuls"
+      ]
+    },
+    {
+      "id": "zmel-cote-vermeille",
+      "name": "Côte Vermeille (PNM Golfe du Lion)",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "operative",
+      "dept_code": "66",
+      "dept_name": "Pyrénées-Orientales",
+      "lat": 42.5283,
+      "lon": 3.0833,
+      "capacity": {
+        "total": 52,
+        "breakdown": "La Moulade (Collioure) 5 + Cap Gros (Port-Vendres) 16 + Sainte-Catherine (Port-Vendres) 28 + Canadells (Cerbère) 3",
+        "since": null
+      },
+      "vessel_max_length_m": null,
+      "season": "1er avril - 30 novembre",
+      "manager": {
+        "name": "Parc naturel marin du Golfe du Lion",
+        "type": "marine_park",
+        "website": "https://parc-marin-golfe-lion.fr/editorial/la-zmel-en-pratique",
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "notes": "4 sites distincts. Bouées rouges (visiteurs) + bouées blanches (résidents). Mouillage gratuit, max 4h diurne sans réservation.",
+      "sources": [
+        "https://parc-marin-golfe-lion.fr/editorial/la-zmel-en-pratique"
+      ]
+    },
+    {
+      "id": "zmel-paulilles",
+      "name": "Paulilles (Port-Vendres)",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "operative",
+      "dept_code": "66",
+      "dept_name": "Pyrénées-Orientales",
+      "lat": 42.5167,
+      "lon": 3.1167,
+      "capacity": {
+        "total": null,
+        "breakdown": "Capacité non publiée",
+        "since": 2023
+      },
+      "manager": {
+        "name": "Conservatoire du Littoral / PNM Golfe du Lion",
+        "type": "conservatoire",
+        "website": "https://www.conservatoire-du-littoral.fr/",
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "notes": "ZMEL installée en 2023. Site Conservatoire du Littoral.",
+      "sources": [
+        "https://parc-marin-golfe-lion.fr/"
+      ]
+    },
+    {
+      "id": "zmel-lava",
+      "name": "Lava (Ajaccio)",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "operative",
+      "dept_code": "2A",
+      "dept_name": "Corse-du-Sud",
+      "lat": 41.9333,
+      "lon": 8.6500,
+      "capacity": {
+        "total": 141,
+        "breakdown": "33 places de passage + 108 résidents/pêcheurs/nautique",
+        "since": 2024
+      },
+      "vessel_max_length_m": 20,
+      "season": "annuelle (renouvellement des AOT à partir du 1er mars)",
+      "manager": {
+        "name": "Communauté d'Agglomération du Pays Ajaccien (CAPA)",
+        "type": "intercommunal",
+        "website": "https://www.ca-ajaccien.corsica/la-zone-de-mouillage-et-dequipements-legers-zmel-de-lava/",
+        "phone": null,
+        "email": "zmel-golfe-de-lava@mail.registre-numerique.fr",
+        "contact_person": null,
+        "address": "18 rue Antoine Sollacaro, 20000 Ajaccio"
+      },
+      "regulation": {
+        "decree": "Arrêté inter-préfectoral",
+        "date": "2023-09-25",
+        "duration_years": 15,
+        "convention": "2024-2039"
+      },
+      "notes": "Avant la ZMEL, environ 195 mouillages sauvages. Première ZMEL Corse-du-Sud structurée à grande échelle.",
+      "sources": [
+        "https://www.ca-ajaccien.corsica/la-zone-de-mouillage-et-dequipements-legers-zmel-de-lava/"
+      ]
+    },
+    {
+      "id": "zmel-santa-giulia",
+      "name": "Santa Giulia (Porto-Vecchio)",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmo",
+      "status": "operative",
+      "dept_code": "2A",
+      "dept_name": "Corse-du-Sud",
+      "lat": 41.5333,
+      "lon": 9.2833,
+      "capacity": {
+        "total": 30,
+        "breakdown": "3 catégories de taille: <9m, 9-15m, 15-20m",
+        "since": null
+      },
+      "vessel_max_length_m": 20,
+      "season": "saison estivale",
+      "manager": {
+        "name": "Aztech Marine (opérateur privé)",
+        "type": "private",
+        "website": null,
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "notes": "Zone de mouillage organisé (ZMO), pas une ZMEL formelle. Gérée par opérateur privé.",
+      "sources": []
+    },
+    {
+      "id": "zmel-rnbb-lavezzi",
+      "name": "Réserve Bouches de Bonifacio (Lavezzi)",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "reserve",
+      "status": "operative",
+      "dept_code": "2A",
+      "dept_name": "Corse-du-Sud",
+      "lat": 41.3500,
+      "lon": 9.2500,
+      "capacity": {
+        "total": null,
+        "breakdown": "Mouillage régulé. Limite 2000 visiteurs/jour aux Lavezzi (QR code). ZMEL grande plaisance expérimentale max 45 navires.",
+        "since": 1999
+      },
+      "vessel_max_length_m": null,
+      "season": "saison estivale",
+      "manager": {
+        "name": "Office de l'Environnement de la Corse / Réserve Naturelle des Bouches de Bonifacio",
+        "type": "marine_reserve",
+        "website": "https://www.parc-marin-cap-corse-agriate.fr/",
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "regulation": {
+        "decree": "Décret de création Réserve Naturelle 1999",
+        "date": "1999",
+        "duration_years": null
+      },
+      "notes": "79 640 ha, 5 communes. Bouées sub-surface préconisées pour éviter le ragage.",
+      "sources": [
+        "https://www.journaldelacorse.corsica/articles/2480/de-nouvelles-mesures-cet-ete-aux-lavezzi"
+      ]
+    },
+    {
+      "id": "zmel-porquerolles-projet",
+      "name": "Porquerolles (en projet)",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "in-progress",
+      "dept_code": "83",
+      "dept_name": "Var",
+      "lat": 43.0050,
+      "lon": 6.2167,
+      "capacity": {
+        "total": 354,
+        "breakdown": "Sur 5 sites principaux de l'île",
+        "horizon": 2028
+      },
+      "manager": {
+        "name": "Parc national de Port-Cros et Porquerolles",
+        "type": "national_park",
+        "website": "https://www.portcros-parcnational.fr/fr/des-actions/proteger-et-preserver/point-detape-projet-de-nouvelle-organisation-des-mouillages",
+        "phone": "+33 4 94 01 40 72",
+        "email": "capitainerie@portcros-parcnational.fr",
+        "contact_person": "Capitainerie PNF"
+      },
+      "notes": "Projet majeur — 354 bouées à l'horizon 2028. Lead commercial chaud.",
+      "sources": [
+        "https://www.portcros-parcnational.fr/fr/des-actions/proteger-et-preserver/point-detape-projet-de-nouvelle-organisation-des-mouillages"
+      ]
+    },
+    {
+      "id": "zmel-saint-florent-projet",
+      "name": "Saint-Florent / San Fiurenzu (en projet)",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "in-progress",
+      "dept_code": "2B",
+      "dept_name": "Haute-Corse",
+      "lat": 42.6833,
+      "lon": 9.3000,
+      "capacity": {
+        "total": null,
+        "breakdown": "Capacité en cours d'instruction",
+        "horizon": 2026
+      },
+      "manager": {
+        "name": "Commune de San Fiurenzu / Parc naturel marin Cap Corse Agriate",
+        "type": "commune",
+        "website": "https://parc-marin-cap-corse-agriate.fr/",
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "notes": "Avis simple favorable du PNMCCA février 2025. Lead commercial chaud.",
+      "sources": [
+        "https://www.ofb.gouv.fr/sites/default/files/Fichiers/Actes%20administratifs/PNMCCA_D%C3%A9l_BUR_2025_02_avis_simple_ZMEL_SanFiurenzu%20(2).pdf"
+      ]
+    },
+    {
+      "id": "zmel-calvi-projet",
+      "name": "Calvi + Revellata (en projet)",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "in-progress",
+      "dept_code": "2B",
+      "dept_name": "Haute-Corse",
+      "lat": 42.5700,
+      "lon": 8.7567,
+      "capacity": {
+        "total": 50,
+        "breakdown": "2 ZMEL avec 50 bouées totales",
+        "horizon": null
+      },
+      "vessel_max_length_m": 60,
+      "manager": {
+        "name": "Commune de Calvi",
+        "type": "commune",
+        "website": "https://www.balagne-corsica.com/",
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "notes": "Projet annoncé. Cible grande plaisance (jusqu'à 60m).",
+      "sources": []
+    },
+    {
+      "id": "zmel-erbalunga-pilot",
+      "name": "Erbalunga (Brandu) — pilote",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "pilot",
+      "status": "operative",
+      "dept_code": "2B",
+      "dept_name": "Haute-Corse",
+      "lat": 42.7567,
+      "lon": 9.4633,
+      "capacity": {
+        "total": 2,
+        "breakdown": "2 mouillages cast iron + bouées connectées (premier en Corse)",
+        "since": null
+      },
+      "manager": {
+        "name": "Parc naturel marin du Cap Corse et de l'Agriate",
+        "type": "marine_park",
+        "website": "https://parc-marin-cap-corse-agriate.fr/actualites/bouees-connectees-et-mouillage-innovant-au-sein-du-parc",
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "notes": "Site pilote. Bouées connectées avec gestion à distance des réservations. Très intéressant pour Betty Buoys (proof of concept du tech).",
+      "sources": [
+        "https://parc-marin-cap-corse-agriate.fr/actualites/bouees-connectees-et-mouillage-innovant-au-sein-du-parc"
+      ]
+    },
+    {
+      "id": "zmel-cap-corse-projets",
+      "name": "Cap Corse (Centuri/Ruglianu/Brandu — en projet)",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "in-progress",
+      "dept_code": "2B",
+      "dept_name": "Haute-Corse",
+      "lat": 42.9700,
+      "lon": 9.3500,
+      "capacity": {
+        "total": null,
+        "breakdown": "3 communes en préparation de dossiers ZMEL",
+        "horizon": null
+      },
+      "manager": {
+        "name": "Parc naturel marin du Cap Corse et de l'Agriate",
+        "type": "marine_park",
+        "website": "https://parc-marin-cap-corse-agriate.fr/",
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "notes": "Centuri, Ruglianu et Brandu accompagnés par le PNMCCA pour leurs ZMEL. Lead commercial multi-sites.",
+      "sources": [
+        "https://parc-marin-cap-corse-agriate.fr/editorial/le-mouillage-au-sein-du-parc"
+      ]
+    }
+  ]
+}
