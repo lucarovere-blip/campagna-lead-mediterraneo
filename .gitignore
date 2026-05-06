@@ -1,6 +1,8 @@
 # Output di script di audit/import (non sorgente)
 wfs-audit.json
+zmel-scan.json
 *.audit.json
+*.scan.json
 
 # Node
 node_modules/
