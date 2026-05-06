@@ -382,7 +382,7 @@ footer p{font-size:.68rem;color:rgba(255,255,255,.2);font-weight:400}
       </div>
       <div class="form-group">
         <label class="form-label">Area di interesse</label>
-        <select class="form-select">
+        <select id="form-area" class="form-select">
           <option value="">Seleziona...</option>
           <option>Sicurezza marina</option>
           <option>Monitoraggio ambientale</option>
@@ -393,7 +393,7 @@ footer p{font-size:.68rem;color:rgba(255,255,255,.2);font-weight:400}
       </div>
       <div class="form-group">
         <label class="form-label">Messaggio</label>
-        <textarea class="form-textarea" placeholder="Descrivici brevemente il tuo contesto e obiettivi..."></textarea>
+        <textarea id="form-message" class="form-textarea" placeholder="Descrivici brevemente il tuo contesto e obiettivi..."></textarea>
       </div>
       <button class="form-submit">Invia richiesta →</button>
     </div>
@@ -427,6 +427,35 @@ document.querySelectorAll('.sol-tab').forEach(tab => {
     document.querySelector('.sol-panel[data-s="' + t + '"]').classList.add('active');
   });
 });
+</script>
+<script>
+/* Pre-compilazione form contatti da querystring (es. da mappa-boe.html) */
+(function(){
+  try{
+    const params = new URLSearchParams(window.location.search);
+    const subject = params.get('subject');
+    if(!subject) return;
+    const msg = document.getElementById('form-message');
+    const area = document.getElementById('form-area');
+    if(msg){
+      const intro = `Oggetto: ${subject}\n\nVi contatto in merito a "${subject}" tramite la mappa boe del sito.\n\n`;
+      msg.value = intro + (msg.value || '');
+      msg.focus();
+      msg.setSelectionRange(msg.value.length, msg.value.length);
+    }
+    if(area){
+      // sceglie l'opzione più pertinente
+      const opt = subject.toLowerCase().includes('zmel') || subject.toLowerCase().includes('amp')
+        ? 'Monitoraggio ambientale'
+        : 'Sicurezza marina';
+      for(const o of area.options){ if(o.text === opt){ area.value = o.text; break; } }
+    }
+    // scroll automatico al form se il fragment lo chiede
+    if(window.location.hash === '#contatti'){
+      setTimeout(()=>document.getElementById('contatti')?.scrollIntoView({behavior:'smooth',block:'start'}), 80);
+    }
+  }catch(e){ /* fail silently */ }
+})();
 </script>
 </body>
 </html>

@@ -169,7 +169,7 @@ h1.app-h1 em{font-style:italic;color:var(--mid)}
     <div class="side-pad">
       <p class="eyebrow">Reti oceanografiche</p>
       <h1 class="app-h1">Tutte le boe<br>del <em>Mediterraneo.</em></h1>
-      <p class="lead">Un atlante interattivo dei campi boe del Mediterraneo: reti ondametriche e multiparametriche pubbliche (Italia, Spagna, Francia, Grecia, Cipro, Israele) e ZMEL francesi di mouillage ecologico (PACA, Occitania, Corsica).</p>
+      <p class="lead">Atlante interattivo dei campi boe del Mediterraneo: reti ondametriche e multiparametriche pubbliche, ZMEL francesi di mouillage ecologico, AMP italiane con campi ormeggio organizzati.</p>
     </div>
 
     <div class="stats">
@@ -371,6 +371,49 @@ const BUOYS = [
   {id:"zmel-lavezzi",name:"&Icirc;les Lavezzi (Bonifacio)",country:"Francia",flag:"FR",network:"ZMEL",operator:"R&eacute;serve naturelle des Bouches de Bonifacio",type:"mooring",lat:41.3500,lon:9.2500,capacity:30,maxLength:18,season:"apr-ott",desc:"Riserva naturale delle Bouches de Bonifacio, mouillage regolamentato.",source:"https://www.parc-corse.org/"},
   {id:"zmel-portovecchio",name:"Porto-Vecchio",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de Porto-Vecchio",type:"mooring",lat:41.5833,lon:9.3000,capacity:50,maxLength:20,season:"apr-ott",desc:"Mouillage organizzato nelle baie a sud di Porto-Vecchio.",source:"https://www.porto-vecchio.fr/"},
   {id:"zmel-solenzara",name:"Solenzara",country:"Francia",flag:"FR",network:"ZMEL",operator:"Commune de Sari-Solenzara",type:"mooring",lat:41.8500,lon:9.4000,capacity:25,maxLength:15,season:"giu-set",desc:"Costa orientale della Corsica.",source:"https://www.sari-solenzara.fr/"},
+
+  // ─── ITALIA — AMP (Aree Marine Protette) con campi ormeggio organizzati ───
+  // Capacità approssimative; per dettagli e regolamenti consultare ente gestore.
+  // ── Liguria ──
+  {id:"amp-portofino",name:"AMP Portofino",country:"Italia",flag:"IT",network:"AMP",operator:"Consorzio AMP Portofino",type:"mooring",lat:44.3000,lon:9.2167,capacity:100,maxLength:24,season:"apr-ott",desc:"Cale Olivetta, dell'Oro e Niasca; campi ormeggio a tutela del coralligeno.",source:"https://www.portofinoamp.it/"},
+  {id:"amp-cinqueterre",name:"AMP Cinque Terre",country:"Italia",flag:"IT",network:"AMP",operator:"AMP Cinque Terre",type:"mooring",lat:44.1167,lon:9.7333,capacity:80,maxLength:24,season:"apr-ott",desc:"Campi ormeggio nelle cale di Riomaggiore, Manarola, Vernazza e Monterosso.",source:"https://www.amptcinqueterre.it/"},
+
+  // ── Toscana / Lazio ──
+  {id:"amp-toscano",name:"Parco Arc. Toscano",country:"Italia",flag:"IT",network:"PNAT",operator:"Parco Nazionale Arcipelago Toscano",type:"mooring",lat:42.7500,lon:10.3000,capacity:120,maxLength:24,season:"apr-ott",desc:"Campi ormeggio organizzati nelle isole Capraia, Giglio, Pianosa e Montecristo.",source:"https://www.islepark.it/"},
+  {id:"amp-tor-paterno",name:"AMP Secche di Tor Paterno",country:"Italia",flag:"IT",network:"AMP",operator:"RomaNatura",type:"mooring",lat:41.5783,lon:12.3517,capacity:30,maxLength:18,season:"apr-ott",desc:"Unica AMP del Lazio, secche off-shore Castel Porziano.",source:"https://www.romanatura.roma.it/"},
+
+  // ── Campania ──
+  {id:"amp-puntacampanella",name:"AMP Punta Campanella",country:"Italia",flag:"IT",network:"AMP",operator:"AMP Punta Campanella",type:"mooring",lat:40.5667,lon:14.3333,capacity:90,maxLength:24,season:"giu-set",desc:"Cale di Mitigliano, Ieranto, Crapolla; tutela praterie di Posidonia.",source:"https://www.puntacampanella.org/"},
+  {id:"amp-regnoneturo",name:"AMP Regno di Nettuno",country:"Italia",flag:"IT",network:"AMP",operator:"AMP Regno di Nettuno",type:"mooring",lat:40.7000,lon:13.9333,capacity:120,maxLength:24,season:"apr-ott",desc:"Acque di Ischia, Procida e Vivara; campi ormeggio ecologici.",source:"https://www.nettunoamp.it/"},
+  {id:"amp-castellabate",name:"AMP S. M. Castellabate",country:"Italia",flag:"IT",network:"AMP",operator:"AMP S.M. Castellabate",type:"mooring",lat:40.2700,lon:14.9333,capacity:60,maxLength:18,season:"giu-set",desc:"Cilento, costa di Punta Licosa.",source:"https://www.amp-santamariadicastellabate.it/"},
+  {id:"amp-infreschi",name:"AMP Costa degli Infreschi",country:"Italia",flag:"IT",network:"AMP",operator:"AMP Costa degli Infreschi e della Masseta",type:"mooring",lat:40.0333,lon:15.4500,capacity:40,maxLength:18,season:"giu-set",desc:"Cilento meridionale, baie di Marina di Camerota.",source:"https://www.ampcostadegliinfreschi.it/"},
+
+  // ── Puglia / Abruzzo ──
+  {id:"amp-torreguaceto",name:"AMP Torre Guaceto",country:"Italia",flag:"IT",network:"AMP",operator:"Consorzio Torre Guaceto",type:"mooring",lat:40.7167,lon:17.7833,capacity:40,maxLength:15,season:"giu-set",desc:"Adriatico, costa brindisina; ormeggi in zona B/C.",source:"https://www.riservaditorreguaceto.it/"},
+  {id:"amp-portocesareo",name:"AMP Porto Cesareo",country:"Italia",flag:"IT",network:"AMP",operator:"AMP Porto Cesareo",type:"mooring",lat:40.2583,lon:17.8917,capacity:50,maxLength:18,season:"giu-set",desc:"Salento ionico, isola Grande e Piccola.",source:"https://www.ampportocesareo.it/"},
+  {id:"amp-tremiti",name:"AMP Isole Tremiti",country:"Italia",flag:"IT",network:"AMP",operator:"AMP Isole Tremiti",type:"mooring",lat:42.1217,lon:15.5083,capacity:60,maxLength:20,season:"giu-set",desc:"Arcipelago adriatico off-shore Gargano.",source:"https://www.isoletremiti.it/"},
+  {id:"amp-cerrano",name:"AMP Torre del Cerrano",country:"Italia",flag:"IT",network:"AMP",operator:"AMP Torre del Cerrano",type:"mooring",lat:42.5833,lon:14.0833,capacity:30,maxLength:15,season:"giu-set",desc:"Adriatico abruzzese, costa Pineto-Silvi.",source:"https://www.torredelcerrano.it/"},
+
+  // ── Calabria ──
+  {id:"amp-caporizzuto",name:"AMP Capo Rizzuto",country:"Italia",flag:"IT",network:"AMP",operator:"AMP Capo Rizzuto",type:"mooring",lat:38.9000,lon:17.0833,capacity:50,maxLength:18,season:"giu-set",desc:"Ionio calabrese, area marina pi&ugrave; estesa d'Italia.",source:"https://www.riservamarinacaporizzuto.it/"},
+
+  // ── Sicilia ──
+  {id:"amp-egadi",name:"AMP Isole Egadi",country:"Italia",flag:"IT",network:"AMP",operator:"AMP Isole Egadi",type:"mooring",lat:37.9333,lon:12.3333,capacity:200,maxLength:24,season:"apr-ott",desc:"Pi&ugrave; grande AMP d'Europa: Favignana, Levanzo, Marettimo. Cale Rossa, Bue Marino, Marasolo.",source:"https://www.ampisoleegadi.it/"},
+  {id:"amp-ustica",name:"AMP Isola di Ustica",country:"Italia",flag:"IT",network:"AMP",operator:"AMP Ustica",type:"mooring",lat:38.7000,lon:13.1833,capacity:60,maxLength:20,season:"apr-ott",desc:"Tirreno meridionale, prima AMP d'Italia (1986).",source:"https://www.ampustica.it/"},
+  {id:"amp-capogallo",name:"AMP Capo Gallo - Isola delle Femmine",country:"Italia",flag:"IT",network:"AMP",operator:"AMP Capo Gallo",type:"mooring",lat:38.2167,lon:13.2833,capacity:40,maxLength:18,season:"giu-set",desc:"Tirreno palermitano, costa rocciosa.",source:"https://www.ampcapogallo.it/"},
+  {id:"amp-plemmirio",name:"AMP Plemmirio",country:"Italia",flag:"IT",network:"AMP",operator:"AMP Plemmirio",type:"mooring",lat:37.0167,lon:15.3333,capacity:60,maxLength:20,season:"giu-set",desc:"Penisola della Maddalena, Siracusa.",source:"https://www.plemmirio.eu/"},
+  {id:"amp-pelagie",name:"AMP Isole Pelagie",country:"Italia",flag:"IT",network:"AMP",operator:"AMP Isole Pelagie",type:"mooring",lat:35.5167,lon:12.6000,capacity:50,maxLength:18,season:"apr-ott",desc:"Lampedusa, Linosa, Lampione; estremo sud Mediterraneo.",source:"https://www.ampisolepelagie.it/"},
+  {id:"amp-ciclopi",name:"AMP Isole Ciclopi",country:"Italia",flag:"IT",network:"AMP",operator:"AMP Isole Ciclopi",type:"mooring",lat:37.5583,lon:15.1733,capacity:30,maxLength:15,season:"giu-set",desc:"Aci Trezza, costa etnea, faraglioni dei Ciclopi.",source:"https://www.isoleciclopi.it/"},
+
+  // ── Sardegna ──
+  {id:"amp-tavolara",name:"AMP Tavolara - P. Coda Cavallo",country:"Italia",flag:"IT",network:"AMP",operator:"AMP Tavolara",type:"mooring",lat:40.8917,lon:9.7167,capacity:150,maxLength:24,season:"apr-ott",desc:"Sardegna NE, isola di Tavolara e Capo Coda Cavallo.",source:"https://www.amptavolara.com/"},
+  {id:"amp-asinara",name:"AMP Isola dell'Asinara",country:"Italia",flag:"IT",network:"AMP",operator:"AMP Asinara",type:"mooring",lat:41.0667,lon:8.2833,capacity:80,maxLength:24,season:"apr-ott",desc:"Sardegna NW, ex carcere di massima sicurezza, oggi parco.",source:"https://www.ampasinara.it/"},
+  {id:"amp-capocaccia",name:"AMP Capo Caccia - Isola Piana",country:"Italia",flag:"IT",network:"AMP",operator:"AMP Capo Caccia",type:"mooring",lat:40.5667,lon:8.1667,capacity:50,maxLength:20,season:"apr-ott",desc:"Riviera del Corallo, Alghero.",source:"https://www.ampcapocaccia.it/"},
+  {id:"amp-capocarbonara",name:"AMP Capo Carbonara",country:"Italia",flag:"IT",network:"AMP",operator:"AMP Capo Carbonara",type:"mooring",lat:39.1083,lon:9.5167,capacity:120,maxLength:24,season:"apr-ott",desc:"Villasimius, Sardegna SE; cale di Punta Molentis e Cavoli.",source:"https://www.ampcapocarbonara.it/"},
+  {id:"amp-sinis",name:"AMP Penisola del Sinis",country:"Italia",flag:"IT",network:"AMP",operator:"AMP Sinis - Mal di Ventre",type:"mooring",lat:39.9333,lon:8.3167,capacity:60,maxLength:18,season:"apr-ott",desc:"Costa centro-occidentale Sardegna, isola di Mal di Ventre.",source:"https://www.areamarinasinis.it/"},
+
+  // ── Friuli ──
+  {id:"amp-miramare",name:"AMP Miramare",country:"Italia",flag:"IT",network:"AMP",operator:"WWF AMP Miramare",type:"mooring",lat:45.7000,lon:13.7167,capacity:15,maxLength:12,season:"apr-ott",desc:"Golfo di Trieste, prima AMP gestita da WWF.",source:"https://www.riservamarinamiramare.it/"},
 
   // ─── MAR NERO / fuori scala marginale (escluso) ───
 ];
