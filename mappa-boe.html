@@ -211,8 +211,8 @@ h1.app-h1 em{font-style:italic;color:var(--mid)}
       <p class="f-label">Cerca</p>
       <input type="search" class="search" id="search" placeholder="Nome boa, citt&agrave;, rete&hellip;" autocomplete="off">
 
-      <p class="f-label" style="margin-top:1rem">Tipo</p>
-      <div class="chips" id="chips-type"></div>
+      <p class="f-label" style="margin-top:1rem">Categorie visibili</p>
+      <div class="chips" id="chips-category"></div>
 
       <p class="f-label">Paese</p>
       <div class="chips" id="chips-country"></div>
@@ -381,6 +381,21 @@ const TYPES = {
   multi:  {label:"Multiparametrica",color:"#7a4ec9"},
   mooring:{label:"ZMEL / Mouillage",color:"#e67e22"}
 };
+
+// Categorie semplificate (toggle per uso commerciale)
+const CATEGORIES = {
+  oceano:    {label:"Boe oceanografiche", color:"#0d4a72", emoji:"🌊"},
+  'zmel-op': {label:"Mouillage operativi (ZMEL/AMP)", color:"#e67e22", emoji:"🟠"},
+  'zmel-pr': {label:"Mouillage in progetto (lead)", color:"#e6b422", emoji:"🟡"},
+};
+
+function getCategory(b){
+  if(b.type === 'mooring'){
+    if(b.curated_status === 'in-progress') return 'zmel-pr';
+    return 'zmel-op';
+  }
+  return 'oceano';
+}
 const PARAM_LABELS = {
   Hs:"Altezza onda",Tp:"Periodo onda",Dir:"Direzione onda",
   SST:"Temperatura superficie",SSS:"Salinit&agrave; superficie",
@@ -394,6 +409,7 @@ const PARAM_LABELS = {
 const state = {
   search:"",
   types:new Set(Object.keys(TYPES)),
+  categories:new Set(Object.keys(CATEGORIES)),
   countries:new Set(),
   selectedId:null,
   showSea:true
@@ -462,24 +478,24 @@ seaLayer.addTo(map);
 const $ = sel=>document.querySelector(sel);
 const listEl   = $('#list');
 const searchEl = $('#search');
-const chipsTypeEl = $('#chips-type');
+const chipsCategoryEl = $('#chips-category');
 const chipsCountryEl = $('#chips-country');
 
 const allCountries = [...new Set(BUOYS.map(b=>b.country))].sort();
 state.countries = new Set(allCountries);
 
 function buildChips(){
-  chipsTypeEl.innerHTML = Object.entries(TYPES).map(([k,v])=>
-    `<button class="chip active" data-type="${k}"><span class="dot" style="background:${v.color}"></span>${v.label}</button>`
+  chipsCategoryEl.innerHTML = Object.entries(CATEGORIES).map(([k,v])=>
+    `<button class="chip active" data-cat="${k}"><span class="dot" style="background:${v.color}"></span>${v.label}</button>`
   ).join('');
   chipsCountryEl.innerHTML = allCountries.map(c=>
     `<button class="chip active" data-country="${c}">${c}</button>`
   ).join('');
 
-  chipsTypeEl.querySelectorAll('.chip').forEach(el=>{
+  chipsCategoryEl.querySelectorAll('.chip').forEach(el=>{
     el.addEventListener('click',()=>{
-      const t = el.dataset.type;
-      if(state.types.has(t)) state.types.delete(t); else state.types.add(t);
+      const c = el.dataset.cat;
+      if(state.categories.has(c)) state.categories.delete(c); else state.categories.add(c);
       el.classList.toggle('active');
       render();
     });
@@ -495,7 +511,7 @@ function buildChips(){
 }
 
 function matches(b){
-  if(!state.types.has(b.type)) return false;
+  if(!state.categories.has(getCategory(b))) return false;
   if(!state.countries.has(b.country)) return false;
   if(state.search){
     const q = state.search.toLowerCase();
