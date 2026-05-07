@@ -283,7 +283,7 @@ h1.app-h1 em{font-style:italic;color:var(--mid)}
       <div class="row"><span class="sw" style="background:var(--meteo)"></span> Meteo-marina</div>
       <div class="row"><span class="sw" style="background:var(--current)"></span> Corrente / ADCP</div>
       <div class="row"><span class="sw" style="background:var(--multi)"></span> Multiparametrica</div>
-      <div class="row"><span class="sw" style="background:var(--mooring)"></span> ZMEL / Mouillage</div>
+      <div class="row"><span class="sw" style="background:var(--mooring)"></span> Campi ormeggio (AMP/ZMEL)</div>
     </div>
 
     <div class="detail-backdrop" id="detail-backdrop" aria-hidden="true"></div>
@@ -437,7 +437,7 @@ const TYPES = {
   meteo:  {label:"Meteo-marina",  color:"#0d4a72"},
   current:{label:"Correntometro", color:"#146248"},
   multi:  {label:"Multiparametrica",color:"#7a4ec9"},
-  mooring:{label:"ZMEL / Mouillage",color:"#e67e22"}
+  mooring:{label:"Campo boe ormeggio",color:"#e67e22"}
 };
 
 // Categorie semplificate (toggle per uso commerciale)
@@ -685,6 +685,16 @@ function selectBuoy(id,{pan}={}){
 
   if(b.type === 'mooring'){
     const isInProgress = b.curated_status === 'in-progress';
+    const isAmp = b.isAmp === true;
+    const isItalia = b.country === 'Italia';
+    // Etichetta tipo specifica: AMP / ZMEL / Mouillage generico
+    if(isAmp){
+      $('#d-type').textContent = 'AMP — Area Marina Protetta';
+    } else if(b.isCurated){
+      $('#d-type').textContent = 'ZMEL — Zone de Mouillage et d\'Équipements Légers';
+    } else {
+      $('#d-type').textContent = TYPES[b.type].label;
+    }
     $('#d-metric-k').textContent = 'Capacità';
     if(b.capacity){
       $('#d-metric-v').textContent = isInProgress ? `${b.capacity} boe (progetto)` : `${b.capacity} boe`;
@@ -693,13 +703,15 @@ function selectBuoy(id,{pan}={}){
     }
     $('#d-params-h').textContent = 'Caratteristiche';
     const tags = [];
-    if(isInProgress) tags.push('🚧 EN PROJET');
-    else if(b.isCurated) tags.push('✓ OPÉRATIONNEL');
+    // Status badge bilingue: italiano per AMP, francese per ZMEL
+    if(isInProgress) tags.push(isAmp ? '🚧 IN PROGETTO' : '🚧 EN PROJET');
+    else if(b.isCurated) tags.push(isAmp ? '✓ OPERATIVO' : '✓ OPÉRATIONNEL');
     if(b.maxLength) tags.push(`max ${b.maxLength} m`);
     if(b.season)    tags.push(b.season);
     if(b.curated_dept_code) tags.push(`Dept ${b.curated_dept_code}`);
-    if(b.curated_horizon) tags.push(`horizon ${b.curated_horizon}`);
-    if(!b.isCurated) tags.push('eco-mouillage');
+    if(b.curated_region)    tags.push(b.curated_region);
+    if(b.curated_horizon) tags.push(`orizzonte ${b.curated_horizon}`);
+    if(!b.isCurated) tags.push('eco-ormeggio');
     $('#d-params').innerHTML = tags.map(t=>`<li>${t}</li>`).join('');
 
     // Contatti gestore + decreto (solo per curated)
@@ -718,7 +730,8 @@ function selectBuoy(id,{pan}={}){
     if(b.isCurated && b.curated_regulation && (b.curated_regulation.decree || b.curated_regulation.date)){
       const r = b.curated_regulation;
       const reg = [r.decree, r.date].filter(Boolean).join(' · ');
-      extra += `<div style="margin-top:.5rem;font-family:'DM Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.04em">📄 ${reg}${r.duration_years ? ` · durée ${r.duration_years} ans` : ''}</div>`;
+      const dur = r.duration_years ? (isAmp ? ` · durata ${r.duration_years} anni` : ` · durée ${r.duration_years} ans`) : '';
+      extra += `<div style="margin-top:.5rem;font-family:'DM Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.04em">📄 ${reg}${dur}</div>`;
     }
     if(b.curated_breakdown){
       $('#d-desc').innerHTML = `${b.curated_breakdown}${b.desc ? '<br><br>' + b.desc.replace(b.curated_breakdown,'') : ''}${extra}`;
@@ -727,7 +740,8 @@ function selectBuoy(id,{pan}={}){
     }
 
     ctaEl.textContent = isInProgress ? 'Contatta il gestore →' : 'Richiedi un sopralluogo →';
-    ctaEl.href = `index.html?subject=ZMEL%20${encodeURIComponent(b.name)}#contatti`;
+    const subjectPrefix = isAmp ? 'AMP' : 'ZMEL';
+    ctaEl.href = `index.html?subject=${subjectPrefix}%20${encodeURIComponent(b.name)}#contatti`;
     ctaEl.style.display = 'block';
   } else {
     $('#d-metric-k').textContent = 'Profondità';
