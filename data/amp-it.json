@@ -102,6 +102,7 @@
         "email": "info@puntacampanella.org",
         "pec": "amppuntacampanella@pec.it",
         "fax": "+39 081 8789663",
+        "contact_person": "Alberico Simeoli — Direttore (subentrato a Antonino Miccio nel 2020)",
         "address": "Via Roma 31, 80061 Massa Lubrense (NA). Visitor Center: lun-ven 9-13, mar/gio anche 15-18"
       },
       "notes": "Zone B (Ieranto, Li Galli, Crapolla, Isca) ancoraggio vietato. Cliente CRM Betty Buoys. PNRR €2,3M per 200 NUOVE boe in iter realizzazione 2024-2026. Lead caldissimo per upgrade tech.",
@@ -493,11 +494,13 @@
       "lon": 8.3167,
       "established": 1997,
       "manager": {
-        "name": "Comune di Cabras",
+        "name": "Comune di Cabras — AMP Penisola del Sinis",
         "type": "commune",
         "website": "https://www.areamarinasinis.it/",
         "phone": "+39 0783 391097",
         "email": "info.ampsinis@comune.cabras.or.it",
+        "email_alt": "direzione.ampsinis@comune.cabras.or.it",
+        "contact_person": "Massimo Marras — Direttore",
         "address": "Corso Italia 108, 09072 Cabras (OR)"
       },
       "regulation": {

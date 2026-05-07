@@ -155,7 +155,9 @@
         "website": "https://www.portcros-parcnational.fr/",
         "phone": "+33 4 94 01 40 72",
         "email": "capitainerie@portcros-parcnational.fr",
-        "contact_person": "Capitainerie PNF"
+        "email_op": "mouillages.porquerolles@portcros-parcnational.fr",
+        "contact_person": "Sophie-Dorothée DURON — Directrice (Chef Administrateur Affaires Maritimes). Capitainerie PNF",
+        "address": "Île de Porquerolles, 83400 Hyères. Email dedicata progetto Porquerolles: mouillages.porquerolles@portcros-parcnational.fr"
       },
       "regulation": {
         "decree": "Arrêté inter-préfectoral 039/2020 PREMAR / DDTM-SML 001/2020",
@@ -655,8 +657,10 @@
         "type": "national_park",
         "website": "https://www.portcros-parcnational.fr/fr/des-actions/proteger-et-preserver/point-detape-projet-de-nouvelle-organisation-des-mouillages",
         "phone": "+33 4 94 01 40 72",
-        "email": "capitainerie@portcros-parcnational.fr",
-        "contact_person": "Capitainerie PNF"
+        "email": "mouillages.porquerolles@portcros-parcnational.fr",
+        "email_op": "capitainerie@portcros-parcnational.fr",
+        "contact_person": "Sophie-Dorothée DURON — Directrice PNF",
+        "address": "Île de Porquerolles, 83400 Hyères. Email dedicata progetto: mouillages.porquerolles@portcros-parcnational.fr"
       },
       "notes": "Projet majeur — 354 bouées à l'horizon 2028. Lead commercial chaud.",
       "sources": [
@@ -745,10 +749,11 @@
       "manager": {
         "name": "Parc naturel marin du Cap Corse et de l'Agriate",
         "type": "marine_park",
-        "website": "https://parc-marin-cap-corse-agriate.fr/actualites/bouees-connectees-et-mouillage-innovant-au-sein-du-parc",
+        "website": "https://parc-marin-cap-corse-agriate.fr/",
         "phone": null,
         "email": null,
-        "contact_person": null
+        "contact_person": null,
+        "address": "Île Rousse / Bastia (Cap Corse). Riferimento istituzionale: OFB Office français de la biodiversité, ofb.gouv.fr/corse"
       },
       "notes": "Site pilote. Bouées connectées avec gestion à distance des réservations. Très intéressant pour Betty Buoys (proof of concept du tech).",
       "sources": [
@@ -876,14 +881,15 @@
         "horizon": null
       },
       "manager": {
-        "name": "Parc naturel marin du Cap Corse et de l'Agriate",
+        "name": "Parc naturel marin du Cap Corse et de l'Agriate (PNMCCA) — supporto ZMEL comuni",
         "type": "marine_park",
         "website": "https://parc-marin-cap-corse-agriate.fr/",
         "phone": null,
         "email": null,
-        "contact_person": null
+        "contact_person": null,
+        "address": "Riferimento PNRC (Parc Naturel Régional de Corse): 19 avenue Georges Pompidou, Immeuble Faggianelli, CS 30417, 20184 AJACCIO CEDEX. Tel: +33 4 95 34 54 80 - Email: drh@pnr.corsica. Office Corte: La Citadelle 20250, +33 4 95 46 26 70"
       },
-      "notes": "Centuri, Ruglianu et Brandu accompagnés par le PNMCCA pour leurs ZMEL. Lead commercial multi-sites.",
+      "notes": "Centuri, Ruglianu et Brandu accompagnés par le PNMCCA pour leurs ZMEL. Lead commercial multi-sites. PNRC Ajaccio +33 4 95 34 54 80 drh@pnr.corsica gestisce anche Girolata/Scandola/Porto.",
       "sources": [
         "https://parc-marin-cap-corse-agriate.fr/editorial/le-mouillage-au-sein-du-parc"
       ]
