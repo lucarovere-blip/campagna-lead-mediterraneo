@@ -4,10 +4,11 @@
   "verified_by": "Manual research from siti gestori, decreti istitutivi, MASE, articles presse specializzata",
   "scope": "Aree Marine Protette italiane con campi ormeggio organizzati",
   "stats": {
-    "complete": 14,
-    "partial": 12,
+    "complete": 17,
+    "partial": 11,
     "in_progress": 1,
-    "total": 27
+    "private": 1,
+    "total": 29
   },
   "ampFields": [
     {
@@ -138,7 +139,78 @@
       ]
     },
     {
-      "id": "amp-capo-caccia",
+      "id": "amp-capo-testa",
+      "name": "Capo Testa - Punta Falcone (Santa Teresa Gallura)",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "operative",
+      "region": "Sardegna",
+      "lat": 41.2483,
+      "lon": 9.1567,
+      "established": 2018,
+      "area_ha": 5000,
+      "capacity": {
+        "total": 100,
+        "breakdown": "100 boe — installazione Betty Buoys / Seainnova",
+        "since": null
+      },
+      "manager": {
+        "name": "Comune di Santa Teresa Gallura — AMP Capo Testa Punta Falcone",
+        "type": "commune",
+        "website": "https://areamarinaprotettacapotestapuntafalcone.it/",
+        "phone": null,
+        "email": null,
+        "contact_person": null,
+        "address": "Santa Teresa Gallura (SS)"
+      },
+      "regulation": {
+        "decree": "DM 17/05/2018 (GU n. 206 del 05/09/2018)",
+        "date": "2018-05-17"
+      },
+      "notes": "✓ INSTALLAZIONE BETTY BUOYS (100 boe). Costa nord Sardegna, 5.000+ ha. Monitoraggio Posidonia avviato ottobre 2024.",
+      "sources": [
+        "https://areamarinaprotettacapotestapuntafalcone.it/",
+        "https://patrimoniosubacqueo.cultura.gov.it/progetto-amphitrite-area-marina-protetta-capo-testa-punta-falcone/news-eventi/"
+      ]
+    },
+    {
+      "id": "private-fox-mooring",
+      "name": "Fox Mooring - Cala di Volpe (Costa Smeralda)",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "private",
+      "status": "operative",
+      "region": "Sardegna",
+      "lat": 41.1083,
+      "lon": 9.5417,
+      "capacity": {
+        "total": 48,
+        "breakdown": "48 boe totali tra Fox Mooring (Cala di Volpe) + Pevero Mooring (Golfo Pevero). Yacht 15-150m.",
+        "since": null
+      },
+      "vessel_min_length_m": 15,
+      "vessel_max_length_m": 150,
+      "season": "maggio-settembre",
+      "manager": {
+        "name": "Sea Company Srl",
+        "type": "private",
+        "website": "https://www.foxmooring.com/",
+        "phone": null,
+        "email": null,
+        "contact_person": null,
+        "address": "Cala di Volpe, Costa Smeralda (SS)",
+        "vhf": "CH. 15",
+        "reservation_app": "marinareservation.com / staryachtgroup.com"
+      },
+      "notes": "Operatore PRIVATO premium per superyacht in Costa Smeralda (Cala di Volpe + Pevero). Sistema ancoraggio salvaguardia fondale dall'aratura ancore yacht.",
+      "sources": [
+        "https://www.foxmooring.com/",
+        "https://www.marinareservation.com/it/marina-fox-mooring-5481"
+      ]
+    },
       "name": "Capo Caccia - Isola Piana",
       "country": "Italia",
       "flag": "IT",
@@ -154,12 +226,14 @@
         "since": 2025
       },
       "manager": {
-        "name": "Parco Naturale Regionale di Porto Conte",
+        "name": "Azienda Speciale Parco di Porto Conte / AMP Capo Caccia-Isola Piana",
         "type": "regional_park",
-        "website": "https://www.algheroparks.it/larea-marina-protetta-di-capo-caccia-e-isola-piana/",
-        "phone": null,
-        "email": null,
-        "address": "Alghero (SS)"
+        "website": "https://www.algheroparks.it/",
+        "phone": "+39 079 945005",
+        "fax": "+39 079 946507",
+        "email": "info@parcodiportoconte.it",
+        "contact_person": null,
+        "address": "Casa Gioiosa - Località Tramariglio 44, 07041 Alghero (SS)"
       },
       "notes": "Iscrizione e autorizzazione online per boe. ESPANSIONE 2025 PNRR: 61 nuove boe installate fine giugno 2025 (Lazzaretto, Olandese, Rosso). Lead caldo per Betty Buoys.",
       "sources": [
