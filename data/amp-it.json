@@ -13,12 +13,12 @@
   "ampFields": [
     {
       "id": "amp-tavolara",
-      "name": "Tavolara - Punta Coda Cavallo",
+      "name": "Tavolara - Punta Coda Cavallo (campo boe in progetto)",
       "country": "Italia",
       "flag": "IT",
       "type": "mooring",
       "subtype": "amp",
-      "status": "operative",
+      "status": "in-progress",
       "region": "Sardegna",
       "lat": 40.8917,
       "lon": 9.7167,
@@ -26,11 +26,11 @@
       "area_ha": 15091,
       "coast_km": 40,
       "capacity": {
-        "total": 80,
-        "breakdown": "Cala Cavallo: 80 posti su 5.000 m² (giugno-settembre) + 16 siti diving riservati centri autorizzati",
-        "since": null
+        "total": null,
+        "breakdown": "Campo boe in progetto. Cala Cavallo previsto 80 posti su 5.000 m² (giugno-settembre). PRRPT 2024 cita 35 posti pianificati. 16 siti diving riservati centri autorizzati (operativi).",
+        "horizon": null
       },
-      "season": "giugno-settembre",
+      "season": "giugno-settembre (programmata)",
       "manager": {
         "name": "Consorzio di Gestione AMP Tavolara - Punta Coda Cavallo",
         "type": "consorzio",
@@ -39,7 +39,7 @@
         "email": "segreteria@amptavolara.it",
         "address": "Via Dante 1, 07026 Olbia (SS)"
       },
-      "notes": "Cliente CRM Betty Buoys.",
+      "notes": "Cliente CRM Betty Buoys. ⚠ ATTENZIONE: campo boe non ancora installato (solo PROGETTO). Lead caldissimo per realizzazione.",
       "sources": [
         "https://www.amptavolara.com/",
         "https://www.mase.gov.it/portale/area-marina-protetta-tavolara-punta-coda-cavallo"
@@ -507,6 +507,11 @@
       "region": "Sardegna",
       "lat": 41.0667,
       "lon": 8.2833,
+      "capacity": {
+        "total": 63,
+        "breakdown": "63 gavitelli su 5 campi boe (versante orientale): Fornelli, Cala Reale, Punta Trabuccato, Cala del Bianco, Cala d'Oliva. Imbarcazioni vela e motore.",
+        "since": null
+      },
       "manager": {
         "name": "Parco Nazionale dell'Asinara / AMP",
         "type": "national_park",
@@ -515,8 +520,14 @@
         "email": null,
         "address": "Porto Torres (SS)"
       },
-      "notes": "Sardegna NW, ex carcere di massima sicurezza, ora Parco Nazionale + AMP. Cliente CRM Betty Buoys. Capacità campi ormeggio non pubblicata.",
-      "sources": []
+      "regulation": {
+        "decree": "Concessioni rinnovate dalla Regione Sardegna Agenzia Conservatoria delle Coste",
+        "duration_years": 2
+      },
+      "notes": "Sardegna NW, ex carcere di massima sicurezza, Parco Nazionale + AMP. Cliente CRM Betty Buoys. 5 campi: Fornelli (sud), Cala Reale, Punta Trabuccato, Cala del Bianco, Cala d'Oliva (nord). ATTENZIONE: durata concessioni solo 2 anni (instabilità concessoria documentata).",
+      "sources": [
+        "https://www.parcoasinara.org/"
+      ]
     },
     {
       "id": "amp-portofino",

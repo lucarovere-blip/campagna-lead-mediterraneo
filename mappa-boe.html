@@ -1014,6 +1014,60 @@ async function loadCuratedAmp(){
   }
 }
 
+/* ──────────────────────────────────────────────────────────────
+   CURATED DATASET — Sardegna PRRPT 2024 (campi boe regionali)
+   ────────────────────────────────────────────────────────────── */
+async function loadSardegnaPrrpt(){
+  try{
+    const res = await fetch('data/sardegna-prrpt.json',{cache:'no-cache'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const data = await res.json();
+    const fields = data.buoyFields || [];
+    let added = 0;
+    for(const s of fields){
+      const flat = sardegnaToFlat(s);
+      BUOYS.push(flat);
+      const m = L.marker([flat.lat,flat.lon],{icon:makeMooringIcon(flat),title:flat.name});
+      m.bindTooltip(`<strong>${flat.name}</strong><br><span style="font-family:'DM Mono',monospace;font-size:.7rem;color:#e67e22">PRRPT &middot; ${flat.curated_quadrant || 'Sardegna'} &middot; ${flat.capacity} posti</span>`,{direction:'top',offset:[0,-8],opacity:.96});
+      m.on('click',()=>selectBuoy(flat.id,{pan:false}));
+      m.addTo(map);
+      markersById.set(flat.id,m);
+      added++;
+    }
+    render();
+    console.log(`✔ Caricati ${added} campi boe Sardegna PRRPT 2024 (${data.stats?.total_posts || 0} posti totali)`);
+  } catch(e){
+    console.warn('Caricamento Sardegna PRRPT fallito:', e.message);
+  }
+}
+
+function sardegnaToFlat(s){
+  return {
+    id: s.id,
+    name: s.name,
+    country: s.country,
+    flag: s.flag,
+    network: 'PRRPT',
+    operator: s.manager?.name || s.comune,
+    type: 'mooring',
+    lat: s.lat,
+    lon: s.lon,
+    capacity: s.capacity?.total || 0,
+    maxLength: null,
+    season: 'annuale',
+    desc: [s.capacity?.breakdown, s.notes].filter(Boolean).join(' '),
+    source: s.sources?.[0] || s.manager?.website || '',
+    curated_status: s.status,
+    curated_region: s.region,
+    curated_quadrant: s.quadrant,
+    curated_comune: s.comune,
+    curated_manager: s.manager,
+    curated_breakdown: s.capacity?.breakdown,
+    isCurated: true,
+    isPrrpt: true,
+  };
+}
+
 function ampToFlat(a){
   return {
     id: a.id,
@@ -1049,6 +1103,7 @@ buildChips();
 render();
 loadCuratedZmel();
 loadCuratedAmp();
+loadSardegnaPrrpt();
 </script>
 </body>
 </html>

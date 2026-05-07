@@ -4,9 +4,9 @@
   "verified_by": "Manual research from arrêtés préfectoraux, sites communes, PNF/PNRC, articles presse spécialisée",
   "scope": "Méditerranée française (PACA + Occitanie + Corse) — ZMEL et campos de mouillages organisés officiels",
   "stats": {
-    "operative": 15,
+    "operative": 17,
     "in_progress": 8,
-    "total": 23
+    "total": 25
   },
   "buoyFields": [
     {
@@ -423,21 +423,22 @@
       "lat": 42.5167,
       "lon": 3.1167,
       "capacity": {
-        "total": null,
-        "breakdown": "Capacité non publiée",
+        "total": 51,
+        "breakdown": "51 boe — fonte Département Pyrénées-Orientales",
         "since": 2023
       },
       "manager": {
-        "name": "Conservatoire du Littoral / PNM Golfe du Lion",
+        "name": "Conservatoire du Littoral / PNM Golfe du Lion / Département P-O",
         "type": "conservatoire",
         "website": "https://www.conservatoire-du-littoral.fr/",
         "phone": null,
         "email": null,
         "contact_person": null
       },
-      "notes": "ZMEL installée en 2023. Site Conservatoire du Littoral.",
+      "notes": "ZMEL installée en 2023. Site Conservatoire du Littoral. Capacità verificata da PDF Confronto Sardegna-Francia (fonte: Département P-O).",
       "sources": [
-        "https://parc-marin-golfe-lion.fr/"
+        "https://parc-marin-golfe-lion.fr/",
+        "PDF Confronto Sardegna-Francia 2024"
       ]
     },
     {
@@ -544,6 +545,76 @@
       "notes": "79 640 ha, 5 communes. Bouées sub-surface préconisées pour éviter le ragage.",
       "sources": [
         "https://www.journaldelacorse.corsica/articles/2480/de-nouvelles-mesures-cet-ete-aux-lavezzi"
+      ]
+    },
+    {
+      "id": "zmel-cannes-sainte-marguerite",
+      "name": "Île Sainte-Marguerite — Anse Sainte-Anne (Cannes)",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "operative",
+      "dept_code": "06",
+      "dept_name": "Alpes-Maritimes",
+      "lat": 43.5217,
+      "lon": 7.0500,
+      "capacity": {
+        "total": 30,
+        "breakdown": "30 navires totali: 11 boe 6-8m + 8 boe 8-12m + 6 boe 12-15m + 5 boe 15-20m. Zona 5 ha + 43 ha vietato ancoraggio. Max 7 notti consecutive, 21 notti per stagione.",
+        "since": 2020
+      },
+      "vessel_min_length_m": 6,
+      "vessel_max_length_m": 20,
+      "season": "stagionale",
+      "manager": {
+        "name": "Mairie de Cannes / Préfecture des Alpes-Maritimes",
+        "type": "commune",
+        "website": "https://www.cannes.com/fr/cadre-de-vie/plages-mer-nautisme/zone-de-mouillage-et-d-equipements-legers-zmel.html",
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "regulation": {
+        "decree": "Arrêté préfectoral 238/2025 (police ZMEL)",
+        "date": "2020"
+      },
+      "notes": "ZMEL al nord dell'isola Sainte-Marguerite (anse Sainte-Anne). Limite ancoraggio libero, riduzione mouillage sauvage. Travaux 2019-2020.",
+      "sources": [
+        "https://www.cannes.com/fr/cadre-de-vie/plages-mer-nautisme/zone-de-mouillage-et-d-equipements-legers-zmel.html",
+        "https://actumaritime.com/2020/05/04/cannes-une-nouvelle-zone-de-mouillage-reglementee-au-nord-de-lile-ste-marguerite/",
+        "PDF Confronto Sardegna-Francia 2024 (28 boe — dato precedente)"
+      ]
+    },
+    {
+      "id": "zmel-calvi-nauticspot",
+      "name": "Baie de Calvi (Nauticspot)",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "operative",
+      "dept_code": "2B",
+      "dept_name": "Haute-Corse",
+      "lat": 42.5667,
+      "lon": 8.7567,
+      "capacity": {
+        "total": 65,
+        "breakdown": "65 boe — gestione Nauticspot (operativo)",
+        "since": null
+      },
+      "manager": {
+        "name": "Nauticspot",
+        "type": "private",
+        "website": "https://www.nauticspot.fr/",
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "notes": "Campo boe operativo nella baia di Calvi gestito da Nauticspot. Distinto dal progetto istituzionale ZMEL Calvi/Revellata (50 boe in iter, vedi zmel-calvi-projet).",
+      "sources": [
+        "PDF Confronto Sardegna-Francia 2024",
+        "https://www.nauticspot.fr/"
       ]
     },
     {
