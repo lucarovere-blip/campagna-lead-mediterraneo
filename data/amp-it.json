@@ -6,7 +6,8 @@
   "stats": {
     "complete": 14,
     "partial": 12,
-    "total": 26
+    "in_progress": 1,
+    "total": 27
   },
   "ampFields": [
     {
@@ -454,7 +455,7 @@
       "lon": 9.2167,
       "capacity": {
         "total": null,
-        "breakdown": "Cale Olivetta, dell'Oro, Niasca. App dedicata 'AMP Portofino' per booking.",
+        "breakdown": "Cale Olivetta, dell'Oro, Niasca + Cala Inglesi + 2 campi boe baia San Fruttuoso. App 'AMP Portofino' (App Store) per booking.",
         "since": null
       },
       "manager": {
@@ -689,6 +690,28 @@
       "sources": [
         "https://www.ampcapogallo-isola.it/contatti.php"
       ]
+    },
+    {
+      "id": "amp-gallinara",
+      "name": "Isola Gallinara (in istituzione)",
+      "country": "Italia",
+      "flag": "IT",
+      "type": "mooring",
+      "subtype": "amp",
+      "status": "in-progress",
+      "region": "Liguria",
+      "lat": 44.0233,
+      "lon": 8.2233,
+      "manager": {
+        "name": "Regione Liguria (in istituzione)",
+        "type": "regional_authority",
+        "website": "https://www.regione.liguria.it/homepage-ambiente/cosa-cerchi/acqua/mare-e-costa/biodiversita/aree-marine-protette.html",
+        "phone": null,
+        "email": null,
+        "address": "Albenga (SV)"
+      },
+      "notes": "AMP in fase di istituzione (insieme a Bergeggi già attiva). Lead caldo per progettazione campi ormeggio.",
+      "sources": []
     },
     {
       "id": "amp-capo-milazzo",
