@@ -581,13 +581,15 @@
       "vessel_max_length_m": 20,
       "season": "stagionale",
       "manager": {
-        "name": "Mairie de Cannes — Direction de la mer et du littoral",
+        "name": "Mairie de Cannes — Direction de la mer et du littoral / Port Moure Rouge",
         "type": "commune",
         "website": "https://www.cannes.com/fr/cadre-de-vie/plages-mer-nautisme/zone-de-mouillage-et-d-equipements-legers-zmel.html",
         "phone": "+33 4 92 18 84 84",
+        "phone_op": "+33 4 93 94 37 71",
         "email": "maritime@ville-cannes.fr",
+        "email_op": "portmourerouge@ville-cannes.fr",
         "contact_person": null,
-        "address": "La Croisette, 06400 Cannes. Capitainerie Port Pierre Canto."
+        "address": "Direction Mer: La Croisette, 06400 Cannes. Port Moure Rouge (gestore operativo ZMEL): Boulevard Eugène Gazagnaire, 06400 Cannes. ONF gestisce 152 ha foreste isola."
       },
       "regulation": {
         "decree": "Arrêté préfectoral 238/2025 (police ZMEL)",

@@ -37,6 +37,7 @@
         "website": "https://www.amptavolara.com/",
         "phone": "+39 0789 203013",
         "email": "segreteria@amptavolara.it",
+        "contact_person": "Augusto Navone — Direttore",
         "address": "Via Dante 1, 07026 Olbia (SS)"
       },
       "notes": "Cliente CRM Betty Buoys. ⚠ ATTENZIONE: campo boe non ancora installato (solo PROGETTO). Lead caldissimo per realizzazione.",
@@ -63,11 +64,12 @@
       },
       "season": "estiva",
       "manager": {
-        "name": "AMP Isole Egadi",
+        "name": "AMP Isole Egadi — Comune di Favignana",
         "type": "consorzio",
         "website": "https://www.ampisoleegadi.it/",
         "phone": "+39 0923 921659",
         "email": "info@ampisoleegadi.it",
+        "contact_person": "Salvatore Livreri Console — Direttore. Presidente: Francesco Forgione",
         "address": "Favignana (TP)",
         "online_auth": "https://autorizzazionionline.ampisoleegadi.it/"
       },
@@ -130,6 +132,7 @@
         "website": "https://www.parconazionale5terre.it/campi-ormeggio.php",
         "phone": "+39 0187 762600",
         "email": null,
+        "contact_person": "Patrizio Scarpellini — Direttore. Presidente: Lorenzo Viviani",
         "address": "Via Discovolo snc - c/o Stazione Manarola - 19017 Riomaggiore (SP)"
       },
       "regulation": {
@@ -159,13 +162,13 @@
         "since": null
       },
       "manager": {
-        "name": "Comune di Santa Teresa Gallura — AMP Capo Testa Punta Falcone",
+        "name": "Comune di Santa Teresa Gallura — Ufficio AMP Capo Testa Punta Falcone",
         "type": "commune",
         "website": "https://areamarinaprotettacapotestapuntafalcone.it/",
-        "phone": null,
-        "email": null,
+        "phone": "+39 0789 740999",
+        "email": "amp.capotesta.puntafalcone@comunestg.it",
         "contact_person": null,
-        "address": "Santa Teresa Gallura (SS)"
+        "address": "Comune di Santa Teresa Gallura, Piazza V. Emanuele I 21, 07028 Santa Teresa Gallura (SS)"
       },
       "regulation": {
         "decree": "DM 17/05/2018 (GU n. 206 del 05/09/2018)",
@@ -236,7 +239,7 @@
         "phone": "+39 079 945005",
         "fax": "+39 079 946507",
         "email": "info@parcodiportoconte.it",
-        "contact_person": null,
+        "contact_person": "Mariano Mariani — Direttore",
         "address": "Casa Gioiosa - Località Tramariglio 44, 07041 Alghero (SS)"
       },
       "notes": "Iscrizione e autorizzazione online per boe. ESPANSIONE 2025 PNRR: 61 nuove boe installate fine giugno 2025 (Lazzaretto, Olandese, Rosso). Lead caldo per Betty Buoys.",
@@ -356,12 +359,14 @@
         "since": null
       },
       "manager": {
-        "name": "Ente Parco Nazionale del Gargano (gestore AMP) — operatori boe",
+        "name": "Ente Parco Nazionale del Gargano — gestore AMP Tremiti",
         "type": "national_park",
-        "website": "https://www.riservamarinaisoletremiti.it/campi-boe/",
-        "phone": "+39 348 7457462 / +39 392 0817206 (Tonino o Pasquale)",
+        "website": "https://www.parcogargano.it/amp-isole-tremiti/contatti/",
+        "phone": "+39 348 7457462",
+        "phone_alt": "+39 392 0817206",
         "email": "boetremiti@prismambiente.it",
-        "address": "Tremiti (FG)",
+        "contact_person": "Vincenzo Totaro — Direttore Ente Parco. Commissario (fino dic 2024): Pasquale Pazienza. Operatori boe: Tonino e Pasquale (Prismambiente)",
+        "address": "Isole Tremiti (FG)",
         "reservation_app": "Blue Discovery"
       },
       "sources": [
