@@ -148,9 +148,9 @@
       "lat": 40.5667,
       "lon": 8.1667,
       "capacity": {
-        "total": 89,
-        "breakdown": "75 boe (campo principale) + 14 boe Punta del Dentul - Baia di Porto Conte. 4 ancoraggi 'intelligenti' davanti complesso grotte (>100, più grande Italia)",
-        "since": null
+        "total": 150,
+        "breakdown": "89 storiche (75 campo principale + 14 Punta del Dentul Porto Conte + 4 ancoraggi intelligenti grotte) + 61 NUOVE 2025 PNRR (36 ZSC ITB010042 + 25 AMP Lazzaretto/Olandese/Rosso). Finanziamento PNRR ~1,7M€.",
+        "since": 2025
       },
       "manager": {
         "name": "Parco Naturale Regionale di Porto Conte",
@@ -160,9 +160,10 @@
         "email": null,
         "address": "Alghero (SS)"
       },
-      "notes": "Iscrizione e autorizzazione online per boe.",
+      "notes": "Iscrizione e autorizzazione online per boe. ESPANSIONE 2025 PNRR: 61 nuove boe installate fine giugno 2025 (Lazzaretto, Olandese, Rosso). Lead caldo per Betty Buoys.",
       "sources": [
-        "https://www.algheroparks.it/"
+        "https://www.algheroparks.it/",
+        "https://www.algheroparks.it/news-e-eventi/posts/2025/july/definite-con-apposita-ordinanza-le-misure-urgenti-e-transitorie-di-tutela-ambientale-per-la-fruizione-dei-campi-boe-per-l-ormeggio-nel-tratto-di-mare-della-zsc-itb010042-nelle-aree-denominate-lazzaretto-olandese-rosso/"
       ]
     },
     {
@@ -674,15 +675,19 @@
       "lat": 38.2167,
       "lon": 13.2833,
       "manager": {
-        "name": "AMP Capo Gallo",
-        "type": "amp_authority",
-        "website": "https://www.ampcapogallo.it/",
-        "phone": null,
-        "email": null,
-        "address": "Palermo"
+        "name": "Capitaneria di Porto di Palermo (gestore provvisorio)",
+        "type": "harbor_authority",
+        "website": "https://www.ampcapogallo-isola.it/",
+        "phone": "+39 091 6043111",
+        "email": "cppalermo@mite.gov.it",
+        "pec": "dm.palermo@pec.mit.gov.it",
+        "contact_person": "Raffaele Macauda (Comandante)",
+        "address": "Via Francesco Crispi 153, 90133 Palermo (PA)"
       },
-      "notes": "Tirreno palermitano, costa rocciosa. Capacità campi ormeggio non pubblicata.",
-      "sources": []
+      "notes": "Tirreno palermitano, costa rocciosa. Capacità campi ormeggio non pubblicata. Gestore provvisorio (in attesa istituzione gestore definitivo).",
+      "sources": [
+        "https://www.ampcapogallo-isola.it/contatti.php"
+      ]
     },
     {
       "id": "amp-capo-milazzo",

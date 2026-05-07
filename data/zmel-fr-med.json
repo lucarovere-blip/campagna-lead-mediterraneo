@@ -5,8 +5,8 @@
   "scope": "Méditerranée française (PACA + Occitanie + Corse) — ZMEL et campos de mouillages organisés officiels",
   "stats": {
     "operative": 15,
-    "in_progress": 5,
-    "total": 20
+    "in_progress": 8,
+    "total": 23
   },
   "buoyFields": [
     {
@@ -663,6 +663,107 @@
       "notes": "Site pilote. Bouées connectées avec gestion à distance des réservations. Très intéressant pour Betty Buoys (proof of concept du tech).",
       "sources": [
         "https://parc-marin-cap-corse-agriate.fr/actualites/bouees-connectees-et-mouillage-innovant-au-sein-du-parc"
+      ]
+    },
+    {
+      "id": "zmel-zonza",
+      "name": "Zonza (5 siti)",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "in-progress",
+      "dept_code": "2A",
+      "dept_name": "Corse-du-Sud",
+      "lat": 41.7000,
+      "lon": 9.3500,
+      "capacity": {
+        "total": 402,
+        "breakdown": "402 imbarcazioni ≤12m su 5 siti: Arasu (baia Saint-Cyprien), Pinarellu 1, Pinarellu 2, Ruscana, Vardiola. + 15 stelle di mouillage + pontoni galleggianti.",
+        "horizon": 2025
+      },
+      "vessel_max_length_m": 12,
+      "manager": {
+        "name": "Commune de Zonza",
+        "type": "commune",
+        "website": "https://www.corse-du-sud.gouv.fr/Actions-de-l-Etat/Environnement-developpement-durable/Eau-et-milieux-aquatiques/Procedures/arrete-prefectoral-concernant-la-creation-et-l-exploitation-d-une-ZMEL-a-ZONZA",
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "regulation": {
+        "decree": "Arrêté préfectoral 2A-2022-10-27-00004 (ouverture enquête publique)",
+        "date": "2023-01-13",
+        "duration_years": null
+      },
+      "notes": "MEGA progetto Corse-du-Sud Est: 402 boe su 5 siti. Inchiesta pubblica chiusa gennaio 2023. Lead commercial molto caldo per Betty Buoys.",
+      "sources": [
+        "https://www.corse-du-sud.gouv.fr/Publications/Consultation-du-public/Enquetes-publiques/Cloture-de-l-enquete-publique-relative-a-une-zone-de-mouillage-a-Zonza"
+      ]
+    },
+    {
+      "id": "zmel-arone-piana",
+      "name": "Plage d'Arone (Piana)",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "in-progress",
+      "dept_code": "2A",
+      "dept_name": "Corse-du-Sud",
+      "lat": 42.2333,
+      "lon": 8.6500,
+      "capacity": {
+        "total": null,
+        "breakdown": "ZMEL approvata - capacità non ancora pubblicata",
+        "horizon": 2025
+      },
+      "manager": {
+        "name": "Commune de Piana",
+        "type": "commune",
+        "website": "https://piana.fr/",
+        "phone": null,
+        "email": null,
+        "contact_person": null
+      },
+      "regulation": {
+        "decree": "Décision DREAL Corse",
+        "date": "2024-10-04",
+        "duration_years": null
+      },
+      "notes": "Plage Arone, costa ovest Corsica. Decisione ott 2024. Sito UNESCO (Calanques di Piana). Lead commercial caldo.",
+      "sources": [
+        "https://www.corse.developpement-durable.gouv.fr/projets-2025-a2220.html"
+      ]
+    },
+    {
+      "id": "zmel-saint-cyr-pointe-grenier",
+      "name": "Pointe Grenier (Saint-Cyr-sur-Mer)",
+      "country": "Francia",
+      "flag": "FR",
+      "type": "mooring",
+      "subtype": "zmel",
+      "status": "in-progress",
+      "dept_code": "83",
+      "dept_name": "Var",
+      "lat": 43.1733,
+      "lon": 5.6900,
+      "capacity": {
+        "total": null,
+        "breakdown": "Schéma global PN Calanques — 1 dei 7 siti pianificati per 2024",
+        "horizon": 2024
+      },
+      "manager": {
+        "name": "Parc national des Calanques + Commune de Saint-Cyr-sur-Mer",
+        "type": "national_park",
+        "website": "https://www.calanques-parcnational.fr/",
+        "phone": "+33 4 20 10 50 00",
+        "email": null,
+        "contact_person": "Eloïse Faure — Chargée de mission organisation des mouillages"
+      },
+      "notes": "Parte del schéma global del PN Calanques. Lead via PN Calanques.",
+      "sources": [
+        "https://www.calanques-parcnational.fr/en/general-mooring-strategy"
       ]
     },
     {
