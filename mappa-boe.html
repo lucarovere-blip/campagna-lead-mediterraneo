@@ -125,6 +125,22 @@ h1.app-h1 em{font-style:italic;color:var(--mid)}
   50%   {box-shadow:0 0 0 10px rgba(14,165,201,0),0 4px 10px rgba(5,28,46,.28)}
 }
 
+/* ── CATEGORY TOGGLES (slider style come sea-toggle) ── */
+.cat-toggles{display:flex;flex-direction:column;gap:0;margin-top:.5rem;border:1px solid var(--rule);background:#fff}
+.cat-toggle{padding:.85rem 1rem;display:flex;align-items:center;gap:.85rem;cursor:pointer;user-select:none;transition:background .15s;border-bottom:1px solid var(--rule);position:relative}
+.cat-toggle:last-child{border-bottom:none}
+.cat-toggle:hover{background:var(--paper)}
+.cat-toggle:active{background:rgba(14,165,201,.06)}
+.cat-toggle input{position:absolute;opacity:0;pointer-events:none}
+.cat-track{position:relative;flex:0 0 38px;width:38px;height:22px;background:var(--rule);border-radius:22px;transition:background .2s}
+.cat-knob{position:absolute;top:2px;left:2px;width:18px;height:18px;background:#fff;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s}
+.cat-toggle input:checked + .cat-track{background:var(--cat-color,#0d4a72)}
+.cat-toggle input:checked + .cat-track .cat-knob{transform:translateX(16px)}
+.cat-text{flex:1;line-height:1.3}
+.cat-text .ct-label{font-size:.82rem;font-weight:600;color:var(--ink);letter-spacing:.01em}
+.cat-text .ct-sub{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:.15rem}
+.cat-dot{width:10px;height:10px;border-radius:50%;flex:0 0 10px;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.2)}
+
 /* ── SEAINNOVA TOGGLE ── */
 .sea-toggle{padding:1rem 1.4rem;border-bottom:1px solid var(--rule);background:linear-gradient(135deg,rgba(14,165,201,.06),rgba(13,74,114,.04));display:flex;align-items:center;gap:.85rem;cursor:pointer;user-select:none;transition:background .15s}
 .sea-toggle:hover{background:linear-gradient(135deg,rgba(14,165,201,.1),rgba(13,74,114,.06))}
@@ -212,7 +228,7 @@ h1.app-h1 em{font-style:italic;color:var(--mid)}
       <input type="search" class="search" id="search" placeholder="Nome boa, citt&agrave;, rete&hellip;" autocomplete="off">
 
       <p class="f-label" style="margin-top:1rem">Categorie visibili</p>
-      <div class="chips" id="chips-category"></div>
+      <div class="cat-toggles" id="cat-toggles"></div>
 
       <p class="f-label">Paese</p>
       <div class="chips" id="chips-country"></div>
@@ -384,9 +400,9 @@ const TYPES = {
 
 // Categorie semplificate (toggle per uso commerciale)
 const CATEGORIES = {
-  oceano:    {label:"Boe oceanografiche", color:"#0d4a72", emoji:"🌊"},
-  'zmel-op': {label:"Mouillage operativi (ZMEL/AMP)", color:"#e67e22", emoji:"🟠"},
-  'zmel-pr': {label:"Mouillage in progetto (lead)", color:"#e6b422", emoji:"🟡"},
+  oceano:    {label:"Boe oceanografiche", sub:"reti pubbliche RON, REDEXT, POSEIDON…", color:"#0d4a72"},
+  'zmel-op': {label:"Mouillage operativi", sub:"ZMEL francesi + AMP italiane in vigore", color:"#e67e22"},
+  'zmel-pr': {label:"Mouillage in progetto", sub:"lead commerciali — nuovi campi 2025-2028", color:"#e6b422"},
 };
 
 function getCategory(b){
@@ -478,25 +494,34 @@ seaLayer.addTo(map);
 const $ = sel=>document.querySelector(sel);
 const listEl   = $('#list');
 const searchEl = $('#search');
-const chipsCategoryEl = $('#chips-category');
+const catTogglesEl = $('#cat-toggles');
 const chipsCountryEl = $('#chips-country');
 
 const allCountries = [...new Set(BUOYS.map(b=>b.country))].sort();
 state.countries = new Set(allCountries);
 
 function buildChips(){
-  chipsCategoryEl.innerHTML = Object.entries(CATEGORIES).map(([k,v])=>
-    `<button class="chip active" data-cat="${k}"><span class="dot" style="background:${v.color}"></span>${v.label}</button>`
+  // Categorie come switch slider (stile sea-toggle)
+  catTogglesEl.innerHTML = Object.entries(CATEGORIES).map(([k,v])=>
+    `<label class="cat-toggle" for="cat-${k}" style="--cat-color:${v.color}">
+      <input type="checkbox" id="cat-${k}" data-cat="${k}" checked>
+      <span class="cat-track"><span class="cat-knob"></span></span>
+      <span class="cat-text">
+        <div class="ct-label">${v.label}</div>
+        <div class="ct-sub">${v.sub}</div>
+      </span>
+      <span class="cat-dot" style="background:${v.color}"></span>
+    </label>`
   ).join('');
+
   chipsCountryEl.innerHTML = allCountries.map(c=>
     `<button class="chip active" data-country="${c}">${c}</button>`
   ).join('');
 
-  chipsCategoryEl.querySelectorAll('.chip').forEach(el=>{
-    el.addEventListener('click',()=>{
+  catTogglesEl.querySelectorAll('input[data-cat]').forEach(el=>{
+    el.addEventListener('change',()=>{
       const c = el.dataset.cat;
-      if(state.categories.has(c)) state.categories.delete(c); else state.categories.add(c);
-      el.classList.toggle('active');
+      if(el.checked) state.categories.add(c); else state.categories.delete(c);
       render();
     });
   });
