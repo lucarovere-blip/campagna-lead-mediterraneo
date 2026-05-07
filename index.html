@@ -181,6 +181,60 @@ footer{background:var(--ink);padding:2rem 5vw;display:flex;align-items:center;ju
 .f-logo{font-size:1rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.55)}
 .f-logo .dot{color:var(--bright)}
 footer p{font-size:.68rem;color:rgba(255,255,255,.2);font-weight:400}
+
+/* ── RESPONSIVE MOBILE ── */
+@media (max-width: 900px) {
+  /* nav: hide secondary links, keep logo + CTA */
+  nav { padding: 0 4vw; height: 56px; }
+  .nav-links { display: none; }
+  .logo { font-size: 1rem; }
+  .nav-cta { font-size: .65rem; padding: .45rem 1rem; letter-spacing: .08em; }
+
+  /* hero */
+  .hero-inner { padding: 0 6vw; }
+  .hero-h1 { font-size: clamp(2.4rem, 11vw, 4rem); margin-bottom: 1.2rem; }
+  .hero-scroll { bottom: 1.5rem; }
+
+  /* numbers — da 4 colonne a 2 */
+  .numbers { grid-template-columns: repeat(2, 1fr); }
+
+  /* soluzioni — pannello in colonna unica */
+  .sol-panel.active { grid-template-columns: 1fr; min-height: auto; }
+  .sol-title { font-size: clamp(1.6rem, 6vw, 2.2rem); margin-bottom: 1.6rem; padding: 0 6vw; }
+  .panel-text { padding: 3rem 6vw 2.5rem; }
+  .panel-h2 { font-size: clamp(1.6rem, 6vw, 2.2rem); margin-bottom: 1rem; }
+
+  /* about / centro / contatti — colonna unica */
+  .about,
+  .centro,
+  .contatti { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 6vw; }
+  .centro { min-height: auto; }
+  .centro-content { padding: 3rem 6vw; }
+  .c-grid { grid-template-columns: 1fr; }
+  .section-h2,
+  .c-h2,
+  .contact-h2,
+  .ist-h2 { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+
+  /* form — campi in colonna */
+  .form-row { grid-template-columns: 1fr; }
+
+  /* istituzioni — wrap migliore */
+  .istituzioni { padding: 4rem 6vw; }
+  .ist-h2 { padding: 0 0 2rem 0; text-align: center; }
+  .ist-grid { flex-direction: column; max-width: 100%; gap: 1px; }
+  .ist-item { min-width: 100%; max-width: 100%; flex: 1 1 100%; padding: 1.5rem 1.2rem; }
+
+  /* sezioni padding ridotto */
+  .section-eyebrow { font-size: .58rem; }
+}
+
+@media (max-width: 480px) {
+  /* schermi piccoli iPhone */
+  .numbers { grid-template-columns: 1fr; }
+  .hero-h1 { font-size: clamp(2rem, 10vw, 3rem); }
+  .ist-item { min-width: 100%; }
+}
 </style>
 </head>
 <body>
