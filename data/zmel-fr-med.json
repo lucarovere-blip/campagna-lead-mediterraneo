@@ -33,9 +33,10 @@
         "name": "Commune de Ramatuelle",
         "type": "commune",
         "website": "https://www.ramatuelle.fr/projet-de-zone-de-mouillage-dequipements-legers-zmel/",
-        "phone": null,
-        "email": null,
-        "contact_person": null
+        "phone": "+33 4 98 12 66 71",
+        "email": "info@mairie-ramatuelle.fr",
+        "contact_person": null,
+        "address": "Place de l'Ormeau, 83350 Ramatuelle. Police Municipale poste estivo Pampelonne parking Patch."
       },
       "regulation": {
         "decree": "Arrêté préfectoral 045/2025",
@@ -108,12 +109,14 @@
       "area_ha": 245,
       "season": "annuelle",
       "manager": {
-        "name": "Commune d'Hyères / portsHyeres",
+        "name": "Ports d'Hyères — Capitainerie Port Saint-Pierre",
         "type": "commune",
-        "website": "https://www.hyeres.fr/",
-        "phone": null,
-        "email": null,
-        "contact_person": null
+        "website": "https://www.portshyeres.fr/",
+        "phone": "+33 4 94 12 54 40",
+        "email": "contact@portshyeres.fr",
+        "vhf": "Canal 9",
+        "contact_person": null,
+        "address": "116 Quai Gilles Barbanson, 83400 Hyères les Palmiers"
       },
       "regulation": {
         "decree": "Arrêtés inter-préfectoraux",
@@ -184,12 +187,14 @@
       "vessel_max_length_m": 16,
       "season": "avril-octobre (bouées retirées en hiver)",
       "manager": {
-        "name": "Commune de Saint-Raphaël — Ports de Saint-Raphaël",
+        "name": "Régie des Ports de Saint-Raphaël — Capitainerie Port d'Agay",
         "type": "commune",
-        "website": "https://www.ville-saintraphael.fr/",
-        "phone": null,
-        "email": null,
-        "contact_person": null
+        "website": "https://portsdesaintraphael.com/port-agay/",
+        "phone": "+33 4 94 82 74 22",
+        "phone_mobile": "+33 6 63 86 03 22",
+        "email": "portagay@ville-saintraphael.fr",
+        "contact_person": null,
+        "address": "Route d'Agay RN8, 83530 AGAY"
       },
       "regulation": {
         "decree": "Arrêté préfectoral 135/2019",
@@ -224,9 +229,10 @@
         "name": "Ville d'Antibes Juan-les-Pins",
         "type": "commune",
         "website": "https://www.antibes-juanlespins.com/vivre-a-antibes/lenvironnement/natura-2000/zone-de-mouillage-et-dequipements-legers-zmel-anse-du-crouton",
-        "phone": null,
+        "phone": "+33 4 92 90 50 00",
         "email": null,
-        "contact_person": null
+        "contact_person": null,
+        "address": "Hôtel de Ville, Cours Masséna, 06600 Antibes"
       },
       "regulation": {
         "decree": null,
@@ -262,9 +268,10 @@
         "name": "Commune de Villefranche-sur-Mer",
         "type": "commune",
         "website": "https://villefranche-sur-mer.fr/le-service-des-mouillages/",
-        "phone": null,
+        "phone": "+33 4 93 76 33 33",
         "email": null,
-        "contact_person": null
+        "contact_person": null,
+        "address": "Citadelle, BP 7, 06230 Villefranche-sur-Mer"
       },
       "regulation": {
         "decree": "Arrêté inter-préfectoral",
@@ -295,12 +302,15 @@
       "vessel_max_length_m": 17,
       "season": "annuelle",
       "manager": {
-        "name": "CN Port-Miou (Club Nautique)",
-        "type": "association",
-        "website": "https://www.cnport-miou.org/",
-        "phone": null,
-        "email": null,
-        "contact_person": null
+        "name": "Capitainerie du Port-Miou — Cassis",
+        "type": "commune",
+        "website": "https://www.portdecassis.com/fr/contacter-le-port/16-port-miou/2-capitainerie-du-port-miou",
+        "phone": "+33 4 42 01 96 24",
+        "phone_mobile": "+33 6 26 84 51 58",
+        "email": "portmiou@cassis.fr",
+        "vhf": "Canal 9",
+        "contact_person": null,
+        "address": "50 Avenue des Calanques, 13260 Cassis. Aperto 7/7 tutto l'anno. Port de Cassis: portdecassis@cassis.fr +33 4 42 18 35 90."
       },
       "tech": "Pontons flottants + fixes. Bouées écologiques depuis 2010 dans la zone d'entrée du Parc national des Calanques.",
       "notes": "Plus grand campo boe organisé d'France Méditerranée par capacité.",
@@ -568,12 +578,13 @@
       "vessel_max_length_m": 20,
       "season": "stagionale",
       "manager": {
-        "name": "Mairie de Cannes / Préfecture des Alpes-Maritimes",
+        "name": "Mairie de Cannes — Direction de la mer et du littoral",
         "type": "commune",
         "website": "https://www.cannes.com/fr/cadre-de-vie/plages-mer-nautisme/zone-de-mouillage-et-d-equipements-legers-zmel.html",
-        "phone": null,
-        "email": null,
-        "contact_person": null
+        "phone": "+33 4 92 18 84 84",
+        "email": "maritime@ville-cannes.fr",
+        "contact_person": null,
+        "address": "La Croisette, 06400 Cannes. Capitainerie Port Pierre Canto."
       },
       "regulation": {
         "decree": "Arrêté préfectoral 238/2025 (police ZMEL)",
@@ -665,12 +676,13 @@
         "horizon": 2026
       },
       "manager": {
-        "name": "Commune de San Fiurenzu / Parc naturel marin Cap Corse Agriate",
+        "name": "Mairie de Saint-Florent / Parc naturel marin Cap Corse Agriate",
         "type": "commune",
-        "website": "https://parc-marin-cap-corse-agriate.fr/",
-        "phone": null,
-        "email": null,
-        "contact_person": null
+        "website": "https://www.mairiedesaintflorent.fr/",
+        "phone": "+33 4 95 37 10 63",
+        "email": "mairie.saint-florent.corse@wanadoo.fr",
+        "contact_person": null,
+        "address": "47 Rue Principale, 20217 Saint-Florent. PNMCCA contattabile via parc-marin-cap-corse-agriate.fr"
       },
       "notes": "Avis simple favorable du PNMCCA février 2025. Lead commercial chaud.",
       "sources": [
@@ -696,12 +708,14 @@
       },
       "vessel_max_length_m": 60,
       "manager": {
-        "name": "Commune de Calvi",
+        "name": "Capitainerie du Port de Calvi — Mairie de Calvi",
         "type": "commune",
-        "website": "https://www.balagne-corsica.com/",
-        "phone": null,
-        "email": null,
-        "contact_person": null
+        "website": "http://villedecalvi.fr/la-capitainerie/",
+        "phone": "+33 4 95 65 10 60",
+        "phone_emergency": "+33 7 84 81 83 74",
+        "email": "portplaisance@ville-calvi.fr",
+        "contact_person": null,
+        "address": "Capitainerie du Port quai Landry, 20260 Calvi. Mairie: +33 4 95 65 82 00"
       },
       "notes": "Projet annoncé. Cible grande plaisance (jusqu'à 60m).",
       "sources": []

@@ -48,7 +48,12 @@
         "name": "Mare Azzurro Snc",
         "type": "private",
         "website": "https://www.mare-azzurro.net/",
-        "address": "Loc. Santa Giusta, 07026 Loiri Porto San Paolo (sede)"
+        "phone": "+39 0789 480951",
+        "phone_porto_istana": "+39 392 1628284",
+        "phone_diving": "+39 345 4091320",
+        "email": "mareazzurrosnc@virgilio.it",
+        "contact_person": "Tonino e Ottavio Bua (fondatori)",
+        "address": "Località Santa Giusta, 07026 Loiri Porto San Paolo (sede e cantiere)"
       },
       "notes": "Area Porto Istana, AMP Tavolara - Punta Coda Cavallo. Diving + noleggio + ormeggi. Fondata 1986 da Tonino e Ottavio Bua.",
       "sources": ["PRRPT 2024", "https://www.mare-azzurro.net/"]

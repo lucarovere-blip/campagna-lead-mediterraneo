@@ -96,9 +96,11 @@
         "name": "AMP Punta Campanella",
         "type": "amp_authority",
         "website": "https://www.puntacampanella.org/",
-        "phone": null,
-        "email": null,
-        "address": "Visitor Center: lun-ven 10-13, mar/gio anche 15-18"
+        "phone": "+39 081 8089877",
+        "email": "info@puntacampanella.org",
+        "pec": "amppuntacampanella@pec.it",
+        "fax": "+39 081 8789663",
+        "address": "Via Roma 31, 80061 Massa Lubrense (NA). Visitor Center: lun-ven 9-13, mar/gio anche 15-18"
       },
       "notes": "Zone B (Ieranto, Li Galli, Crapolla, Isca) ancoraggio vietato. Cliente CRM Betty Buoys. PNRR €2,3M per 200 NUOVE boe in iter realizzazione 2024-2026. Lead caldissimo per upgrade tech.",
       "sources": [
@@ -262,12 +264,14 @@
         "since": null
       },
       "manager": {
-        "name": "AMP Capo Carbonara",
+        "name": "AMP Capo Carbonara — Comune di Villasimius",
         "type": "amp_authority",
         "website": "https://www.ampcapocarbonara.it/",
-        "phone": null,
-        "email": null,
-        "address": "Villasimius (SU)"
+        "phone": "+39 070 790234",
+        "email": "info@ampcapocarbonara.it",
+        "pec": "ampcapocarbonara.direzione@legalmail.it",
+        "contact_person": "Dott. Fabrizio Atzori — Direttore",
+        "address": "Via Roma 60, 09049 Villasimius (CA)"
       },
       "sources": [
         "https://www.ampcapocarbonara.it/"
@@ -320,12 +324,15 @@
         "since": null
       },
       "manager": {
-        "name": "AMP Plemmirio",
+        "name": "Consorzio Plemmirio",
         "type": "amp_authority",
         "website": "https://www.plemmirio.eu/",
-        "phone": null,
-        "email": null,
-        "address": "Penisola della Maddalena, Siracusa"
+        "phone": "+39 0931 449310",
+        "fax": "+39 0931 449954",
+        "email": "info@plemmirio.it",
+        "pec": "consorzioplemmirio@legalletter.it",
+        "contact_person": "Salvatore Cartarrasa — Direttore (direttore@plemmirio.it)",
+        "address": "Via Gaetano Abela – Comprensorio del Castello Maniace, 96100 Siracusa"
       },
       "notes": "Cliente CRM Betty Buoys.",
       "sources": [
@@ -513,12 +520,15 @@
         "since": null
       },
       "manager": {
-        "name": "Parco Nazionale dell'Asinara / AMP",
+        "name": "Ente Parco Nazionale dell'Asinara / AMP",
         "type": "national_park",
         "website": "https://www.parcoasinara.org/",
-        "phone": null,
-        "email": null,
-        "address": "Porto Torres (SS)"
+        "phone": "+39 079 503388",
+        "fax": "+39 079 501415",
+        "email": "parco@asinara.org",
+        "pec": "enteparcoasinara@pec.it",
+        "contact_person": "Vittorio Gazale — Direttore (gazale@asinara.org). Risorse marine: Aldo Zanello +39 340 181 3501 zanello@asinara.org",
+        "address": "Via Ponte Romano 81, 07046 Porto Torres (SS)"
       },
       "regulation": {
         "decree": "Concessioni rinnovate dalla Regione Sardegna Agenzia Conservatoria delle Coste",
@@ -570,12 +580,13 @@
       "lat": 40.2700,
       "lon": 14.9333,
       "manager": {
-        "name": "AMP S.M. Castellabate",
-        "type": "amp_authority",
-        "website": "https://www.amp-santamariadicastellabate.it/",
-        "phone": null,
-        "email": null,
-        "address": "Castellabate (SA)"
+        "name": "Ente Parco Nazionale del Cilento, Vallo di Diano e Alburni (gestore AMP)",
+        "type": "national_park",
+        "website": "https://www.cilentoediano.it/",
+        "phone": "+39 0974 719911",
+        "fax": "+39 0974 7199217",
+        "email": "parco@cilentoediano.it",
+        "address": "Via F. Palumbo 18, 84078 Vallo della Lucania (SA)"
       },
       "notes": "Cilento, costa di Punta Licosa. Capacità campi ormeggio non pubblicata.",
       "sources": []
@@ -597,12 +608,13 @@
         "since": null
       },
       "manager": {
-        "name": "AMP Costa degli Infreschi e della Masseta",
-        "type": "amp_authority",
+        "name": "Ente Parco Nazionale del Cilento, Vallo di Diano e Alburni (gestore AMP)",
+        "type": "national_park",
         "website": "https://www.cilentoediano.it/",
-        "phone": null,
-        "email": null,
-        "address": "Marina di Camerota (SA)"
+        "phone": "+39 0974 719911",
+        "fax": "+39 0974 7199217",
+        "email": "parco@cilentoediano.it",
+        "address": "Via F. Palumbo 18, 84078 Vallo della Lucania (SA). AMP a Marina di Camerota."
       },
       "sources": [
         "https://www.cilentoediano.it/wp-content/uploads/2024/05/AMP-CIM-DISCIPLINARE-2024.pdf"
@@ -739,12 +751,12 @@
       "lat": 38.9000,
       "lon": 17.0833,
       "manager": {
-        "name": "AMP Capo Rizzuto",
+        "name": "AMP Capo Rizzuto (gestione Provincia di Crotone)",
         "type": "amp_authority",
         "website": "https://www.riservamarinacaporizzuto.it/",
-        "phone": null,
+        "phone": "+39 328 8726625",
         "email": null,
-        "address": "Crotone"
+        "address": "Piazza Santuario, Loc. Capo Rizzuto, 88841 Isola Capo Rizzuto (KR). Provincia: Via Mario Nicoletta 28, 88900 Crotone (tel +39 0962 952111)"
       },
       "notes": "Ionio calabrese, area marina più estesa d'Italia per superficie. PNRR €2,5M Calabria 2024-2025 per nuovi campi ormeggio (parchi marini regionali). Lead caldo.",
       "sources": [
