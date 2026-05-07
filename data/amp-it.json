@@ -55,9 +55,9 @@
       "lat": 37.9333,
       "lon": 12.3333,
       "capacity": {
-        "total": 182,
-        "breakdown": "9 campi ormeggio attivi (4 Favignana + 3 Levanzo + 2 Marettimo). Progetto 17 campi totali, 182 gavitelli",
-        "since": null
+        "total": 212,
+        "breakdown": "9 campi ormeggio storici + 30 NUOVE boe PNRR M2 C4-I3.5 (Favignana, Levanzo) installate luglio 2024. Progetto totale 17 campi, 182 gavitelli + espansione PNRR.",
+        "since": 2024
       },
       "season": "estiva",
       "manager": {
@@ -69,7 +69,7 @@
         "address": "Favignana (TP)",
         "online_auth": "https://autorizzazionionline.ampisoleegadi.it/"
       },
-      "notes": "AMP più estesa d'Europa. Cliente CRM Betty Buoys.",
+      "notes": "AMP più estesa d'Europa. Cliente CRM Betty Buoys. ESPANSIONE PNRR M2 C4-I3.5: 30 NUOVE boe installate luglio 2024 (Favignana + Levanzo). Lead caldo per espansione progetto.",
       "sources": [
         "https://www.ampisoleegadi.it/"
       ]
@@ -86,8 +86,8 @@
       "lat": 40.5667,
       "lon": 14.3333,
       "capacity": {
-        "total": 49,
-        "breakdown": "Le Mortelle 35 boe (storico) + Isca-Crapolla 14 gavitelli (nuovo 2024). Pianificati Puolo + Mitigliano.",
+        "total": 249,
+        "breakdown": "Le Mortelle 35 (storico) + Isca-Crapolla 14 (2024) + 200 NUOVE boe da finanziamento PNRR €2,3M (in fase realizzazione). Pianificati Puolo + Mitigliano.",
         "since": 2024
       },
       "manager": {
@@ -98,7 +98,7 @@
         "email": null,
         "address": "Visitor Center: lun-ven 10-13, mar/gio anche 15-18"
       },
-      "notes": "Zone B (Ieranto, Li Galli, Crapolla, Isca) ancoraggio vietato. Cliente CRM Betty Buoys.",
+      "notes": "Zone B (Ieranto, Li Galli, Crapolla, Isca) ancoraggio vietato. Cliente CRM Betty Buoys. PNRR €2,3M per 200 NUOVE boe in iter realizzazione 2024-2026. Lead caldissimo per upgrade tech.",
       "sources": [
         "https://www.puntacampanella.org/comunicati-amp-punta-campanella/punta-campanella-ecco-il-nuovo-campo-boe-tra-isca-e-crapolla"
       ]
@@ -658,9 +658,10 @@
         "email": null,
         "address": "Crotone"
       },
-      "notes": "Ionio calabrese, area marina più estesa d'Italia per superficie.",
+      "notes": "Ionio calabrese, area marina più estesa d'Italia per superficie. PNRR €2,5M Calabria 2024-2025 per nuovi campi ormeggio (parchi marini regionali). Lead caldo.",
       "sources": [
-        "https://www.riservamarinacaporizzuto.it/"
+        "https://www.riservamarinacaporizzuto.it/",
+        "https://www.parchimarinicalabria.it/campi-ormeggio-pnrr-mer"
       ]
     },
     {
