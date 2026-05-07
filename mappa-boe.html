@@ -98,6 +98,8 @@ h1.app-h1 em{font-style:italic;color:var(--mid)}
 .d-close-bar{display:flex;align-items:center;gap:.6rem;width:100%;padding:1rem 1.1rem;background:#0a1d30;color:#fff;border:none;border-bottom:1px solid rgba(255,255,255,.12);font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;text-align:left;touch-action:manipulation;-webkit-tap-highlight-color:rgba(14,165,201,.4);flex-shrink:0}
 .d-close-bar:hover,.d-close-bar:active{background:#10283f;color:var(--bright)}
 .d-close-bar .arr{font-family:'DM Mono',monospace;font-size:1.2rem;font-weight:400}
+.d-expand-btn{margin-left:auto;background:rgba(255,255,255,.1);border:none;color:#fff;font-size:1rem;line-height:1;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;-webkit-tap-highlight-color:rgba(14,165,201,.4);transition:background .15s}
+.d-expand-btn:hover,.d-expand-btn:active{background:rgba(255,255,255,.22)}
 
 /* ── FLOATING CLOSE PILL (galleggia sempre visibile quando il pannello è aperto) ── */
 .float-close{position:fixed;top:calc(env(safe-area-inset-top,0px) + 70px);right:1rem;z-index:700;display:none;align-items:center;gap:.5rem;padding:.7rem 1.1rem;background:#0a1d30;color:#fff;border:none;font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 14px rgba(5,28,46,.4);touch-action:manipulation;-webkit-tap-highlight-color:rgba(14,165,201,.4);border-radius:999px}
@@ -212,8 +214,9 @@ h1.app-h1 em{font-style:italic;color:var(--mid)}
   .list .item{padding:.55rem .85rem}
   .list .item .it-name{font-size:.78rem}
   .list .item .it-meta{font-size:.6rem}
-  .detail{width:auto;left:0;right:0;top:auto;bottom:0;max-height:75vh;transform:translateY(110%);box-shadow:0 -10px 30px rgba(5,28,46,.25)}
+  .detail{width:auto;left:0;right:0;top:auto;bottom:0;max-height:60vh;transform:translateY(110%);box-shadow:0 -10px 30px rgba(5,28,46,.25);transition:transform .3s ease, max-height .25s ease}
   .detail.open{transform:translateY(0)}
+  .detail.expanded{max-height:95vh}
   .detail .d-handle{display:block;width:48px;height:5px;border-radius:3px;background:rgba(255,255,255,.45);margin:.5rem auto -.2rem;cursor:grab;flex:0 0 auto}
   .detail .d-close{top:.5rem;right:.5rem;width:44px;height:44px;font-size:1.7rem;background:rgba(255,255,255,.15)}
   .legend{display:none}
@@ -286,9 +289,12 @@ h1.app-h1 em{font-style:italic;color:var(--mid)}
     <div class="detail-backdrop" id="detail-backdrop" aria-hidden="true"></div>
     <button class="float-close" id="float-close" aria-label="Chiudi"><span class="x">&times;</span> Chiudi</button>
     <aside class="detail" id="detail" aria-hidden="true">
-      <button class="d-close-bar" id="d-close-bar" aria-label="Chiudi e torna alla mappa">
-        <span class="arr">&larr;</span> Chiudi &middot; Torna alla mappa
-      </button>
+      <div class="d-close-bar" style="display:flex;align-items:center;gap:.6rem">
+        <button id="d-close-bar" aria-label="Chiudi e torna alla mappa" style="flex:1;background:none;border:none;color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer;text-align:left;padding:0;display:flex;align-items:center;gap:.6rem">
+          <span class="arr">&larr;</span> Chiudi &middot; Torna alla mappa
+        </button>
+        <button id="d-expand-btn" class="d-expand-btn" aria-label="Espandi/Riduci scheda" title="Espandi / Riduci">⤢</button>
+      </div>
       <span class="d-handle" id="d-handle" aria-hidden="true"></span>
       <div class="d-head">
         <button class="d-close" id="d-close" aria-label="Chiudi">&times;</button>
@@ -754,10 +760,13 @@ function syncBackdrop(){
 function closeDetail(){
   if(!detailEl.classList.contains('open')) return;
   detailEl.classList.remove('open');
+  detailEl.classList.remove('expanded');
   detailEl.setAttribute('aria-hidden','true');
   detailEl.style.transform = '';
   state.selectedId = null;
   listEl.querySelectorAll('.item.active').forEach(el=>el.classList.remove('active'));
+  const eb = document.getElementById('d-expand-btn');
+  if(eb) eb.textContent = '⤢';
   syncBackdrop();
 }
 
@@ -773,6 +782,15 @@ function dismissDetail(){
 
 $('#d-close').addEventListener('click',dismissDetail);
 $('#d-close-bar').addEventListener('click',dismissDetail);
+
+// Bottone espandi/riduci scheda dettaglio
+const expandBtnEl = $('#d-expand-btn');
+function toggleExpand(e){
+  if(e) e.stopPropagation();
+  detailEl.classList.toggle('expanded');
+  if(expandBtnEl) expandBtnEl.textContent = detailEl.classList.contains('expanded') ? '⤡' : '⤢';
+}
+expandBtnEl.addEventListener('click',toggleExpand);
 floatCloseEl.addEventListener('click',dismissDetail);
 backdropEl.addEventListener('click',dismissDetail);
 // Nota: NON chiudiamo al tap sulla mappa: troppo facile mancare un marker e
