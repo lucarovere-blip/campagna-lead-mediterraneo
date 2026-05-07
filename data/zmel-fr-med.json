@@ -71,12 +71,13 @@
       "area_ha": 86,
       "season": "annuelle",
       "manager": {
-        "name": "Commune du Lavandou",
+        "name": "Capitainerie du Lavandou — Régie du port",
         "type": "commune",
-        "website": "https://www.le-lavandou.fr/",
-        "phone": null,
-        "email": null,
-        "contact_person": null
+        "website": "https://portdulavandou.com/",
+        "phone": "+33 4 94 00 41 10",
+        "email": "capitainerie@le-lavandou.fr",
+        "contact_person": "Florence MILLONI — Directrice du port (florence.milloni@le-lavandou.fr); Vincent BERENGUIER — Maître de port (vincent.berenguier@le-lavandou.fr)",
+        "address": "Quai de l'Europe - BP 100, 83980 Le Lavandou. Mairie: +33 4 94 05 15 70. Cross Med urgences: +33 4 94 61 16 16"
       },
       "regulation": {
         "decree": "Arrêté inter-préfectoral",
@@ -540,12 +541,14 @@
       "vessel_max_length_m": null,
       "season": "saison estivale",
       "manager": {
-        "name": "Office de l'Environnement de la Corse / Réserve Naturelle des Bouches de Bonifacio",
+        "name": "Office de l'Environnement de la Corse (OEC) — Réserve Naturelle des Bouches de Bonifacio (RNBB)",
         "type": "marine_reserve",
-        "website": "https://www.parc-marin-cap-corse-agriate.fr/",
-        "phone": null,
+        "website": "https://www.oec.corsica/rnbb/",
+        "phone": "+33 4 95 45 04 00",
+        "phone_mobile": "+33 6 21 01 55 83",
         "email": null,
-        "contact_person": null
+        "contact_person": null,
+        "address": "Immeuble U Centru, Route de Bastia, 20137 Porto-Vecchio. Apertura: martedì e giovedì 9-12"
       },
       "regulation": {
         "decree": "Décret de création Réserve Naturelle 1999",
@@ -769,12 +772,13 @@
       },
       "vessel_max_length_m": 12,
       "manager": {
-        "name": "Commune de Zonza",
+        "name": "Mairie de Zonza-Sainte-Lucie",
         "type": "commune",
-        "website": "https://www.corse-du-sud.gouv.fr/Actions-de-l-Etat/Environnement-developpement-durable/Eau-et-milieux-aquatiques/Procedures/arrete-prefectoral-concernant-la-creation-et-l-exploitation-d-une-ZMEL-a-ZONZA",
-        "phone": null,
+        "website": "https://www.zonzasantalucia.corsica/",
+        "phone": "+33 4 95 71 40 16",
         "email": null,
-        "contact_person": null
+        "contact_person": null,
+        "address": "Mairie de Zonza, Corse-du-Sud. Pratica ZMEL: corse-du-sud.gouv.fr (DREAL Corse)"
       },
       "regulation": {
         "decree": "Arrêté préfectoral 2A-2022-10-27-00004 (ouverture enquête publique)",
@@ -804,12 +808,13 @@
         "horizon": 2025
       },
       "manager": {
-        "name": "Commune de Piana",
+        "name": "Mairie de Piana",
         "type": "commune",
         "website": "https://piana.fr/",
-        "phone": null,
-        "email": null,
-        "contact_person": null
+        "phone": "+33 4 95 27 80 28",
+        "email": "mairie.piana@wanadoo.fr",
+        "contact_person": null,
+        "address": "Place de la Mairie, 20115 Piana. Orari: lun-mar e gio-ven 09-12, 14-17; mer 09-12"
       },
       "regulation": {
         "decree": "Décision DREAL Corse",

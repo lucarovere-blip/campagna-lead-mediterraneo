@@ -684,12 +684,15 @@
       "lat": 41.5783,
       "lon": 12.3517,
       "manager": {
-        "name": "RomaNatura",
+        "name": "RomaNatura — Ente Regionale Aree Protette Lazio",
         "type": "regional_authority",
-        "website": "https://www.romanatura.roma.it/",
-        "phone": null,
-        "email": null,
-        "address": "Roma"
+        "website": "https://romanatura.roma.it/",
+        "phone": "+39 06 35405310",
+        "email": "torpaterno@romanatura.roma.it",
+        "email_alt": "urpromanatura@regione.lazio.it",
+        "pec": "romanatura@pec.regione.lazio.it",
+        "contact_person": null,
+        "address": "Villa Mazzanti, Via Gomenizza 81, 00195 Roma"
       },
       "notes": "Unica AMP del Lazio. Secche off-shore Castel Porziano.",
       "sources": []
@@ -706,12 +709,14 @@
       "lat": 44.2367,
       "lon": 8.4400,
       "manager": {
-        "name": "AMP Isola di Bergeggi",
+        "name": "AMP Isola di Bergeggi — Comune di Bergeggi",
         "type": "amp_authority",
         "website": "https://www.ampisolabergeggi.it/",
-        "phone": null,
-        "email": null,
-        "address": "Bergeggi (SV)"
+        "phone": "+39 019 25790219",
+        "fax": "+39 019 25790220",
+        "email": "b.ambiente@comune.bergeggi.sv.it",
+        "contact_person": null,
+        "address": "Via De Mari 28/D, 17028 Bergeggi (SV)"
       },
       "sources": []
     },
@@ -729,10 +734,12 @@
       "manager": {
         "name": "WWF AMP Miramare",
         "type": "ngo",
-        "website": "https://www.riservamarinamiramare.it/",
-        "phone": null,
-        "email": null,
-        "address": "Trieste"
+        "website": "https://www.ampmiramare.it/",
+        "phone": "+39 040 224147",
+        "email": "info@riservamarinamiramare.it",
+        "email_alt": "info@ampmiramare.it",
+        "contact_person": null,
+        "address": "Centro Visite: Viale Miramare 349 (Parco demaniale Miramare, ex Scuderie), 34151 Trieste. Sede amministrativa: Via Beirut 7, Grignano Trieste"
       },
       "notes": "Prima AMP gestita da WWF. Golfo di Trieste.",
       "sources": [
@@ -827,9 +834,12 @@
         "name": "AMP Capo Milazzo",
         "type": "amp_authority",
         "website": "https://www.ampcapomilazzo.it/",
-        "phone": null,
-        "email": null,
-        "address": "Milazzo (ME)"
+        "phone": "+39 090 9231301",
+        "phone_alt": "+39 090 922 27 90",
+        "phone_mobile": "+39 342 817 3143",
+        "email": "info@ampcapomilazzo.it",
+        "contact_person": null,
+        "address": "Sede legale: Via Francesco Crispi 1, 98057 Milazzo (ME). Sede operativa: P.zza Caio Duilio 21. Apertura uffici: lun-ven 9-13, mar/gio anche 15:30-17:30"
       },
       "notes": "AMP istituita di recente.",
       "sources": []
